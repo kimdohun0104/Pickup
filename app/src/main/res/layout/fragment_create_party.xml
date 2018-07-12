@@ -33,7 +33,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="34dp"
-                android:src="@drawable/ic_location"/>
+                android:src="@drawable/ic_location_grey"/>
 
             <LinearLayout
                 android:layout_marginStart="80dp"
@@ -55,9 +55,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
-                        android:text="대전복합터미널"
-                        android:textColor="@color/colorTextBlack"
-                        android:textSize="12sp"/>
+                        android:text="출발지"
+                        android:textColor="@color/colorGrey"
+                        android:textSize="14sp"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -79,7 +79,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginStart="34dp"
-                android:src="@drawable/ic_location"/>
+                android:src="@drawable/ic_location_grey"/>
 
             <LinearLayout
                 android:layout_marginStart="80dp"
@@ -101,9 +101,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
-                        android:text="대전복합터미널"
-                        android:textColor="@color/colorTextBlack"
-                        android:textSize="12sp"/>
+                        android:text="도착지"
+                        android:textColor="@color/colorGrey"
+                        android:textSize="14sp"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
