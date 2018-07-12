@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:text="구글로 로그인"
                 android:layout_centerInParent="true"
-                android:textColor="@color/colorBlack"
+                android:textColor="@color/colorTextBlack"
                 android:textSize="12sp"
                 android:id="@+id/googleLoginText"/>
         </RelativeLayout>
