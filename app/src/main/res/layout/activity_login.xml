@@ -27,7 +27,8 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="#3B5998"
-            android:layout_gravity="center_vertical">
+            android:layout_gravity="center_vertical"
+            android:id="@+id/facebookLogin">
             <ImageView
                 android:layout_marginStart="30dp"
                 android:layout_width="18dp"
