@@ -41,5 +41,4 @@
             android:text="3명 / 4명"
             android:textSize="11sp"/>
     </LinearLayout>
-
 </LinearLayout>
