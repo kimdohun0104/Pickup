@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="84dp"
+    android:orientation="horizontal"
+    android:paddingStart="40dp"
+    android:paddingEnd="40dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp"
+    android:gravity="center_vertical">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="대마고 탈출하실분 선착순 4명 구합니다."
+            android:textSize="12sp"
+            android:textColor="@color/colorBlack"
+            android:singleLine="true"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2018년 07월 12일"
+            android:textSize="11sp"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="62dp"
+        android:layout_height="20dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:text="취소됨"
+            android:background="@drawable/round_layout_red"
+            android:textColor="@color/colorWhite"
+            android:gravity="center"
+            android:textSize="12sp"/>
+    </RelativeLayout>
+
+</LinearLayout>
