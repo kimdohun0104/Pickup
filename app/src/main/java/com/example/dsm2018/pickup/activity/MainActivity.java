@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.adapter.VIewPagerAdapter;
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     View drawerView;
     Button openDrawerButton;
+    LinearLayout userInformation, accountDelete, logOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,9 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         drawerView = (View)findViewById(R.id.drawer);
         openDrawerButton = (Button)findViewById(R.id.openDrawerButton);
+        userInformation = (LinearLayout)findViewById(R.id.userInformation);
+        accountDelete = (LinearLayout)findViewById(R.id.accountDelete);
+        logOut = (LinearLayout)findViewById(R.id.logOut);
 
         openDrawerButton.setOnClickListener(new View.OnClickListener() {
             @Override
