@@ -8,11 +8,12 @@
     tools:context=".fragment.CreatePartyFragment"
     android:orientation="vertical">
 
-        <LinearLayout
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/startingPoint"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="9"
-            android:background="@color/colorPrimary"></LinearLayout>
+            android:layout_weight="9"/>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -55,11 +56,11 @@
                     android:layout_weight="1"/>
             </LinearLayout>
         </RelativeLayout>
-        <LinearLayout
+        <com.google.android.gms.maps.MapView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="9"
-            android:background="@color/colorPrimary"></LinearLayout>
+            android:id="@+id/endPoint"></com.google.android.gms.maps.MapView>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -106,7 +107,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
-        android:background="@color/colorPrimaryLight"
+        android:background="@color/colorGrey_3"
         android:text="파티생성"
         android:textColor="@color/colorWhite"/>
 </LinearLayout>
