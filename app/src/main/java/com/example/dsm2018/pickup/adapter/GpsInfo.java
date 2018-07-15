@@ -67,7 +67,6 @@ public class GpsInfo extends Service implements LocationListener {
                     .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
             if (!isGPSEnabled && !isNetworkEnabled) {
-                showSettingsAlert();
             } else {
                 this.isGetLocation = true;
                 if (isNetworkEnabled) {
@@ -144,6 +143,10 @@ public class GpsInfo extends Service implements LocationListener {
 
     public boolean isGetLocation() {
         return this.isGetLocation;
+    }
+
+    public boolean isNetworkEnabled(){
+        return this.isNetworkEnabled;
     }
 
     /**

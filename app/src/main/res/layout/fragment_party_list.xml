@@ -24,7 +24,8 @@
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_marginStart="34dp"
-            android:src="@drawable/ic_location_grey"/>
+            android:src="@drawable/ic_location_grey"
+            android:id="@+id/locationImageView"/>
 
         <LinearLayout
             android:layout_marginStart="80dp"
@@ -41,14 +42,16 @@
                 android:layout_height="0dp"
                 android:layout_weight="4"
                 android:background="@drawable/round_layout_side_grey"
-                android:paddingLeft="20dp">
+                android:paddingLeft="20dp"
+                android:id="@+id/locationBox">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:text="현위치"
                     android:textColor="@color/colorGrey"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:id="@+id/locationText"/>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
