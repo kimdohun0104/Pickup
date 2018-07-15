@@ -36,6 +36,9 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback {
     LinearLayout locationBox;
     ImageView locationImageView;
     TextView locationText;
+    double latitude, longitude;
+    GpsInfo gps;
+    LatLng position;
 
     @Nullable
     @Override
@@ -50,6 +53,9 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback {
         locationBox = (LinearLayout)view.findViewById(R.id.locationBox);
         locationImageView = (ImageView)view.findViewById(R.id.locationImageView);
         locationText = (TextView)view.findViewById(R.id.locationText);
+        gps = new GpsInfo(getActivity());
+
+        init();
 
         currentLocation.getMapAsync(this);
 
@@ -57,7 +63,6 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback {
         currentLocation.onResume();
 
         MapsInitializer.initialize(getActivity().getApplicationContext());
-
         return view;
     }
 
@@ -65,26 +70,19 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        GpsInfo gps = new GpsInfo(getActivity());
+        mMap.getUiSettings().setAllGesturesEnabled(false);
+        mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 16));
+    }
 
+    public void init(){
         if(gps.isGetLocation()) {
-            double latitude = gps.getLatitude();
-            double longitude = gps.getLongitude();
-            LatLng position = new LatLng(latitude, longitude);
+            latitude = gps.getLatitude();
+            longitude = gps.getLongitude();
 
-            Log.d("my log", latitude + "," + longitude);
-
-            mMap.getUiSettings().setAllGesturesEnabled(false);
-            mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 16));
-
-            locationText.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
-            locationBox.setBackgroundResource(R.drawable.round_layout_side_orange);
-            locationImageView.setImageResource(R.drawable.ic_location_orange);
-
+            position = new LatLng(latitude, longitude);
         } else {
             gps.showSettingsAlert();
-            mMap.getUiSettings().setAllGesturesEnabled(false);
         }
     }
 }
