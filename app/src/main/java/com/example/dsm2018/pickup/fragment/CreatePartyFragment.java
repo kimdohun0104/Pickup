@@ -19,6 +19,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -52,8 +53,15 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        LatLng position = new LatLng(37.52487, 126.92723);
+
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_start));
+        markerOptions.position(position);
+
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(0,0),0));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 16));
+        mMap.addMarker(markerOptions);
     }
 
     @Override
@@ -81,5 +89,6 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
     public void onLowMemory() {
         super.onLowMemory();
         startingPoint.onLowMemory();
+        endPoint.onLowMemory();
     }
 }

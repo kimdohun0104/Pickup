@@ -8,11 +8,11 @@
     tools:context=".fragment.PartyListFragment"
     android:orientation="vertical">
 
-    <LinearLayout
+    <com.google.android.gms.maps.MapView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="9"
-        android:background="@color/colorPrimaryDark"></LinearLayout>
+        android:id="@+id/currentLocation"></com.google.android.gms.maps.MapView>
 
     <RelativeLayout
         android:layout_width="match_parent"
