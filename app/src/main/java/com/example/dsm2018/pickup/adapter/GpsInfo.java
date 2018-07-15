@@ -145,10 +145,6 @@ public class GpsInfo extends Service implements LocationListener {
         return this.isGetLocation;
     }
 
-    public boolean isNetworkEnabled(){
-        return this.isNetworkEnabled;
-    }
-
     /**
      * GPS 정보를 가져오지 못했을때 설정값으로 갈지 물어보는 alert 창
      * */

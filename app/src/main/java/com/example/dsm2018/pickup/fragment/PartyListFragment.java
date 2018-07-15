@@ -1,23 +1,20 @@
 package com.example.dsm2018.pickup.fragment;
 
 import android.Manifest;
-import android.graphics.Color;
-import android.location.LocationManager;
-import android.os.Build;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.adapter.GpsInfo;
@@ -26,7 +23,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class PartyListFragment extends Fragment implements OnMapReadyCallback {
 
@@ -36,9 +35,10 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback {
     LinearLayout locationBox;
     ImageView locationImageView;
     TextView locationText;
-    double latitude, longitude;
+    double latitude = 0, longitude = 0;
     GpsInfo gps;
     LatLng position;
+    Bitmap pin, smallPin;
 
     @Nullable
     @Override
@@ -53,7 +53,10 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback {
         locationBox = (LinearLayout)view.findViewById(R.id.locationBox);
         locationImageView = (ImageView)view.findViewById(R.id.locationImageView);
         locationText = (TextView)view.findViewById(R.id.locationText);
+        pin = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.ic_pin);
+        smallPin = Bitmap.createScaledBitmap(pin, 50, 50, false);
         gps = new GpsInfo(getActivity());
+        position = new LatLng(0, 0);
 
         init();
 
@@ -73,6 +76,7 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback {
         mMap.getUiSettings().setAllGesturesEnabled(false);
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 16));
+        mMap.addMarker(new MarkerOptions().position(position).icon(BitmapDescriptorFactory.fromBitmap(smallPin)));
     }
 
     public void init(){
@@ -81,6 +85,10 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback {
             longitude = gps.getLongitude();
 
             position = new LatLng(latitude, longitude);
+
+            locationText.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorPrimary));
+            locationImageView.setImageResource(R.drawable.ic_location_orange);
+            locationBox.setBackgroundResource(R.drawable.round_layout_side_orange);
         } else {
             gps.showSettingsAlert();
         }
