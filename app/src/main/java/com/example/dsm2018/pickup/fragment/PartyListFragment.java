@@ -1,7 +1,9 @@
 package com.example.dsm2018.pickup.fragment;
 
+import android.Manifest;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,11 +24,16 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback {
 
     MapView currentLocation;
     GoogleMap mMap;
+    private final int REQUEST_PERMISSION_CODE = 101;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_party_list, container, false);
+
+        ActivityCompat.requestPermissions(getActivity(),
+                new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
+                REQUEST_PERMISSION_CODE);
 
         currentLocation = (MapView)view.findViewById(R.id.currentLocation);
         currentLocation.getMapAsync(this);
