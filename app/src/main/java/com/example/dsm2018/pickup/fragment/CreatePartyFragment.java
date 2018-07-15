@@ -58,37 +58,10 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_start));
         markerOptions.position(position);
+        mMap.addMarker(markerOptions);
 
+        mMap.getUiSettings().setAllGesturesEnabled(false);
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 16));
-        mMap.addMarker(markerOptions);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        startingPoint.onResume();
-        endPoint.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        startingPoint.onPause();
-        endPoint.onPause();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        startingPoint.onDestroy();
-        endPoint.onDestroy();
-    }
-
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-        startingPoint.onLowMemory();
-        endPoint.onLowMemory();
     }
 }

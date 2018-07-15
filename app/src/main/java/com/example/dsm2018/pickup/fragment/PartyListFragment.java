@@ -1,10 +1,8 @@
 package com.example.dsm2018.pickup.fragment;
 
-import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,10 +49,10 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback {
         markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_pin));
         markerOptions.position(position);
 
+        mMap.getUiSettings().setAllGesturesEnabled(false);
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 16));
         mMap.addMarker(markerOptions);
     }
-
 
 }
