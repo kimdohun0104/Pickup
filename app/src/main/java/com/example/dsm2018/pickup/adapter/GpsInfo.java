@@ -1,7 +1,5 @@
 package com.example.dsm2018.pickup.adapter;
 
-import android.Manifest;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Context;
@@ -15,12 +13,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
 public class GpsInfo extends Service implements LocationListener {
-
-    private final int REQUEST_PERMISSION_CODE = 101;
 
     private final Context mContext;
 
@@ -72,6 +67,7 @@ public class GpsInfo extends Service implements LocationListener {
                     .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
             if (!isGPSEnabled && !isNetworkEnabled) {
+                showSettingsAlert();
             } else {
                 this.isGetLocation = true;
                 if (isNetworkEnabled) {
