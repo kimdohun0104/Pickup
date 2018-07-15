@@ -1,16 +1,20 @@
 package com.example.dsm2018.pickup.fragment;
 
 import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.dsm2018.pickup.R;
+import com.example.dsm2018.pickup.adapter.GpsInfo;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -35,7 +39,7 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback {
                 new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
                 REQUEST_PERMISSION_CODE);
 
-        currentLocation = (MapView)view.findViewById(R.id.currentLocation);
+        currentLocation = (MapView) view.findViewById(R.id.currentLocation);
         currentLocation.getMapAsync(this);
 
         currentLocation.onCreate(savedInstanceState);
@@ -50,16 +54,17 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        LatLng position = new LatLng(37.52487, 126.92723);
+        GpsInfo gps = new GpsInfo(getActivity());
 
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_pin));
-        markerOptions.position(position);
+        double latitude = gps.getLatitude();
+        double longitude = gps.getLongitude();
+
+        LatLng position = new LatLng(latitude, longitude);
+
+        Log.d("tag", latitude + "," + longitude);
 
         mMap.getUiSettings().setAllGesturesEnabled(false);
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 16));
-        mMap.addMarker(markerOptions);
     }
-
 }

@@ -1,5 +1,8 @@
 package com.example.dsm2018.pickup.fragment;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -54,11 +57,6 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
         mMap = googleMap;
 
         LatLng position = new LatLng(37.52487, 126.92723);
-
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_start));
-        markerOptions.position(position);
-        mMap.addMarker(markerOptions);
 
         mMap.getUiSettings().setAllGesturesEnabled(false);
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
