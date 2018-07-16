@@ -72,6 +72,7 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback {
         currentLocation.onResume();
 
         MapsInitializer.initialize(getActivity().getApplicationContext());
+
         return view;
     }
 
