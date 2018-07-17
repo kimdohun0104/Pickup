@@ -92,7 +92,6 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback {
             longitude = gps.getLongitude();
 
             position = new LatLng(latitude, longitude);
-
             locationText.setTextColor(ContextCompat.getColor(getActivity(), R.color.colorBlack));
             locationText.setText(getAddress(latitude, longitude).getThoroughfare());
             locationImageView.setImageResource(R.drawable.ic_location_orange);
@@ -102,7 +101,7 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-    public Address getAddress(double latitude, double longitude){
+    public Address getAddress(double latitude, double longitude) {
         Geocoder geocoder;
         List<Address> addresses;
         geocoder = new Geocoder(getActivity(), Locale.getDefault());
