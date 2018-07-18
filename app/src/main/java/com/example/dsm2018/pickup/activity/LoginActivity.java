@@ -8,8 +8,6 @@ import android.widget.RelativeLayout;
 
 import com.example.dsm2018.pickup.R;
 
-//todo activity_login 에서 페이스북, 구글 로고 위치 조정
-
 public class LoginActivity extends AppCompatActivity {
 
     RelativeLayout facebookLogin;
