@@ -10,22 +10,21 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
-public final class GPSTracker implements LocationListener {
+import com.google.android.gms.maps.GoogleMap;
+
+public final class GPSTracker implements LocationListener{
 
     private final Context mContext;
 
-    // flag for GPS status
     public boolean isGPSEnabled = false;
 
-    // flag for network status
     public boolean isNetworkEnabled = false;
 
-    // flag for GPS status
     boolean canGetLocation = false;
 
-    Location location; // location
-    double latitude; // latitude
-    double longitude; // longitude
+    Location location;
+    double latitude;
+    double longitude;
 
     // The minimum distance to change Updates in meters
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1; // 10 meters
@@ -33,7 +32,6 @@ public final class GPSTracker implements LocationListener {
     // The minimum time between updates in milliseconds
     private static final long MIN_TIME_BW_UPDATES = 1; // 1 minute
 
-    // Declaring a Location Manager
     protected LocationManager locationManager;
 
     public GPSTracker(Context context) {
@@ -121,19 +119,12 @@ public final class GPSTracker implements LocationListener {
         return location;
     }
 
-    /**
-     * Stop using GPS listener Calling this function will stop using GPS in your
-     * app
-     * */
     public void stopUsingGPS() {
         if (locationManager != null) {
             locationManager.removeUpdates(GPSTracker.this);
         }
     }
 
-    /**
-     * Function to get latitude
-     * */
     public double getLatitude() {
         if (location != null) {
             latitude = location.getLatitude();
@@ -143,9 +134,6 @@ public final class GPSTracker implements LocationListener {
         return latitude;
     }
 
-    /**
-     * Function to get longitude
-     * */
     public double getLongitude() {
         if (location != null) {
             longitude = location.getLongitude();
@@ -179,6 +167,7 @@ public final class GPSTracker implements LocationListener {
 
     @Override
     public void onProviderEnabled(String provider) {
+
     }
 
     @Override

@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.dsm2018.pickup.R;
-import com.example.dsm2018.pickup.activity.MainActivity;
 
 public class SplashActivity extends AppCompatActivity {
 

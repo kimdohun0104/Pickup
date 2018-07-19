@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.adapter.GPSTracker;
@@ -33,7 +32,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class PartyListFragment extends Fragment implements OnMapReadyCallback {
+public class PartyListFragment extends Fragment implements OnMapReadyCallback{
 
     GPSTracker gpsTracker;
     GoogleMap mMap;
@@ -75,7 +74,7 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback {
         Log.d("debugLog", "isGpsEnabled : " + gpsTracker.isGPSEnabled);
         Log.d("debugLog", "isNetworkEnabled : " + gpsTracker.isNetworkEnabled);
 
-        if(gpsTracker.isGPSEnabled && gpsTracker.isNetworkEnabled) {
+        if(gpsTracker.isGPSEnabled) {
             latitude = gpsTracker.getLatitude();
             longitude = gpsTracker.getLongitude();
 
@@ -101,12 +100,9 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback {
         List <Address> address;
         try {
             if (geocoder != null) {
-                //세번째 파라미터는 좌표에 대해 주소를 리턴 받는 갯수로
-                //한좌표에 대해 두개이상의 이름이 존재할수있기에 주소배열을 리턴받기 위해 최대갯수 설정
                 address = geocoder.getFromLocation(lat, lng, 1);
 
                 if (address != null && address.size() > 0) {
-                    // 주소 받아오기
                     String currentLocationAddress = address.get(0).getAddressLine(0).toString();
                     nowAddress  = currentLocationAddress;
                 }
