@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.dsm2018.pickup.R;
-import com.example.dsm2018.pickup.fragment.BottomSheetFragment;
+import com.example.dsm2018.pickup.fragment.FilterSheetFragment;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -22,8 +22,8 @@ public class SearchActivity extends AppCompatActivity {
         filterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BottomSheetFragment bottomSheetFragment = BottomSheetFragment.getInstance();
-                bottomSheetFragment.show(getSupportFragmentManager(), "fragment_bottom_sheet");
+                FilterSheetFragment filterSheetFragment = FilterSheetFragment.getInstance();
+                filterSheetFragment.show(getSupportFragmentManager(), "fragment_bottom_sheet");
             }
         });
     }
