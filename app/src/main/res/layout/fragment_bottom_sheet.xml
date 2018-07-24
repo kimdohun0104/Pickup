@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="330dp"
+    tools:context=".fragment.BottomSheetFragment"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:orientation="vertical"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
+        android:gravity="center_vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="검색 필터"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:text="검색 기준을 필터링하세요"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="출발지 설정"
+            android:textColor="@color/colorTextBlack"
+            android:textSize="12sp"
+            android:layout_centerVertical="true"/>
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="10dp"
+            android:src="@drawable/ic_dropdown"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="도착지 설정"
+            android:textColor="@color/colorTextBlack"
+            android:textSize="12sp"
+            android:layout_centerVertical="true"/>
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="10dp"
+            android:src="@drawable/ic_dropdown"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="날짜, 시간 설정"
+            android:textColor="@color/colorTextBlack"
+            android:textSize="12sp"
+            android:layout_centerVertical="true"/>
+        <ImageView
+            android:layout_width="16dp"
+            android:layout_height="10dp"
+            android:src="@drawable/ic_dropdown"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="@color/colorPrimary"
+            android:text="취소"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorWhite"
+            android:gravity="center"
+            android:text="필터완료"/>
+    </LinearLayout>
+
+</LinearLayout>

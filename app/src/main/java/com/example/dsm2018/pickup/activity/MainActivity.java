@@ -1,5 +1,6 @@
 package com.example.dsm2018.pickup.activity;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -19,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
     VIewPagerAdapter vIewPagerAdapter;
     DrawerLayout drawerLayout;
     View drawerView;
-    Button openDrawerButton;
+    Button openDrawerButton, searchButton;
     LinearLayout userInformation, accountDelete, logOut;
 
     @Override
@@ -35,6 +36,15 @@ public class MainActivity extends AppCompatActivity {
         userInformation = (LinearLayout)findViewById(R.id.userInformation);
         accountDelete = (LinearLayout)findViewById(R.id.accountDelete);
         logOut = (LinearLayout)findViewById(R.id.logOut);
+        searchButton = (Button)findViewById(R.id.searchButton);
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
 
         openDrawerButton.setOnClickListener(new View.OnClickListener() {
             @Override
