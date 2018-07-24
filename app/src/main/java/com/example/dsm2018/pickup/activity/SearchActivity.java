@@ -1,6 +1,5 @@
 package com.example.dsm2018.pickup.activity;
 
-import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,7 +23,6 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 BottomSheetFragment bottomSheetFragment = BottomSheetFragment.getInstance();
-
                 bottomSheetFragment.show(getSupportFragmentManager(), "fragment_bottom_sheet");
             }
         });
