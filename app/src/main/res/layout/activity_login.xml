@@ -50,7 +50,8 @@
             android:layout_height="50dp"
             android:layout_marginTop="14dp"
             android:backgroundTint="@color/colorWhite"
-            android:elevation="10dp">
+            android:elevation="10dp"
+            android:id="@+id/googleLoginButton">
 
             <ImageView
                 android:layout_marginStart="30dp"

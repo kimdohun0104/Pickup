@@ -11,6 +11,7 @@ import com.example.dsm2018.pickup.R;
 public class LoginActivity extends AppCompatActivity {
 
     RelativeLayout facebookLogin;
+    RelativeLayout googleLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,15 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        googleLogin = (RelativeLayout)findViewById(R.id.googleLoginButton);
+        googleLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), CreatePartyActivity.class);
                 startActivity(intent);
             }
         });
