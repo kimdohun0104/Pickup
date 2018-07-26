@@ -16,7 +16,7 @@ public class JoinPartyDialog extends Dialog{
 
     public JoinPartyDialog(@NonNull Context context) {
         super(context);
-        setContentView(R.layout.join_party_dialog);
+        setContentView(R.layout.dialog_join_party);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
