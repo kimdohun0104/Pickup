@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="330dp"
     android:layout_height="240dp"
     android:orientation="vertical">
 
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:text="사용자는 다음 개인정보를 열람 할 수 있습니다."
             android:textSize="11sp" />
-        
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -123,12 +123,13 @@
         android:orientation="horizontal">
         <Button
             android:layout_width="0dp"
-            android:layout_height="match_parent" 
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="#f5f5f5"
             android:text="취소"
             android:textColor="@color/colorWhite"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            android:id="@+id/cancleButton"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -137,7 +138,8 @@
             android:gravity="center"
             android:textColor="@color/colorWhite"
             android:text="참여하기"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            android:id="@+id/joinButton"/>
     </LinearLayout>
 </LinearLayout>
 
