@@ -14,16 +14,6 @@ import com.example.dsm2018.pickup.R;
 
 public class JoinPartyDialogFragment extends DialogFragment {
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        DisplayMetrics dm = getActivity().getResources().getDisplayMetrics();
-        int width = getResources().getDimensionPixelSize(R.dimen.dialog_width);
-        int height = dm.heightPixels;
-        height = height / 3;
-        getDialog().getWindow().setLayout(width, height);
-    }
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
