@@ -27,8 +27,6 @@ public class JoinPartyDialogFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_join_party, container, false);
 
-        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-
         return view;
     }
 }
