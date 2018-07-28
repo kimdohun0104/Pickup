@@ -45,6 +45,28 @@ public class SearchDateDialogFragment extends DialogFragment{
 
         numberPickerInit();
 
+        yearPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                year = newVal;
+                setDayPicker();
+            }
+        });
+        monthPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                month = newVal;
+                setDayPicker();
+            }
+        });
+        dayPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
+            @Override
+            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+                day = newVal;
+                setDayPicker();
+            }
+        });
+
         return view;
     }
 
