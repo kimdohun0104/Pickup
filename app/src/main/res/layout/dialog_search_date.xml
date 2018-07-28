@@ -23,9 +23,31 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
             <NumberPicker
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:id="@+id/yearPicker"></NumberPicker>
+                android:layout_weight="2"
+                android:id="@+id/yearPicker"
+                android:descendantFocusability="blocksDescendants"></NumberPicker>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <NumberPicker
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/monthPicker"
+                android:descendantFocusability="blocksDescendants"></NumberPicker>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+            <NumberPicker
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/dayPicker"
+                android:descendantFocusability="blocksDescendants"></NumberPicker>
         </LinearLayout>
     </LinearLayout>
 

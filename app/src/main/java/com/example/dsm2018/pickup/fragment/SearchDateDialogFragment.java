@@ -10,14 +10,19 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.NumberPicker;
 
 import com.example.dsm2018.pickup.R;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Locale;
+
 public class SearchDateDialogFragment extends DialogFragment{
 
-    NumberPicker yearPicker;
+    NumberPicker yearPicker, monthPicker, dayPicker;
+    int year, month, day;
+    Calendar calendar;
 
     @Override
     public void onResume() {
@@ -32,11 +37,56 @@ public class SearchDateDialogFragment extends DialogFragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_search_date, container, false);
 
-        yearPicker = view.findViewById(R.id.yearPicker);
+        calendar = new GregorianCalendar(Locale.KOREA);
 
-        setDividerColor(yearPicker, Color.WHITE);
+        yearPicker = view.findViewById(R.id.yearPicker);
+        monthPicker = view.findViewById(R.id.monthPicker);
+        dayPicker = view.findViewById(R.id.dayPicker);
+
+        numberPickerInit();
 
         return view;
+    }
+
+    public void numberPickerInit(){
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH) + 1;
+        day = calendar.get(Calendar.DATE);
+
+        setDividerColor(yearPicker, Color.TRANSPARENT);
+        setDividerColor(monthPicker, Color.TRANSPARENT);
+        setDividerColor(dayPicker, Color.TRANSPARENT);
+
+        yearPicker.setMinValue(year - 5);
+        yearPicker.setMaxValue(year + 5);
+        yearPicker.setValue(year);
+
+        monthPicker.setMinValue(1);
+        monthPicker.setMaxValue(12);
+        monthPicker.setValue(month);
+
+        dayPicker.setMinValue(1);
+        setDayPicker();
+        dayPicker.setValue(day);
+    }
+
+    public void setDayPicker(){
+        if(month == 2) {
+            if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
+                dayPicker.setMaxValue(29);
+                return;
+            } else {
+                dayPicker.setMaxValue(28);
+                return;
+            }
+        }
+        switch (month){
+            case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+                dayPicker.setMaxValue(31);
+                break;
+            default:
+                dayPicker.setMaxValue(30);
+        }
     }
 
     private void setDividerColor(NumberPicker picker, int color) {
