@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getSupportFragmentManager();
-                PartyDeleteDialogFragment dialogFragment = new PartyDeleteDialogFragment();
+                JoinPartyDialogFragment dialogFragment = new JoinPartyDialogFragment();
                 dialogFragment.show(fm, "");
             }
         });
