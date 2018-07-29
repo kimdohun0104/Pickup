@@ -10,8 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.dsm2018.pickup.R;
 
-public class SettingLocationSearchDialog extends DialogFragment {
-
+public class SettingDestinationDialog extends DialogFragment {
     @Override
     public void onResume() {
         super.onResume();
@@ -23,7 +22,7 @@ public class SettingLocationSearchDialog extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_setting_location_search, container, false);
+        View view = inflater.inflate(R.layout.dialog_setting_destination, container, false);
 
         return view;
     }

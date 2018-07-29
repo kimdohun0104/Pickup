@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.dsm2018.pickup.R;
+import com.example.dsm2018.pickup.activity.SearchDestinationActivity;
 import com.example.dsm2018.pickup.activity.SearchStartingPointActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -39,6 +40,14 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SearchStartingPointActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        searchDestination.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SearchDestinationActivity.class);
                 startActivity(intent);
             }
         });

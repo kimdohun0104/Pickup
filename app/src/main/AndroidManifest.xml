@@ -30,7 +30,8 @@
         <activity android:name=".activity.SearchStartingPointActivity" />
         <activity android:name=".activity.CreatePartyActivity" />
         <activity android:name=".activity.PartyDetailActivity" />
-        <activity android:name=".activity.UserInformationActivity"></activity>
+        <activity android:name=".activity.UserInformationActivity" />
+        <activity android:name=".activity.SearchDestinationActivity"></activity>
     </application>
 
 </manifest>
