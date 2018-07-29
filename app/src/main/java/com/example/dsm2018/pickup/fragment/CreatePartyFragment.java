@@ -53,8 +53,7 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
         });
 
         startingPoint.getMapAsync(this);
-        endPoint.getMapAsync(this);
-
+        endPoint.getMapAsync(this); 
         startingPoint.onCreate(savedInstanceState);
         startingPoint.onResume();
         endPoint.onCreate(savedInstanceState);
