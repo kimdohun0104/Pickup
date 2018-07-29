@@ -3,23 +3,39 @@ package com.example.dsm2018.pickup.activity;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Build;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 
 import com.example.dsm2018.pickup.R;
+import com.example.dsm2018.pickup.dialog.EmailDialog;
+import com.example.dsm2018.pickup.dialog.PhoneNumberDialog;
+import com.example.dsm2018.pickup.dialog.ProfileImageDialog;
+import com.example.dsm2018.pickup.dialog.UserNameDialog;
+
+//todo checkBox 커스텀
 
 public class UserInformationActivity extends AppCompatActivity {
 
     ImageView profileImage;
-    Button backButton;
+    Button backButton, modifyUserInformation;
+    CheckBox profileImageCheckBox, userNameCheckBox, phoneNumberCheckBox, emailCheckBox;
+    FragmentManager fragmentManager = getSupportFragmentManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_information);
+
+        profileImageCheckBox = (CheckBox)findViewById(R.id.profileImageCheckBox);
+        userNameCheckBox = (CheckBox)findViewById(R.id.userNameCheckBox);
+        phoneNumberCheckBox = (CheckBox)findViewById(R.id.phoneNumberCheckBox);
+        emailCheckBox = (CheckBox)findViewById(R.id.emailCheckBox);
+        modifyUserInformation = (Button)findViewById(R.id.modifyUserInformation);
 
         backButton = (Button)findViewById(R.id.backButton);
         profileImage = (ImageView)findViewById(R.id.profileImage);
@@ -36,5 +52,30 @@ public class UserInformationActivity extends AppCompatActivity {
             }
         });
 
+        modifyUserInformation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkChecked();
+            }
+        });
+    }
+
+    public void checkChecked(){
+        if(emailCheckBox.isChecked()){
+            new EmailDialog().show(fragmentManager, "");
+            emailCheckBox.setChecked(false);
+        }
+        if(phoneNumberCheckBox.isChecked()){
+            new PhoneNumberDialog().show(fragmentManager, "");
+            emailCheckBox.setChecked(false);
+        }
+        if(userNameCheckBox.isChecked()){
+            new UserNameDialog().show(fragmentManager, "");
+            emailCheckBox.setChecked(false);
+        }
+        if(profileImageCheckBox.isChecked()){
+            new ProfileImageDialog().show(fragmentManager, "");
+            emailCheckBox.setChecked(false);
+        }
     }
 }

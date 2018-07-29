@@ -17,7 +17,7 @@ import com.example.dsm2018.pickup.R;
 public class EmailDialog extends DialogFragment {
 
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-    Button nextButton;
+    Button nextButton, cancelButton;
     EditText inputEmail;
     TextView errorText;
 
@@ -37,6 +37,14 @@ public class EmailDialog extends DialogFragment {
         nextButton = (Button)view.findViewById(R.id.nextButton);
         inputEmail = (EditText)view.findViewById(R.id.inputEmail);
         errorText = (TextView)view.findViewById(R.id.dialogError);
+        cancelButton = (Button)view.findViewById(R.id.cancelButton);
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override

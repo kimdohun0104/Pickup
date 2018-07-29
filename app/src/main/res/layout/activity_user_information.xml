@@ -70,7 +70,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:scaleX="0.8"
-                        android:scaleY="0.8"/>
+                        android:scaleY="0.8"
+                        android:id="@+id/profileImageCheckBox"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -112,7 +113,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:scaleX="0.8"
-                        android:scaleY="0.8"/>
+                        android:scaleY="0.8"
+                        android:id="@+id/userNameCheckBox"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -154,7 +156,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:scaleX="0.8"
-                        android:scaleY="0.8"/>
+                        android:scaleY="0.8"
+                        android:id="@+id/phoneNumberCheckBox"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -196,7 +199,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:scaleX="0.8"
-                        android:scaleY="0.8"/>
+                        android:scaleY="0.8"
+                        android:id="@+id/emailCheckBox"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -232,6 +236,7 @@
         android:layout_height="64dp"
         android:text="회원정보수정"
         android:background="@color/colorGrey_3"
-        android:textColor="@color/colorWhite"/>
+        android:textColor="@color/colorWhite"
+        android:id="@+id/modifyUserInformation"/>
 
 </LinearLayout>
