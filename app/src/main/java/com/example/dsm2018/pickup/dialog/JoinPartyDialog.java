@@ -1,4 +1,4 @@
-package com.example.dsm2018.pickup.fragment;
+package com.example.dsm2018.pickup.dialog;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,7 +12,7 @@ import android.view.Window;
 
 import com.example.dsm2018.pickup.R;
 
-public class JoinPartyDialogFragment extends DialogFragment {
+public class JoinPartyDialog extends DialogFragment {
 
     @Override
     public void onResume() {

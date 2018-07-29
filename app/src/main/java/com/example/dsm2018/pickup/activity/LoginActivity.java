@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.example.dsm2018.pickup.R;
-import com.example.dsm2018.pickup.fragment.DeleteAccountDialog;
+import com.example.dsm2018.pickup.dialog.DeleteAccountDialog;
 
 public class LoginActivity extends AppCompatActivity {
 

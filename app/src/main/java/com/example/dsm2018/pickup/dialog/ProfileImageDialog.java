@@ -1,4 +1,4 @@
-package com.example.dsm2018.pickup.fragment;
+package com.example.dsm2018.pickup.dialog;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -10,20 +10,20 @@ import android.view.ViewGroup;
 
 import com.example.dsm2018.pickup.R;
 
-public class DeleteAccountDialog extends DialogFragment {
+public class ProfileImageDialog extends DialogFragment {
 
     @Override
     public void onResume() {
         super.onResume();
         int width = getResources().getDimensionPixelSize(R.dimen.dialog_width);
-        int height = getResources().getDimensionPixelSize(R.dimen.dialog_height_short);
+        int height = getResources().getDimensionPixelSize(R.dimen.dialog_height);
         getDialog().getWindow().setLayout(width, height);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_delete_account, container, false);
+        View view = inflater.inflate(R.layout.dialog_profile_image, container, false);
 
         return view;
     }
