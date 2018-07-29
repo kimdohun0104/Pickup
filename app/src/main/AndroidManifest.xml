@@ -28,8 +28,9 @@
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.SearchStartingPointActivity" />
-        <activity android:name=".activity.CreatePartyActivity"></activity>
-        <activity android:name=".activity.PartyDetailActivity"></activity>
+        <activity android:name=".activity.CreatePartyActivity" />
+        <activity android:name=".activity.PartyDetailActivity" />
+        <activity android:name=".activity.UserInformationActivity"></activity>
     </application>
 
 </manifest>

@@ -2,4 +2,5 @@
 <resources>
     <dimen name="dialog_width">340dp</dimen>
     <dimen name="dialog_height">270dp</dimen>
+    <dimen name="dialog_height_short">230dp</dimen>
 </resources>
