@@ -20,7 +20,8 @@
             <Button
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@drawable/ic_back"/>
+                android:background="@drawable/ic_back"
+                android:id="@+id/backButton"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

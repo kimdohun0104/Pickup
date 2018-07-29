@@ -1,5 +1,6 @@
 package com.example.dsm2018.pickup.fragment;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,8 +8,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.example.dsm2018.pickup.R;
+import com.example.dsm2018.pickup.activity.SearchStartingPointActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -20,6 +23,7 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
 
     private GoogleMap mMap = null;
     private MapView startingPoint, endPoint;
+    LinearLayout searchStartingPoint, searchDestination;
 
     @Nullable
     @Override
@@ -28,6 +32,16 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
 
         startingPoint = (MapView)view.findViewById(R.id.startingPoint);
         endPoint = (MapView)view.findViewById(R.id.endPoint);
+        searchStartingPoint = (LinearLayout)view.findViewById(R.id.searchStartingPoint);
+        searchDestination = (LinearLayout)view.findViewById(R.id.searchDestination);
+
+        searchStartingPoint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SearchStartingPointActivity.class);
+                startActivity(intent);
+            }
+        });
 
         startingPoint.getMapAsync(this);
         endPoint.getMapAsync(this);
