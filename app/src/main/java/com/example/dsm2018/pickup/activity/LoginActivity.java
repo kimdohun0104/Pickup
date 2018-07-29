@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.fragment.JoinPartyDialogFragment;
 import com.example.dsm2018.pickup.fragment.SearchDateDialogFragment;
+import com.example.dsm2018.pickup.fragment.SearchTimeDialogFragment;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -33,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getSupportFragmentManager();
-                SearchDateDialogFragment dialogFragment = new SearchDateDialogFragment();
+                SearchTimeDialogFragment dialogFragment = new SearchTimeDialogFragment();
                 dialogFragment.show(fm, "");
             }
         });
