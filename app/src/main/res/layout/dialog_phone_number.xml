@@ -26,13 +26,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical">
-            <TextView
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/round_layout_side_grey"
                 android:hint="전화번호"
                 android:gravity="center_vertical"
-                android:paddingStart="26dp"/>
+                android:paddingStart="26dp"
+                android:inputType="phone"
+                android:id="@+id/inputPhoneNumber"
+                android:textSize="14sp"
+                android:maxLength="13" />
         </LinearLayout>
     </LinearLayout>
 

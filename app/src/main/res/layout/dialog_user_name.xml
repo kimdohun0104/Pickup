@@ -26,13 +26,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical">
-            <TextView
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/round_layout_side_grey"
                 android:hint="이름"
                 android:gravity="center_vertical"
-                android:paddingStart="26dp"/>
+                android:paddingStart="26dp"
+                android:textSize="14sp"/>
         </LinearLayout>
     </LinearLayout>
 

@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 
 import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.dialog.DeleteAccountDialog;
+import com.example.dsm2018.pickup.dialog.PhoneNumberDialog;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -32,7 +33,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getSupportFragmentManager();
-                DeleteAccountDialog dialogFragment = new DeleteAccountDialog();
+                PhoneNumberDialog dialogFragment = new PhoneNumberDialog();
                 dialogFragment.show(fm, "");
             }
         });
