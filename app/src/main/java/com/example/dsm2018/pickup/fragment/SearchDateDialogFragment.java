@@ -75,6 +75,22 @@ public class SearchDateDialogFragment extends DialogFragment{
         month = calendar.get(Calendar.MONTH) + 1;
         day = calendar.get(Calendar.DATE);
 
+        String[] displayYear = new String[11];
+        String[] displayMonth = new String[12];
+        String[] displayDay = new String[31];
+
+        for(int i = 0, j = -5; i < 11; i++, j++){
+                displayYear[i] = year + j + "년";
+        }
+
+        for(int i = 1; i < 13; i++){
+            displayMonth[i - 1] = i + "월";
+        }
+
+        for(int i = 1; i < 32; i++){
+            displayDay[i - 1] = i + "일";
+        }
+
         setDividerColor(yearPicker, Color.TRANSPARENT);
         setDividerColor(monthPicker, Color.TRANSPARENT);
         setDividerColor(dayPicker, Color.TRANSPARENT);
@@ -82,14 +98,17 @@ public class SearchDateDialogFragment extends DialogFragment{
         yearPicker.setMinValue(year - 5);
         yearPicker.setMaxValue(year + 5);
         yearPicker.setValue(year);
+        yearPicker.setDisplayedValues(displayYear);
 
         monthPicker.setMinValue(1);
         monthPicker.setMaxValue(12);
         monthPicker.setValue(month);
+        monthPicker.setDisplayedValues(displayMonth);
 
         dayPicker.setMinValue(1);
         setDayPicker();
         dayPicker.setValue(day);
+        dayPicker.setDisplayedValues(displayDay);
     }
 
     public void setDayPicker(){
