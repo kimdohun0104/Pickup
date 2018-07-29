@@ -9,10 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 
 import com.example.dsm2018.pickup.R;
 
 public class PartyDeleteDialog extends DialogFragment{
+
+    Button cancelButton;
 
     @Override
     public void onResume() {
@@ -26,6 +29,14 @@ public class PartyDeleteDialog extends DialogFragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_party_delete, container, false);
+
+        cancelButton = (Button)view.findViewById(R.id.cancelButton);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
 
         return view;
     }

@@ -18,7 +18,7 @@ public class PhoneNumberDialog extends DialogFragment {
 
     EditText inputPhoneNumber;
     TextView errorText;
-    Button nextButton;
+    Button nextButton, cancelButton;
 
     @Override
     public void onResume() {
@@ -37,6 +37,14 @@ public class PhoneNumberDialog extends DialogFragment {
         inputPhoneNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
         errorText = (TextView)view.findViewById(R.id.dialogError);
         nextButton = (Button)view.findViewById(R.id.nextButton);
+        cancelButton = (Button)view.findViewById(R.id.cancelButton);
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
 
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override

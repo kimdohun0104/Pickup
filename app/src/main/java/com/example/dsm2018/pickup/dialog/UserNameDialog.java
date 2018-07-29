@@ -7,10 +7,13 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.dsm2018.pickup.R;
 
 public class UserNameDialog extends DialogFragment {
+
+    Button cancelButton;
 
     @Override
     public void onResume() {
@@ -24,6 +27,14 @@ public class UserNameDialog extends DialogFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_user_name, container, false);
+
+        cancelButton = (Button)view.findViewById(R.id.cancelButton);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
 
         return view;
     }

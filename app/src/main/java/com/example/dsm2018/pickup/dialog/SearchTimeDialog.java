@@ -10,6 +10,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.NumberPicker;
 
 import com.example.dsm2018.pickup.R;
@@ -23,6 +24,7 @@ public class SearchTimeDialog extends DialogFragment {
     NumberPicker timeZonePicker, hourPicker, minutePicker;
     Calendar calendar;
     int timeZone, hour, minute;
+    Button cancelButton;
 
     @Override
     public void onResume() {
@@ -42,6 +44,14 @@ public class SearchTimeDialog extends DialogFragment {
         timeZonePicker = (NumberPicker)view.findViewById(R.id.timeZonePicker);
         hourPicker = (NumberPicker)view.findViewById(R.id.hourPicker);
         minutePicker = (NumberPicker)view.findViewById(R.id.minutePicker);
+        cancelButton = (Button)view.findViewById(R.id.cancelButton);
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
 
         initNumberPicker();
 

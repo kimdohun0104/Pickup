@@ -10,6 +10,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.NumberPicker;
 
 import com.example.dsm2018.pickup.R;
@@ -23,6 +24,7 @@ public class SearchDateDialog extends DialogFragment{
     NumberPicker yearPicker, monthPicker, dayPicker;
     int year, month, day;
     Calendar calendar;
+    Button cancelButton;
 
     @Override
     public void onResume() {
@@ -42,6 +44,14 @@ public class SearchDateDialog extends DialogFragment{
         yearPicker = view.findViewById(R.id.yearPicker);
         monthPicker = view.findViewById(R.id.monthPicker);
         dayPicker = view.findViewById(R.id.dayPicker);
+        cancelButton = (Button)view.findViewById(R.id.cancelButton);
+
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
 
         numberPickerInit();
 

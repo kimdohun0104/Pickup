@@ -53,7 +53,8 @@
             android:background="#f5f5f5"
             android:gravity="center"
             android:textColor="@color/colorPrimary"
-            android:text="취소"/>
+            android:text="취소"
+            android:id="@+id/cancelButton"/>
         <Button
             android:layout_width="0dp"
             android:layout_height="match_parent"
