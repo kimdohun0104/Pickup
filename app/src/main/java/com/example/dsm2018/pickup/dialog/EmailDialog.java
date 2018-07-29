@@ -42,7 +42,7 @@ public class EmailDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 if(inputEmail.getText().toString().matches(emailPattern)){
-                    Toast.makeText(getActivity(), "이메일 맞음", Toast.LENGTH_SHORT).show();
+
                 } else {
                     errorText.setVisibility(View.VISIBLE);
                     inputEmail.setBackgroundResource(R.drawable.round_layout_side_red);

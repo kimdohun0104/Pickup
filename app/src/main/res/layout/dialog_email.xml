@@ -38,7 +38,9 @@
                 android:paddingStart="26dp"
                 android:textSize="14sp"
                 android:id="@+id/inputEmail"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:singleLine="true"
+                android:inputType="textEmailAddress"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -40,7 +40,8 @@
                 android:id="@+id/inputPhoneNumber"
                 android:textSize="14sp"
                 android:maxLength="13"
-                android:layout_marginBottom="10dp"/>
+                android:layout_marginBottom="10dp"
+                android:singleLine="true"/>
 
             <TextView
                 android:layout_width="wrap_content"
