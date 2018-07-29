@@ -20,14 +20,17 @@
             <Button
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@drawable/ic_back"/>
-            <TextView
+                android:background="@drawable/ic_back"
+                android:id="@+id/backButton"/>
+            <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingStart="30dp"
                 android:text="출발지 검색"
-                android:textColor="@color/colorGrey"/>
+                android:textColor="@color/colorGrey"
+                android:textSize="14sp"
+                android:id="@+id/inputStartingPoint"/>
             <Button
                 android:layout_width="20dp"
                 android:layout_height="20dp"

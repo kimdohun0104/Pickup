@@ -4,6 +4,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.fragment.FilterSheetFragment;
@@ -11,6 +12,7 @@ import com.example.dsm2018.pickup.fragment.FilterSheetFragment;
 public class SearchActivity extends AppCompatActivity {
 
     FloatingActionButton filterButton;
+    Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,12 +20,20 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         filterButton = (FloatingActionButton)findViewById(R.id.filterButton);
+        backButton = (Button)findViewById(R.id.backButton);
 
         filterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FilterSheetFragment filterSheetFragment = FilterSheetFragment.getInstance();
                 filterSheetFragment.show(getSupportFragmentManager(), "fragment_bottom_sheet");
+            }
+        });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }
