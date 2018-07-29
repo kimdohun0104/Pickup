@@ -8,11 +8,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.example.dsm2018.pickup.R;
-import com.example.dsm2018.pickup.fragment.JoinPartyDialogFragment;
-import com.example.dsm2018.pickup.fragment.LogoutDialogFragment;
-import com.example.dsm2018.pickup.fragment.SearchDateDialogFragment;
-import com.example.dsm2018.pickup.fragment.SearchTimeDialogFragment;
-import com.example.dsm2018.pickup.fragment.SettingLocationSearchDialogFragment;
+import com.example.dsm2018.pickup.fragment.DeleteAccountDialog;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -36,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 FragmentManager fm = getSupportFragmentManager();
-                LogoutDialogFragment dialogFragment = new LogoutDialogFragment();
+                DeleteAccountDialog dialogFragment = new DeleteAccountDialog();
                 dialogFragment.show(fm, "");
             }
         });
