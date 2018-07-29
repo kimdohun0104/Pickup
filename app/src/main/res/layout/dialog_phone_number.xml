@@ -14,13 +14,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="이름 변경"
+            android:text="전화번호 변경"
             android:textColor="@color/colorPrimary"
             android:layout_marginBottom="4dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="사용자 이름을 변경합니다."
+            android:text="사용자 전화번호를 변경합니다."
             android:textSize="11sp"/>
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/round_layout_side_grey"
-                android:hint="이름"
+                android:hint="전화번호"
                 android:gravity="center_vertical"
                 android:paddingStart="26dp"/>
         </LinearLayout>
@@ -55,5 +55,5 @@
             android:text="다음"
             android:textColor="@color/colorWhite"/>
     </LinearLayout>
-    
+
 </LinearLayout>

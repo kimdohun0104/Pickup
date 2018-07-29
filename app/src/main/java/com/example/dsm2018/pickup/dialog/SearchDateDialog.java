@@ -111,7 +111,7 @@ public class SearchDateDialog extends DialogFragment{
         dayPicker.setDisplayedValues(displayDay);
     }
 
-    public void setDayPicker(){
+    private void setDayPicker(){
         if(month == 2) {
             if ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) {
                 dayPicker.setMaxValue(29);
@@ -123,8 +123,7 @@ public class SearchDateDialog extends DialogFragment{
         }
         switch (month){
             case 1: case 3: case 5: case 7: case 8: case 10: case 12:
-                dayPicker.setMaxValue(31);
-                break;
+                dayPicker.setMaxValue(31); break;
             default:
                 dayPicker.setMaxValue(30);
         }
