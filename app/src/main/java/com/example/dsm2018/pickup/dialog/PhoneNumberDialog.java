@@ -8,13 +8,17 @@ import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.dsm2018.pickup.R;
 
 public class PhoneNumberDialog extends DialogFragment {
 
     EditText inputPhoneNumber;
+    TextView errorText;
+    Button nextButton;
 
     @Override
     public void onResume() {
@@ -31,6 +35,20 @@ public class PhoneNumberDialog extends DialogFragment {
 
         inputPhoneNumber = (EditText)view.findViewById(R.id.inputPhoneNumber);
         inputPhoneNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+        errorText = (TextView)view.findViewById(R.id.dialogError);
+        nextButton = (Button)view.findViewById(R.id.nextButton);
+
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(inputPhoneNumber.getText().toString().length() == 13){
+
+                } else {
+                    errorText.setVisibility(View.VISIBLE);
+                    inputPhoneNumber.setBackgroundResource(R.drawable.round_layout_side_red);
+                }
+            }
+        });
 
         return view;
     }

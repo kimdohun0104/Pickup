@@ -10,7 +10,9 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:padding="30dp">
+        android:paddingStart="30dp"
+        android:paddingTop="30dp"
+        android:paddingEnd="30dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -25,7 +27,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:orientation="vertical">
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -36,7 +39,17 @@
                 android:inputType="phone"
                 android:id="@+id/inputPhoneNumber"
                 android:textSize="14sp"
-                android:maxLength="13" />
+                android:maxLength="13"
+                android:layout_marginBottom="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="올바른 형식으로 작성해주세요"
+                android:textColor="@color/colorRed"
+                android:textSize="11sp"
+                android:visibility="invisible"
+                android:id="@+id/dialogError" />
         </LinearLayout>
     </LinearLayout>
 
@@ -57,7 +70,8 @@
             android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:text="다음"
-            android:textColor="@color/colorWhite"/>
+            android:textColor="@color/colorWhite"
+            android:id="@+id/nextButton"/>
     </LinearLayout>
 
 </LinearLayout>
