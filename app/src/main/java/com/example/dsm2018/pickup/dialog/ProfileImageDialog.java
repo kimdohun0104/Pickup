@@ -32,6 +32,8 @@ public class ProfileImageDialog extends DialogFragment {
     ImageView profileImage;
     private final int REQUEST_PERMISSION_CODE = 101;
     private final int GALLERY_CODE=1112;
+    private final int RESULT_OK = 1001;
+    private final int RESULT_CANCEL = 1002;
 
     @Override
     public void onResume() {
@@ -69,6 +71,15 @@ public class ProfileImageDialog extends DialogFragment {
                 startActivityForResult(intent, GALLERY_CODE);
             }
         });
+        profileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                intent.setType("image/*");
+                startActivityForResult(intent, GALLERY_CODE);
+            }
+        });
 
         return view;
     }
@@ -77,7 +88,11 @@ public class ProfileImageDialog extends DialogFragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        sendPicture(data.getData());
+        try{
+            sendPicture(data.getData());
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
     public void sendPicture(Uri imgUri){

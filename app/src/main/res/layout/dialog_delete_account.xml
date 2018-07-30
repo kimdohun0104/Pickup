@@ -17,7 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="계정 탈퇴"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorPrimary"
+            android:id="@+id/cancelButton"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
