@@ -33,7 +33,8 @@
                 android:textColor="@color/colorGrey"
                 android:textSize="14sp"
                 android:id="@+id/inputStartingPoint"
-                android:background="@null"/>
+                android:background="@null"
+                android:singleLine="true"/>
             <Button
                 android:layout_width="20dp"
                 android:layout_height="20dp"
