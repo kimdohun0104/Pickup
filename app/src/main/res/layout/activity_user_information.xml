@@ -71,7 +71,8 @@
                         android:layout_height="wrap_content"
                         android:scaleX="0.8"
                         android:scaleY="0.8"
-                        android:id="@+id/profileImageCheckBox"/>
+                        android:id="@+id/profileImageCheckBox"
+                        android:buttonTint="@color/colorPrimary"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -114,7 +115,8 @@
                         android:layout_height="wrap_content"
                         android:scaleX="0.8"
                         android:scaleY="0.8"
-                        android:id="@+id/userNameCheckBox"/>
+                        android:id="@+id/userNameCheckBox"
+                        android:buttonTint="@color/colorPrimary"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -157,7 +159,8 @@
                         android:layout_height="wrap_content"
                         android:scaleX="0.8"
                         android:scaleY="0.8"
-                        android:id="@+id/phoneNumberCheckBox"/>
+                        android:id="@+id/phoneNumberCheckBox"
+                        android:buttonTint="@color/colorPrimary"/>
                 </LinearLayout>
                 <View
                     android:layout_width="match_parent"
@@ -200,7 +203,8 @@
                         android:layout_height="wrap_content"
                         android:scaleX="0.8"
                         android:scaleY="0.8"
-                        android:id="@+id/emailCheckBox"/>
+                        android:id="@+id/emailCheckBox"
+                        android:buttonTint="@color/colorPrimary"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
