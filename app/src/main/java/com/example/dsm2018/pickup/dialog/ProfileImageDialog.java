@@ -18,8 +18,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.dsm2018.pickup.R;
 
@@ -27,13 +29,13 @@ import java.io.IOException;
 
 public class ProfileImageDialog extends DialogFragment {
 
-    Button cancelButton;
+    Button cancelButton, nextButton;
     LinearLayout changeImage;
     ImageView profileImage;
     private final int REQUEST_PERMISSION_CODE = 101;
     private final int GALLERY_CODE=1112;
-    private final int RESULT_OK = 1001;
-    private final int RESULT_CANCEL = 1002;
+    int exifDegree;
+    Bitmap bitmap;
 
     @Override
     public void onResume() {
@@ -45,13 +47,14 @@ public class ProfileImageDialog extends DialogFragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_profile_image, container, false);
 
         ActivityCompat.requestPermissions(getActivity(),
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                 REQUEST_PERMISSION_CODE);
 
+        nextButton = (Button)view.findViewById(R.id.nextButton);
         profileImage = (ImageView)view.findViewById(R.id.profileImage);
         changeImage = (LinearLayout)view.findViewById(R.id.changeImage);
         cancelButton = (Button)view.findViewById(R.id.cancelButton);
@@ -80,6 +83,13 @@ public class ProfileImageDialog extends DialogFragment {
                 startActivityForResult(intent, GALLERY_CODE);
             }
         });
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                dismiss();
+            }
+        });
 
         return view;
     }
@@ -104,9 +114,9 @@ public class ProfileImageDialog extends DialogFragment {
             e.printStackTrace();
         }
         int exifOrientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
-        int exifDegree = exifOrientationToDegrees(exifOrientation);
+        exifDegree = exifOrientationToDegrees(exifOrientation);
 
-        Bitmap bitmap = BitmapFactory.decodeFile(imagePath);//경로를 통해 비트맵으로 전환
+        bitmap = BitmapFactory.decodeFile(imagePath);//경로를 통해 비트맵으로 전환
         changeImage.setVisibility(View.INVISIBLE);
         profileImage.setImageBitmap(rotate(bitmap, exifDegree));
     }

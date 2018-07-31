@@ -73,7 +73,8 @@
             android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:text="다음"
-            android:textColor="@color/colorWhite"/>
+            android:textColor="@color/colorWhite"
+            android:id="@+id/nextButton"/>
     </LinearLayout>
 
 </LinearLayout>

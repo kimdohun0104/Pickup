@@ -34,12 +34,14 @@
                 android:textSize="14sp"
                 android:id="@+id/inputStartingPoint"
                 android:background="@null"
-                android:singleLine="true"/>
+                android:singleLine="true"
+                android:imeOptions="actionSearch"/>
             <Button
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginEnd="20dp"
-                android:background="@drawable/ic_search_orange"/>
+                android:background="@drawable/ic_search_orange"
+                android:id="@+id/searchButton"/>
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 
