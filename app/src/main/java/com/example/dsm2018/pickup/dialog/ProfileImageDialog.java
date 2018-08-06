@@ -32,10 +32,11 @@ public class ProfileImageDialog extends DialogFragment {
     Button cancelButton, nextButton;
     LinearLayout changeImage;
     ImageView profileImage;
+    Bitmap bitmap;
+    int exifDegree;
     private final int REQUEST_PERMISSION_CODE = 101;
     private final int GALLERY_CODE=1112;
-    int exifDegree;
-    Bitmap bitmap;
+
 
     @Override
     public void onResume() {
@@ -58,6 +59,7 @@ public class ProfileImageDialog extends DialogFragment {
         profileImage = (ImageView)view.findViewById(R.id.profileImage);
         changeImage = (LinearLayout)view.findViewById(R.id.changeImage);
         cancelButton = (Button)view.findViewById(R.id.cancelButton);
+
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,6 +76,7 @@ public class ProfileImageDialog extends DialogFragment {
                 startActivityForResult(intent, GALLERY_CODE);
             }
         });
+
         profileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,10 +86,10 @@ public class ProfileImageDialog extends DialogFragment {
                 startActivityForResult(intent, GALLERY_CODE);
             }
         });
+
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 dismiss();
             }
         });

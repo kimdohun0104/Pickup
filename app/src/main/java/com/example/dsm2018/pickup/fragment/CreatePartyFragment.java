@@ -22,9 +22,9 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class CreatePartyFragment extends Fragment implements OnMapReadyCallback {
 
+    LinearLayout searchStartingPoint, searchDestination;
     private GoogleMap mMap = null;
     private MapView startingPoint, endPoint;
-    LinearLayout searchStartingPoint, searchDestination;
 
     @Nullable
     @Override

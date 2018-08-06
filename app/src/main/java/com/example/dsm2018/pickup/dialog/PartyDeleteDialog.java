@@ -31,6 +31,7 @@ public class PartyDeleteDialog extends DialogFragment{
         View view = inflater.inflate(R.layout.dialog_party_delete, container, false);
 
         cancelButton = (Button)view.findViewById(R.id.cancelButton);
+
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

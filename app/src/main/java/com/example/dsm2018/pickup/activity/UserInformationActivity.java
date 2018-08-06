@@ -36,14 +36,14 @@ public class UserInformationActivity extends AppCompatActivity implements Compou
         phoneNumberCheckBox = (CheckBox)findViewById(R.id.phoneNumberCheckBox);
         emailCheckBox = (CheckBox)findViewById(R.id.emailCheckBox);
         modifyUserInformation = (Button)findViewById(R.id.modifyUserInformation);
+        backButton = (Button)findViewById(R.id.backButton);
+        profileImage = (ImageView)findViewById(R.id.profileImage);
 
         profileImageCheckBox.setOnCheckedChangeListener(this);
         userNameCheckBox.setOnCheckedChangeListener(this);
         phoneNumberCheckBox.setOnCheckedChangeListener(this);
         emailCheckBox.setOnCheckedChangeListener(this);
 
-        backButton = (Button)findViewById(R.id.backButton);
-        profileImage = (ImageView)findViewById(R.id.profileImage);
         profileImage.setBackground(new ShapeDrawable(new OvalShape()));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             profileImage.setClipToOutline(true);

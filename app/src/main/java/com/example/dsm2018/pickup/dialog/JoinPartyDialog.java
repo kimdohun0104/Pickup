@@ -31,6 +31,7 @@ public class JoinPartyDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_join_party, container, false);
 
         cancelButton = (Button)view.findViewById(R.id.cancelButton);
+
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

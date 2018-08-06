@@ -29,6 +29,7 @@ public class SettingDestinationDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_setting_destination, container, false);
 
         cancelButton = (Button)view.findViewById(R.id.cancelButton);
+
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

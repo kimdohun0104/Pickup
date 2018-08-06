@@ -22,9 +22,9 @@ import java.util.Locale;
 public class SearchDateDialog extends DialogFragment{
 
     NumberPicker yearPicker, monthPicker, dayPicker;
-    int year, month, day;
     Calendar calendar;
     Button cancelButton;
+    int year, month, day;
 
     @Override
     public void onResume() {
@@ -89,17 +89,16 @@ public class SearchDateDialog extends DialogFragment{
         String[] displayMonth = new String[12];
         String[] displayDay = new String[31];
 
-        for(int i = 0, j = -5; i < 11; i++, j++){
+        for(int i = 0, j = -5; i < 11; i++, j++)
                 displayYear[i] = year + j + "년";
-        }
 
-        for(int i = 1; i < 13; i++){
+        for(int i = 1; i < 13; i++)
             displayMonth[i - 1] = i + "월";
-        }
 
-        for(int i = 1; i < 32; i++){
+
+        for(int i = 1; i < 32; i++)
             displayDay[i - 1] = i + "일";
-        }
+
 
         setDividerColor(yearPicker, Color.TRANSPARENT);
         setDividerColor(monthPicker, Color.TRANSPARENT);

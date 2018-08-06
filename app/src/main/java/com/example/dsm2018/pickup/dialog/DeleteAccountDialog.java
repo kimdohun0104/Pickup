@@ -29,6 +29,7 @@ public class DeleteAccountDialog extends DialogFragment {
         View view = inflater.inflate(R.layout.dialog_delete_account, container, false);
 
         cancelButton = (Button)view.findViewById(R.id.cancel_button);
+
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
