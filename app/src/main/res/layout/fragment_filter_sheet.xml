@@ -33,7 +33,7 @@
         android:layout_height="62dp"
         android:paddingStart="40dp"
         android:paddingEnd="40dp"
-        android:id="@+id/setStartingPoint">
+        android:id="@+id/startingPointTab">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,19 +49,58 @@
             android:layout_centerVertical="true"/>
     </RelativeLayout>
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="test"
-        android:id="@+id/test"
-        android:background="@color/colorPrimary"/>
+        android:layout_height="120dp"
+        android:background="#f5f5f5"
+        android:id="@+id/setStartingPoint">
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_location_grey"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="30dp"/>
+
+        <LinearLayout
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="34dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:background="@drawable/round_layout_side_grey"
+                android:id="@+id/searchStartingPoint">
+                <TextView
+                    android:paddingLeft="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="출발지"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"/>
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="62dp"
         android:paddingStart="40dp"
         android:paddingEnd="40dp"
-        android:id="@+id/setDestination">
+        android:id="@+id/destinationTab">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -82,7 +121,7 @@
         android:layout_height="62dp"
         android:paddingStart="40dp"
         android:paddingEnd="40dp"
-        android:id="@+id/setTime">
+        android:id="@+id/timeTab">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

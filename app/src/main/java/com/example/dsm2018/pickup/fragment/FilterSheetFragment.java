@@ -16,7 +16,7 @@ import com.example.dsm2018.pickup.R;
 
 public class FilterSheetFragment extends BottomSheetDialogFragment {
 
-    TextView testView;
+    RelativeLayout startingPointTab;
     RelativeLayout setStartingPoint;
 
     public static FilterSheetFragment getInstance() {
@@ -28,20 +28,20 @@ public class FilterSheetFragment extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_filter_sheet, container, false);
 
-        testView = (TextView)view.findViewById(R.id.test);
+        startingPointTab = (RelativeLayout)view.findViewById(R.id.startingPointTab);
         setStartingPoint = (RelativeLayout)view.findViewById(R.id.setStartingPoint);
 
-        testView.setVisibility(View.GONE);
+        setStartingPoint.setVisibility(View.GONE);
 
-        setStartingPoint.setOnClickListener(new View.OnClickListener() {
+        startingPointTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(testView.isShown()){
-                    slide_down(testView);
-                    testView.setVisibility(View.GONE);
+                if(setStartingPoint.isShown()){
+                    slide_down(setStartingPoint);
+                    setStartingPoint.setVisibility(View.GONE);
                 } else {
-                    slide_up(testView);
-                    testView.setVisibility(View.VISIBLE);
+                    slide_up(setStartingPoint);
+                    setStartingPoint.setVisibility(View.VISIBLE);
                 }
             }
         });
