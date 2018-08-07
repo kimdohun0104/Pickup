@@ -32,7 +32,8 @@
         android:layout_width="match_parent"
         android:layout_height="62dp"
         android:paddingStart="40dp"
-        android:paddingEnd="40dp">
+        android:paddingEnd="40dp"
+        android:id="@+id/setStartingPoint">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,11 +49,19 @@
             android:layout_centerVertical="true"/>
     </RelativeLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="test"
+        android:id="@+id/test"
+        android:background="@color/colorPrimary"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="62dp"
         android:paddingStart="40dp"
-        android:paddingEnd="40dp">
+        android:paddingEnd="40dp"
+        android:id="@+id/setDestination">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -72,7 +81,8 @@
         android:layout_width="match_parent"
         android:layout_height="62dp"
         android:paddingStart="40dp"
-        android:paddingEnd="40dp">
+        android:paddingEnd="40dp"
+        android:id="@+id/setTime">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
