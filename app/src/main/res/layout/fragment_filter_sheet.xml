@@ -53,7 +53,8 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:background="#f5f5f5"
-        android:id="@+id/setStartingPoint">
+        android:id="@+id/setStartingPoint"
+        android:visibility="gone">
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
@@ -75,8 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="4"
-                android:background="@drawable/round_layout_side_grey"
-                android:id="@+id/searchStartingPoint">
+                android:background="@drawable/round_layout_side_grey3">
                 <TextView
                     android:paddingLeft="20dp"
                     android:layout_width="match_parent"
@@ -92,7 +92,6 @@
                 android:layout_height="0dp"
                 android:layout_weight="2"/>
         </LinearLayout>
-
     </RelativeLayout>
 
     <RelativeLayout
@@ -118,6 +117,51 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="#f5f5f5"
+        android:id="@+id/setDestination"
+        android:visibility="gone">
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_location_grey"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="30dp"/>
+
+        <LinearLayout
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="34dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:background="@drawable/round_layout_side_grey3">
+                <TextView
+                    android:paddingLeft="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:text="출발지"
+                    android:textColor="@color/colorGrey"
+                    android:textSize="14sp"/>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="62dp"
         android:paddingStart="40dp"
         android:paddingEnd="40dp"
@@ -136,6 +180,73 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"/>
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:orientation="horizontal"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        android:background="#f5f5f5">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:background="@drawable/round_layout_side_grey3"
+                android:text="날짜설정"
+                android:textSize="14sp"
+                android:textColor="@color/colorGrey"
+                android:gravity="center"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:orientation="vertical">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:background="@drawable/round_layout_side_grey3"
+                android:text="시간설정"
+                android:textColor="@color/colorGrey"
+                android:textSize="14sp"
+                android:gravity="center"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
