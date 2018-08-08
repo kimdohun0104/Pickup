@@ -12,6 +12,7 @@ import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Transformation;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.dsm2018.pickup.R;
 
@@ -19,6 +20,8 @@ public class FilterSheetFragment extends BottomSheetDialogFragment {
 
     RelativeLayout startingPointTab;
     RelativeLayout setStartingPoint;
+    TextView cancel;
+
     boolean isSetStartingPointOpen = false;
 
     public static FilterSheetFragment getInstance() {
@@ -32,6 +35,7 @@ public class FilterSheetFragment extends BottomSheetDialogFragment {
 
         startingPointTab = (RelativeLayout)view.findViewById(R.id.startingPointTab);
         setStartingPoint = (RelativeLayout)view.findViewById(R.id.setStartingPoint);
+        cancel = (TextView)view.findViewById(R.id.cancelButton);
 
         setStartingPoint.setVisibility(View.GONE);
 
@@ -49,10 +53,17 @@ public class FilterSheetFragment extends BottomSheetDialogFragment {
             }
         });
 
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
+
         return view;
     }
 
-    public static void expand(final View v, int duration, int targetHeight) {
+    public void expand(final View v, int duration, int targetHeight) {
 
         int prevHeight  = v.getHeight();
 
@@ -70,7 +81,7 @@ public class FilterSheetFragment extends BottomSheetDialogFragment {
         valueAnimator.start();
     }
 
-    public static void collapse(final View v) {
+    public void collapse(final View v) {
         final int initialHeight = v.getMeasuredHeight();
 
         Animation a = new Animation()
