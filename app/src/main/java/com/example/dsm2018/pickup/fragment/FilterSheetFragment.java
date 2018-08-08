@@ -1,7 +1,7 @@
 package com.example.dsm2018.pickup.fragment;
 
+import android.animation.ValueAnimator;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
@@ -9,9 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.Transformation;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.example.dsm2018.pickup.R;
 
@@ -19,6 +19,7 @@ public class FilterSheetFragment extends BottomSheetDialogFragment {
 
     RelativeLayout startingPointTab;
     RelativeLayout setStartingPoint;
+    boolean isSetStartingPointOpen = false;
 
     public static FilterSheetFragment getInstance() {
         return new FilterSheetFragment();
@@ -37,38 +38,60 @@ public class FilterSheetFragment extends BottomSheetDialogFragment {
         startingPointTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(setStartingPoint.isShown()){
-                    slide_up(setStartingPoint);
-                    setStartingPoint.setVisibility(View.GONE);
+                if(isSetStartingPointOpen){
+                    collapse(setStartingPoint);
+                    isSetStartingPointOpen = false;
                 } else {
-                    setStartingPoint.setVisibility(View.VISIBLE);
-                    slide_down(setStartingPoint);
+                    expand(setStartingPoint, 200, 300);
+                    isSetStartingPointOpen = true;
                 }
+
             }
         });
 
         return view;
     }
 
-    public void slide_down(View v){
-        Animation a = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_down);
-        if(a != null) {
-            a.reset();
-            if(v != null){
-                v.clearAnimation();
-                v.startAnimation(a);
+    public static void expand(final View v, int duration, int targetHeight) {
+
+        int prevHeight  = v.getHeight();
+
+        v.setVisibility(View.VISIBLE);
+        ValueAnimator valueAnimator = ValueAnimator.ofInt(prevHeight, targetHeight);
+        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                v.getLayoutParams().height = (int) animation.getAnimatedValue();
+                v.requestLayout();
             }
-        }
+        });
+        valueAnimator.setInterpolator(new DecelerateInterpolator());
+        valueAnimator.setDuration(duration);
+        valueAnimator.start();
     }
 
-    public void slide_up(View v){
-        Animation a = AnimationUtils.loadAnimation(getActivity(), R.anim.slide_up);
-        if(a != null){
-            a.reset();
-            if(v != null){
-                v.clearAnimation();
-                v.startAnimation(a);
+    public static void collapse(final View v) {
+        final int initialHeight = v.getMeasuredHeight();
+
+        Animation a = new Animation()
+        {
+            @Override
+            protected void applyTransformation(float interpolatedTime, Transformation t) {
+                if(interpolatedTime == 1){
+                    v.setVisibility(View.GONE);
+                }else{
+                    v.getLayoutParams().height = initialHeight - (int)(initialHeight * interpolatedTime);
+                    v.requestLayout();
+                }
             }
-        }
+
+            @Override
+            public boolean willChangeBounds() {
+                return true;
+            }
+        };
+
+        a.setDuration(200);
+        v.startAnimation(a);
     }
 }
