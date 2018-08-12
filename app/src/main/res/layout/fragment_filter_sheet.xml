@@ -54,7 +54,7 @@
         android:layout_height="120dp"
         android:background="#f5f5f5"
         android:id="@+id/setStartingPoint"
-        android:visibility="gone">
+        android:visibility="visible">
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
