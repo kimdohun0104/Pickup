@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Transformation;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,11 +19,11 @@ import com.example.dsm2018.pickup.R;
 
 public class FilterSheetFragment extends BottomSheetDialogFragment {
 
-    RelativeLayout startingPointTab;
-    RelativeLayout setStartingPoint;
+    RelativeLayout startingPointTab, setStartingPoint, destinationTab, setDestination, timeTab;
+    LinearLayout setTime;
     TextView cancel;
 
-    boolean isSetStartingPointOpen = false;
+    boolean isSetStartingPointOpen = false, isSetDestinationOpen = false, isSetTimeOpen = false;
 
     public static FilterSheetFragment getInstance() {
         return new FilterSheetFragment();
@@ -35,6 +36,10 @@ public class FilterSheetFragment extends BottomSheetDialogFragment {
 
         startingPointTab = (RelativeLayout)view.findViewById(R.id.startingPointTab);
         setStartingPoint = (RelativeLayout)view.findViewById(R.id.setStartingPoint);
+        destinationTab = (RelativeLayout)view.findViewById(R.id.destinationTab);
+        setDestination = (RelativeLayout)view.findViewById(R.id.setDestination);
+        timeTab = (RelativeLayout)view.findViewById(R.id.timeTab);
+        setTime = (LinearLayout)view.findViewById(R.id.setTime);
         cancel = (TextView)view.findViewById(R.id.cancelButton);
 
         setStartingPoint.setVisibility(View.GONE);
@@ -49,7 +54,32 @@ public class FilterSheetFragment extends BottomSheetDialogFragment {
                     expand(setStartingPoint, 200, 300);
                     isSetStartingPointOpen = true;
                 }
+            }
+        });
 
+        destinationTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isSetDestinationOpen){
+                    collapse(setDestination);
+                    isSetDestinationOpen = false;
+                } else {
+                    expand(setDestination, 200, 300);
+                    isSetDestinationOpen = true;
+                }
+            }
+        });
+
+        timeTab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isSetTimeOpen){
+                    collapse(setTime);
+                    isSetTimeOpen = false;
+                } else {
+                    expand(setTime, 200, 300);
+                    isSetTimeOpen = true;
+                }
             }
         });
 
