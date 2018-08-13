@@ -53,7 +53,7 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:background="#f5f5f5"
-        android:id="@+id/setStartingPoint"
+        android:id="@+id/setStartingPointView"
         android:visibility="visible">
         <ImageView
             android:layout_width="25dp"
@@ -84,7 +84,8 @@
                     android:gravity="center_vertical"
                     android:text="출발지"
                     android:textColor="@color/colorGrey"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:id="@+id/setStartingPoint"/>
             </LinearLayout>
 
             <View
@@ -119,8 +120,8 @@
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:background="#f5f5f5"
-        android:id="@+id/setDestination"
-        android:visibility="gone">
+        android:id="@+id/setDestinationView"
+        android:visibility="visible">
         <ImageView
             android:layout_width="25dp"
             android:layout_height="25dp"
@@ -150,7 +151,8 @@
                     android:gravity="center_vertical"
                     android:text="출발지"
                     android:textColor="@color/colorGrey"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:id="@+id/setDestination"/>
             </LinearLayout>
 
             <View
@@ -188,8 +190,8 @@
         android:paddingStart="30dp"
         android:paddingEnd="30dp"
         android:background="#f5f5f5"
-        android:visibility="gone"
-        android:id="@+id/setTime">
+        android:visibility="visible"
+        android:id="@+id/setTimeView">
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -208,7 +210,8 @@
                 android:text="날짜설정"
                 android:textSize="14sp"
                 android:textColor="@color/colorGrey"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:id="@+id/setDate"/>
 
             <View
                 android:layout_width="match_parent"
@@ -239,7 +242,8 @@
                 android:text="시간설정"
                 android:textColor="@color/colorGrey"
                 android:textSize="14sp"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:id="@+id/setTime"/>
 
             <View
                 android:layout_width="match_parent"

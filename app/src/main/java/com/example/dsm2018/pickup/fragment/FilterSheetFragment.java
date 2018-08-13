@@ -23,12 +23,13 @@ import com.example.dsm2018.pickup.activity.SearchDestinationActivity;
 import com.example.dsm2018.pickup.activity.SearchStartingPointActivity;
 import com.example.dsm2018.pickup.dialog.EmailDialog;
 import com.example.dsm2018.pickup.dialog.SearchDateDialog;
+import com.example.dsm2018.pickup.dialog.SearchTimeDialog;
 
 public class FilterSheetFragment extends BottomSheetDialogFragment{
 
-    RelativeLayout startingPointTab, setStartingPoint, destinationTab, setDestination, timeTab;
-    LinearLayout setTime;
-    TextView cancel;
+    RelativeLayout startingPointTab, setStartingPointView, destinationTab, setDestinationView, timeTab;
+    LinearLayout setTimeView;
+    TextView setStartingPoint, setDestination, setDate, setTime, cancel;
 
     public static FilterSheetFragment getInstance() {
         return new FilterSheetFragment();
@@ -39,31 +40,35 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_filter_sheet, container, false);
 
-        startingPointTab = (RelativeLayout)view.findViewById(R.id.startingPointTab);
-        setStartingPoint = (RelativeLayout)view.findViewById(R.id.setStartingPoint);
-        destinationTab = (RelativeLayout)view.findViewById(R.id.destinationTab);
-        setDestination = (RelativeLayout)view.findViewById(R.id.setDestination);
-        timeTab = (RelativeLayout)view.findViewById(R.id.timeTab);
-        setTime = (LinearLayout)view.findViewById(R.id.setTime);
-        cancel = (TextView)view.findViewById(R.id.cancelButton);
+        startingPointTab = (RelativeLayout) view.findViewById(R.id.startingPointTab);
+        setStartingPointView = (RelativeLayout) view.findViewById(R.id.setStartingPointView);
+        setStartingPoint = (TextView) view.findViewById(R.id.setStartingPoint);
+        destinationTab = (RelativeLayout) view.findViewById(R.id.destinationTab);
+        setDestinationView = (RelativeLayout) view.findViewById(R.id.setDestinationView);
+        setDestination = (TextView) view.findViewById(R.id.setDestination);
+        timeTab = (RelativeLayout) view.findViewById(R.id.timeTab);
+        setTimeView = (LinearLayout) view.findViewById(R.id.setTimeView);
+        setDate = (TextView) view.findViewById(R.id.setDate);
+        setTime = (TextView) view.findViewById(R.id.setTime);
+        cancel = (TextView) view.findViewById(R.id.cancelButton);
 
-        setStartingPoint.setVisibility(View.GONE);
-        setDestination.setVisibility(View.GONE);
-        setTime.setVisibility(View.GONE);
+        setStartingPointView.setVisibility(View.GONE);
+        setDestinationView.setVisibility(View.GONE);
+        setTimeView.setVisibility(View.GONE);
 
         startingPointTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(setStartingPoint.getVisibility() == View.GONE){
+                if(setStartingPointView.getVisibility() == View.GONE){
 
-                    if(setDestination.getVisibility() == View.VISIBLE)
-                        collapse(setDestination);
-                    else if(setTime.getVisibility() == View.VISIBLE)
-                        collapse(setTime);
+                    if(setDestinationView.getVisibility() == View.VISIBLE)
+                        collapse(setDestinationView);
+                    else if(setTimeView.getVisibility() == View.VISIBLE)
+                        collapse(setTimeView);
 
-                    expand(setStartingPoint);
+                    expand(setStartingPointView);
                 } else {
-                    collapse(setStartingPoint);
+                    collapse(setStartingPointView);
                 }
             }
         });
@@ -71,16 +76,16 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
         destinationTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(setDestination.getVisibility() == View.GONE){
+                if(setDestinationView.getVisibility() == View.GONE){
 
-                    if(setStartingPoint.getVisibility() == View.VISIBLE)
-                        collapse(setStartingPoint);
-                    else if(setTime.getVisibility() == View.VISIBLE)
-                        collapse(setTime);
+                    if(setStartingPointView.getVisibility() == View.VISIBLE)
+                        collapse(setStartingPointView);
+                    else if(setTimeView.getVisibility() == View.VISIBLE)
+                        collapse(setTimeView);
 
-                    expand(setDestination);
+                    expand(setDestinationView);
                 } else {
-                    collapse(setDestination);
+                    collapse(setDestinationView);
                 }
             }
         });
@@ -88,16 +93,16 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
         timeTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(setTime.getVisibility() == View.GONE){
+                if(setTimeView.getVisibility() == View.GONE){
 
-                    if(setStartingPoint.getVisibility() == View.VISIBLE)
-                        collapse(setStartingPoint);
-                    else if(setDestination.getVisibility() == View.VISIBLE)
-                        collapse(setDestination);
+                    if(setStartingPointView.getVisibility() == View.VISIBLE)
+                        collapse(setStartingPointView);
+                    else if(setDestinationView.getVisibility() == View.VISIBLE)
+                        collapse(setDestinationView);
 
-                    expand(setTime);
+                    expand(setTimeView);
                 } else {
-                    collapse(setTime);
+                    collapse(setTimeView);
                 }
             }
         });
@@ -118,12 +123,21 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
             }
         });
 
-        setTime.setOnClickListener(new View.OnClickListener() {
+        setDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = getFragmentManager();
                 SearchDateDialog dialogFragment = new SearchDateDialog();
-                dialogFragment.show(fragmentManager, "searchDateDialog");
+                dialogFragment.show(fragmentManager, "SearchDateDialog");
+            }
+        });
+
+        setTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getFragmentManager();
+                SearchTimeDialog dialogFragment = new SearchTimeDialog();
+                dialogFragment.show(fragmentManager, "SearchTimeDialog");
             }
         });
 
