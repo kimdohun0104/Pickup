@@ -1,5 +1,6 @@
 package com.example.dsm2018.pickup.fragment;
 
+import android.animation.Animator;
 import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,15 +30,13 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
     LinearLayout setTime;
     TextView cancel;
 
-    boolean isSetStartingPointOpen = false, isSetDestinationOpen = false, isSetTimeOpen = false;
-
     public static FilterSheetFragment getInstance() {
         return new FilterSheetFragment();
     }
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_filter_sheet, container, false);
 
         startingPointTab = (RelativeLayout)view.findViewById(R.id.startingPointTab);
@@ -55,12 +54,16 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
         startingPointTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isSetStartingPointOpen){
-                    collapse(setStartingPoint);
-                    isSetStartingPointOpen = false;
+                if(setStartingPoint.getVisibility() == View.GONE){
+
+                    if(setDestination.getVisibility() == View.VISIBLE)
+                        collapse(setDestination);
+                    else if(setTime.getVisibility() == View.VISIBLE)
+                        collapse(setTime);
+
+                    expand(setStartingPoint);
                 } else {
-                    expand(setStartingPoint, 200, 300);
-                    isSetStartingPointOpen = true;
+                    collapse(setStartingPoint);
                 }
             }
         });
@@ -68,12 +71,16 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
         destinationTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isSetDestinationOpen){
-                    collapse(setDestination);
-                    isSetDestinationOpen = false;
+                if(setDestination.getVisibility() == View.GONE){
+
+                    if(setStartingPoint.getVisibility() == View.VISIBLE)
+                        collapse(setStartingPoint);
+                    else if(setTime.getVisibility() == View.VISIBLE)
+                        collapse(setTime);
+
+                    expand(setDestination);
                 } else {
-                    expand(setDestination, 200, 300);
-                    isSetDestinationOpen = true;
+                    collapse(setDestination);
                 }
             }
         });
@@ -81,12 +88,16 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
         timeTab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isSetTimeOpen){
-                    collapse(setTime);
-                    isSetTimeOpen = false;
+                if(setTime.getVisibility() == View.GONE){
+
+                    if(setStartingPoint.getVisibility() == View.VISIBLE)
+                        collapse(setStartingPoint);
+                    else if(setDestination.getVisibility() == View.VISIBLE)
+                        collapse(setDestination);
+
+                    expand(setTime);
                 } else {
-                    expand(setTime, 200, 300);
-                    isSetTimeOpen = true;
+                    collapse(setTime);
                 }
             }
         });
@@ -126,46 +137,59 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
         return view;
     }
 
-    public void expand(final View v, int duration, int targetHeight) {
+    private void expand(View view) {
+        //set Visible
+        view.setVisibility(View.VISIBLE);
 
-        int prevHeight  = v.getHeight();
+        ValueAnimator mAnimator = slideAnimator(0, 315, view);
 
-        v.setVisibility(View.VISIBLE);
-        ValueAnimator valueAnimator = ValueAnimator.ofInt(prevHeight, targetHeight);
-        valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                v.getLayoutParams().height = (int) animation.getAnimatedValue();
-                v.requestLayout();
-            }
-        });
-        valueAnimator.setInterpolator(new DecelerateInterpolator());
-        valueAnimator.setDuration(duration);
-        valueAnimator.start();
+        mAnimator.start();
     }
 
-    public void collapse(final View v) {
-        final int initialHeight = v.getMeasuredHeight();
+    private void collapse(final View view) {
+        int finalHeight = view.getHeight();
 
-        Animation a = new Animation()
-        {
+        ValueAnimator mAnimator = slideAnimator(finalHeight, 0, view);
+
+        mAnimator.addListener(new Animator.AnimatorListener() {
             @Override
-            protected void applyTransformation(float interpolatedTime, Transformation t) {
-                if(interpolatedTime == 1){
-                    v.setVisibility(View.GONE);
-                }else{
-                    v.getLayoutParams().height = initialHeight - (int)(initialHeight * interpolatedTime);
-                    v.requestLayout();
-                }
+            public void onAnimationStart(Animator animation) {
+
             }
 
             @Override
-            public boolean willChangeBounds() {
-                return true;
+            public void onAnimationEnd(Animator animator) {
+                //Height=0, but it set visibility to GONE
+                view.setVisibility(View.GONE);
             }
-        };
 
-        a.setDuration(200);
-        v.startAnimation(a);
+            @Override
+            public void onAnimationCancel(Animator animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        });
+        mAnimator.start();
+    }
+
+    private ValueAnimator slideAnimator(int start, int end, final View view) {
+
+        ValueAnimator animator = ValueAnimator.ofInt(start, end);
+
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                //Update Height
+                int value = (Integer) valueAnimator.getAnimatedValue();
+                ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+                layoutParams.height = value;
+                view.setLayoutParams(layoutParams);
+            }
+        });
+        return animator;
     }
 }
