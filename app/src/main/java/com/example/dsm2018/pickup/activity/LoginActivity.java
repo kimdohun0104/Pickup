@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         googleLogin = (RelativeLayout)findViewById(R.id.googleLoginButton);
         googleLogin.setOnClickListener(new View.OnClickListener() {
             @Override
