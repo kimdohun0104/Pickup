@@ -17,11 +17,6 @@ public class SearchDestinationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search_destination);
 
         backButton = (Button)findViewById(R.id.backButton);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        backButton.setOnClickListener(v -> finish());
     }
 }

@@ -41,20 +41,12 @@ public class MainActivity extends AppCompatActivity {
         logOut = (LinearLayout)findViewById(R.id.logOut);
         searchButton = (Button)findViewById(R.id.searchButton);
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                startActivity(intent);
-            }
+        searchButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+            startActivity(intent);
         });
 
-        openDrawerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawerLayout.openDrawer(drawerView);
-            }
-        });
+        openDrawerButton.setOnClickListener(v -> drawerLayout.openDrawer(drawerView));
 
         tabLayout.addTab(tabLayout.newTab().setText("파티생성"));
         tabLayout.addTab(tabLayout.newTab().setText("파티목록"));
@@ -80,30 +72,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        userInformation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), UserInformationActivity.class);
-                startActivity(intent);
-            }
+        userInformation.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), UserInformationActivity.class);
+            startActivity(intent);
         });
 
-        accountDelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fm = getSupportFragmentManager();
-                DeleteAccountDialog dialogFragment = new DeleteAccountDialog();
-                dialogFragment.show(fm, "");
-            }
+        accountDelete.setOnClickListener(v -> {
+            FragmentManager fm = getSupportFragmentManager();
+            DeleteAccountDialog dialogFragment = new DeleteAccountDialog();
+            dialogFragment.show(fm, "");
         });
 
-        logOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fm = getSupportFragmentManager();
-                LogoutDialog dialogFragment = new LogoutDialog();
-                dialogFragment.show(fm, "");
-            }
+        logOut.setOnClickListener(v -> {
+            FragmentManager fm = getSupportFragmentManager();
+            LogoutDialog dialogFragment = new LogoutDialog();
+            dialogFragment.show(fm, "");
         });
     }
 }

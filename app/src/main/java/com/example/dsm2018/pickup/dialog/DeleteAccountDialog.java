@@ -30,12 +30,7 @@ public class DeleteAccountDialog extends DialogFragment {
 
         cancelButton = (Button)view.findViewById(R.id.cancel_button);
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        cancelButton.setOnClickListener(v -> dismiss());
 
         return view;
     }

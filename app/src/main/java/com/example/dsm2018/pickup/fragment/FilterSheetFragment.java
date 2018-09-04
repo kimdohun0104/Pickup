@@ -56,97 +56,71 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
         setDestinationView.setVisibility(View.GONE);
         setTimeView.setVisibility(View.GONE);
 
-        startingPointTab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(setStartingPointView.getVisibility() == View.GONE){
+        startingPointTab.setOnClickListener(v -> {
+            if(setStartingPointView.getVisibility() == View.GONE){
 
-                    if(setDestinationView.getVisibility() == View.VISIBLE)
-                        collapse(setDestinationView);
-                    else if(setTimeView.getVisibility() == View.VISIBLE)
-                        collapse(setTimeView);
-
-                    expand(setStartingPointView);
-                } else {
-                    collapse(setStartingPointView);
-                }
-            }
-        });
-
-        destinationTab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(setDestinationView.getVisibility() == View.GONE){
-
-                    if(setStartingPointView.getVisibility() == View.VISIBLE)
-                        collapse(setStartingPointView);
-                    else if(setTimeView.getVisibility() == View.VISIBLE)
-                        collapse(setTimeView);
-
-                    expand(setDestinationView);
-                } else {
+                if(setDestinationView.getVisibility() == View.VISIBLE)
                     collapse(setDestinationView);
-                }
-            }
-        });
-
-        timeTab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(setTimeView.getVisibility() == View.GONE){
-
-                    if(setStartingPointView.getVisibility() == View.VISIBLE)
-                        collapse(setStartingPointView);
-                    else if(setDestinationView.getVisibility() == View.VISIBLE)
-                        collapse(setDestinationView);
-
-                    expand(setTimeView);
-                } else {
+                else if(setTimeView.getVisibility() == View.VISIBLE)
                     collapse(setTimeView);
-                }
+
+                expand(setStartingPointView);
+            } else {
+                collapse(setStartingPointView);
             }
         });
 
-        setStartingPoint.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SearchStartingPointActivity.class);
-                startActivity(intent);
+        destinationTab.setOnClickListener(v -> {
+            if(setDestinationView.getVisibility() == View.GONE){
+
+                if(setStartingPointView.getVisibility() == View.VISIBLE)
+                    collapse(setStartingPointView);
+                else if(setTimeView.getVisibility() == View.VISIBLE)
+                    collapse(setTimeView);
+
+                expand(setDestinationView);
+            } else {
+                collapse(setDestinationView);
             }
         });
 
-        setDestination.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SearchDestinationActivity.class);
-                startActivity(intent);
+        timeTab.setOnClickListener(v -> {
+            if(setTimeView.getVisibility() == View.GONE){
+
+                if(setStartingPointView.getVisibility() == View.VISIBLE)
+                    collapse(setStartingPointView);
+                else if(setDestinationView.getVisibility() == View.VISIBLE)
+                    collapse(setDestinationView);
+
+                expand(setTimeView);
+            } else {
+                collapse(setTimeView);
             }
         });
 
-        setDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                SearchDateDialog dialogFragment = new SearchDateDialog();
-                dialogFragment.show(fragmentManager, "SearchDateDialog");
-            }
+        setStartingPoint.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), SearchStartingPointActivity.class);
+            startActivity(intent);
         });
 
-        setTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fragmentManager = getFragmentManager();
-                SearchTimeDialog dialogFragment = new SearchTimeDialog();
-                dialogFragment.show(fragmentManager, "SearchTimeDialog");
-            }
+        setDestination.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), SearchDestinationActivity.class);
+            startActivity(intent);
         });
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
+        setDate.setOnClickListener(v -> {
+            FragmentManager fragmentManager = getFragmentManager();
+            SearchDateDialog dialogFragment = new SearchDateDialog();
+            dialogFragment.show(fragmentManager, "SearchDateDialog");
         });
+
+        setTime.setOnClickListener(v -> {
+            FragmentManager fragmentManager = getFragmentManager();
+            SearchTimeDialog dialogFragment = new SearchTimeDialog();
+            dialogFragment.show(fragmentManager, "SearchTimeDialog");
+        });
+
+        cancel.setOnClickListener(v -> dismiss());
 
         return view;
     }
@@ -194,15 +168,12 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
 
         ValueAnimator animator = ValueAnimator.ofInt(start, end);
 
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                //Update Height
-                int value = (Integer) valueAnimator.getAnimatedValue();
-                ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-                layoutParams.height = value;
-                view.setLayoutParams(layoutParams);
-            }
+        animator.addUpdateListener(valueAnimator -> {
+            //Update Height
+            int value = (Integer) valueAnimator.getAnimatedValue();
+            ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+            layoutParams.height = value;
+            view.setLayoutParams(layoutParams);
         });
         return animator;
     }

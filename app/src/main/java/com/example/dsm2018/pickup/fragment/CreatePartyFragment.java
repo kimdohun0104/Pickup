@@ -36,20 +36,14 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
         searchStartingPoint = (LinearLayout)view.findViewById(R.id.searchStartingPoint);
         searchDestination = (LinearLayout)view.findViewById(R.id.searchDestination);
 
-        searchStartingPoint.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SearchStartingPointActivity.class);
-                startActivity(intent);
-            }
+        searchStartingPoint.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), SearchStartingPointActivity.class);
+            startActivity(intent);
         });
 
-        searchDestination.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SearchDestinationActivity.class);
-                startActivity(intent);
-            }
+        searchDestination.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), SearchDestinationActivity.class);
+            startActivity(intent);
         });
 
         startingPoint.getMapAsync(this);

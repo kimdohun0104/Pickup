@@ -39,22 +39,14 @@ public class EmailDialog extends DialogFragment {
         errorText = (TextView)view.findViewById(R.id.dialogError);
         cancelButton = (Button)view.findViewById(R.id.cancelButton);
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        cancelButton.setOnClickListener(v -> dismiss());
 
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(inputEmail.getText().toString().matches(emailPattern)){
+        nextButton.setOnClickListener(v -> {
+            if(inputEmail.getText().toString().matches(emailPattern)){
 
-                } else {
-                    errorText.setVisibility(View.VISIBLE);
-                    inputEmail.setBackgroundResource(R.drawable.round_layout_side_red);
-                }
+            } else {
+                errorText.setVisibility(View.VISIBLE);
+                inputEmail.setBackgroundResource(R.drawable.round_layout_side_red);
             }
         });
 

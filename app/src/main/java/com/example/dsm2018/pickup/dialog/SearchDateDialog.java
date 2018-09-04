@@ -46,35 +46,21 @@ public class SearchDateDialog extends DialogFragment{
         dayPicker = view.findViewById(R.id.dayPicker);
         cancelButton = (Button)view.findViewById(R.id.cancelButton);
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        cancelButton.setOnClickListener(v -> dismiss());
 
         numberPickerInit();
 
-        yearPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                year = newVal;
-                setDayPicker();
-            }
+        yearPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+            year = newVal;
+            setDayPicker();
         });
-        monthPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                month = newVal;
-                setDayPicker();
-            }
+        monthPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+            month = newVal;
+            setDayPicker();
         });
-        dayPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
-                day = newVal;
-                setDayPicker();
-            }
+        dayPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
+            day = newVal;
+            setDayPicker();
         });
 
         return view;

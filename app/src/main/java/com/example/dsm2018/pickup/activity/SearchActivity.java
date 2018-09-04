@@ -22,19 +22,11 @@ public class SearchActivity extends AppCompatActivity {
         filterButton = (FloatingActionButton)findViewById(R.id.filterButton);
         backButton = (Button)findViewById(R.id.backButton);
 
-        filterButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FilterSheetFragment filterSheetFragment = FilterSheetFragment.getInstance();
-                filterSheetFragment.show(getSupportFragmentManager(), "fragment_bottom_sheet");
-            }
+        filterButton.setOnClickListener(v -> {
+            FilterSheetFragment filterSheetFragment = FilterSheetFragment.getInstance();
+            filterSheetFragment.show(getSupportFragmentManager(), "fragment_bottom_sheet");
         });
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        backButton.setOnClickListener(v -> finish());
     }
 }

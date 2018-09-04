@@ -39,22 +39,14 @@ public class PhoneNumberDialog extends DialogFragment {
         nextButton = (Button)view.findViewById(R.id.nextButton);
         cancelButton = (Button)view.findViewById(R.id.cancelButton);
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        cancelButton.setOnClickListener(v -> dismiss());
 
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(inputPhoneNumber.getText().toString().length() == 13){
+        nextButton.setOnClickListener(v -> {
+            if(inputPhoneNumber.getText().toString().length() == 13){
 
-                } else {
-                    errorText.setVisibility(View.VISIBLE);
-                    inputPhoneNumber.setBackgroundResource(R.drawable.round_layout_side_red);
-                }
+            } else {
+                errorText.setVisibility(View.VISIBLE);
+                inputPhoneNumber.setBackgroundResource(R.drawable.round_layout_side_red);
             }
         });
 

@@ -46,34 +46,26 @@ public class SearchStartingPointActivity extends AppCompatActivity {
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         searchButton = (Button)findViewById(R.id.searchButton);
 
-        inputStartingPoint.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if(actionId == EditorInfo.IME_ACTION_SEARCH ||
-                        actionId == EditorInfo.IME_ACTION_DONE ||
-                        event.getAction() == KeyEvent.ACTION_DOWN ||
-                        event.getAction() == KeyEvent.KEYCODE_ENTER){
+        inputStartingPoint.setOnEditorActionListener((v, actionId, event) -> {
+            if(actionId == EditorInfo.IME_ACTION_SEARCH ||
+                    actionId == EditorInfo.IME_ACTION_DONE ||
+                    event.getAction() == KeyEvent.ACTION_DOWN ||
+                    event.getAction() == KeyEvent.KEYCODE_ENTER){
 
-                    String location = inputStartingPoint.getText().toString();
-                    List<Address> addressList = new ArrayList<>();
+                String location = inputStartingPoint.getText().toString();
+                List<Address> addressList = new ArrayList<>();
 
-                    try {
-                        addressList = geocoder.getFromLocationName(location, 10);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    System.out.println(addressList.size());
+                try {
+                    addressList = geocoder.getFromLocationName(location, 10);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                return false;
+
+                System.out.println(addressList.size());
             }
+            return false;
         });
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        backButton.setOnClickListener(v -> finish());
     }
 }

@@ -22,22 +22,16 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         facebookLogin = (RelativeLayout) findViewById(R.id.facebookLogin);
-        facebookLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
-            }
+        facebookLogin.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
         });
 
         googleLogin = (RelativeLayout)findViewById(R.id.googleLoginButton);
-        googleLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentManager fm = getSupportFragmentManager();
-                EmailDialog dialogFragment = new EmailDialog();
-                dialogFragment.show(fm, "");
-            }
+        googleLogin.setOnClickListener(v -> {
+            FragmentManager fm = getSupportFragmentManager();
+            EmailDialog dialogFragment = new EmailDialog();
+            dialogFragment.show(fm, "");
         });
     }
 }

@@ -50,19 +50,9 @@ public class UserInformationActivity extends AppCompatActivity implements Compou
         }
         profileImage.setImageResource(R.drawable.test);
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        backButton.setOnClickListener(v -> finish());
 
-        modifyUserInformation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                checkCheckBox();
-            }
-        });
+        modifyUserInformation.setOnClickListener(v -> checkCheckBox());
     }
 
     public void checkCheckBox(){

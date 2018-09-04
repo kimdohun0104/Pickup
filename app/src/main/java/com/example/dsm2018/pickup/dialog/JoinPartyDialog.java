@@ -32,12 +32,7 @@ public class JoinPartyDialog extends DialogFragment {
 
         cancelButton = (Button)view.findViewById(R.id.cancelButton);
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        cancelButton.setOnClickListener(v -> dismiss());
 
         return view;
     }
