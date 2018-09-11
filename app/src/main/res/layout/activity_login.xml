@@ -23,50 +23,54 @@
         android:layout_height="match_parent"
         android:gravity="bottom"
         android:orientation="vertical">
+
         <RelativeLayout
+            android:id="@+id/facebookLogin"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="#3B5998"
             android:layout_gravity="center_vertical"
-            android:id="@+id/facebookLogin">
+            android:background="#3B5998">
+
             <ImageView
-                android:layout_marginStart="30dp"
                 android:layout_width="18dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_facebook"
-                android:layout_centerVertical="true" />
+                android:layout_centerVertical="true"
+                android:layout_marginStart="30dp"
+                android:src="@drawable/ic_facebook" />
+
             <TextView
-                android:layout_centerInParent="true"
+                android:id="@+id/facebookLoginText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:text="페이스북으로 로그인"
                 android:textColor="@color/colorWhite"
-                android:textSize="12sp"
-                android:id="@+id/facebookLoginText"/>
+                android:textSize="12sp" />
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/googleLoginButton"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="14dp"
             android:backgroundTint="@color/colorWhite"
-            android:elevation="10dp"
-            android:id="@+id/googleLoginButton">
+            android:elevation="10dp">
 
             <ImageView
-                android:layout_marginStart="30dp"
                 android:layout_width="18dp"
                 android:layout_height="20dp"
-                android:src="@drawable/ic_google"
-                android:layout_centerVertical="true" />
+                android:layout_centerVertical="true"
+                android:layout_marginStart="30dp"
+                android:src="@drawable/ic_google" />
+
             <TextView
+                android:id="@+id/googleLoginText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="구글로 로그인"
                 android:layout_centerInParent="true"
+                android:text="구글로 로그인"
                 android:textColor="@color/colorTextBlack"
-                android:textSize="12sp"
-                android:id="@+id/googleLoginText"/>
+                android:textSize="12sp" />
         </RelativeLayout>
     </LinearLayout>
 

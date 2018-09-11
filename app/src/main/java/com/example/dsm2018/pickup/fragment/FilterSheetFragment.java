@@ -2,12 +2,14 @@ package com.example.dsm2018.pickup.fragment;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -129,7 +131,7 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
         //set Visible
         view.setVisibility(View.VISIBLE);
 
-        ValueAnimator mAnimator = slideAnimator(0, 315, view);
+        ValueAnimator mAnimator = slideAnimator(0, dpToPx(getActivity(), 100), view);
 
         mAnimator.start();
     }
@@ -176,5 +178,11 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
             view.setLayoutParams(layoutParams);
         });
         return animator;
+    }
+
+    private int dpToPx(Context context, int dp) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return px;
     }
 }
