@@ -1,5 +1,6 @@
 package com.example.dsm2018.pickup.activity;
 
+import android.content.SharedPreferences;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.os.Build;

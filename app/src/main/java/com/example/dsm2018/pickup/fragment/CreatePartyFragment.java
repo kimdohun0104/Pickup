@@ -5,10 +5,14 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.activity.SearchDestinationActivity;
@@ -23,8 +27,22 @@ import com.google.android.gms.maps.model.LatLng;
 public class CreatePartyFragment extends Fragment implements OnMapReadyCallback {
 
     LinearLayout searchStartingPoint, searchDestination;
+    TextView startingPointText, destinationText;
+    ImageView setStartingPointIcon, setDestinationIcon;
+
     private GoogleMap mMap = null;
     private MapView startingPoint, endPoint;
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == 101) {
+            destinationText.setText(data.getStringExtra("destination"));
+            searchDestination.setBackgroundResource(R.drawable.round_layout_side_orange);
+            setDestinationIcon.setImageResource(R.drawable.ic_location_orange);
+        }
+    }
 
     @Nullable
     @Override
@@ -35,23 +53,27 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
         endPoint = (MapView)view.findViewById(R.id.endPoint);
         searchStartingPoint = (LinearLayout)view.findViewById(R.id.searchStartingPoint);
         searchDestination = (LinearLayout)view.findViewById(R.id.searchDestination);
+        startingPointText = (TextView)view.findViewById(R.id.startingPointText);
+        destinationText = (TextView)view.findViewById(R.id.destinationText);
+        setStartingPointIcon = (ImageView)view.findViewById(R.id.setStartingPointIcon);
+        setDestinationIcon = (ImageView)view.findViewById(R.id.setDestinationIcon);
 
         searchStartingPoint.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), SearchStartingPointActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, 100);
         });
 
         searchDestination.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), SearchDestinationActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, 101);
         });
 
+        endPoint.getMapAsync(this);
         startingPoint.getMapAsync(this);
-        endPoint.getMapAsync(this); 
-        startingPoint.onCreate(savedInstanceState);
-        startingPoint.onResume();
         endPoint.onCreate(savedInstanceState);
+        startingPoint.onCreate(savedInstanceState);
         endPoint.onResume();
+        startingPoint.onResume();
 
         MapsInitializer.initialize(getActivity().getApplicationContext());
 

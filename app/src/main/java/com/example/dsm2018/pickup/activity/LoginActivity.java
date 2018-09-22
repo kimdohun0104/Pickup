@@ -25,13 +25,12 @@ public class LoginActivity extends AppCompatActivity {
         facebookLogin.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
+            finish();
         });
 
         googleLogin = (RelativeLayout)findViewById(R.id.googleLoginButton);
         googleLogin.setOnClickListener(v -> {
-            FragmentManager fm = getSupportFragmentManager();
-            EmailDialog dialogFragment = new EmailDialog();
-            dialogFragment.show(fm, "");
+
         });
     }
 }

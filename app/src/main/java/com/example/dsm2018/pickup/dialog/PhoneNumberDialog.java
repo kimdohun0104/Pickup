@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.example.dsm2018.pickup.R;
 
+import java.util.Locale;
+
 public class PhoneNumberDialog extends DialogFragment {
 
     EditText inputPhoneNumber;
