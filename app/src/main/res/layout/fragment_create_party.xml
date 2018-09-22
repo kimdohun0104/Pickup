@@ -115,5 +115,6 @@
         android:layout_weight="3"
         android:background="@color/colorGrey_3"
         android:text="파티생성"
-        android:textColor="@color/colorWhite"/>
+        android:textColor="@color/colorWhite"
+        android:id="@+id/createPartyButton"/>
 </LinearLayout>
