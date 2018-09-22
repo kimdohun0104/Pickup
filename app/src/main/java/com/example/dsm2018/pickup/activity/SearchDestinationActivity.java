@@ -11,12 +11,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.adapter.RecyclerItemClickListener;
 import com.example.dsm2018.pickup.adapter.SearchDestinationAdapter;
-import com.example.dsm2018.pickup.model.SearchDestinationModel;
+import com.example.dsm2018.pickup.model.SearchPointModel;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -30,7 +29,7 @@ public class SearchDestinationActivity extends AppCompatActivity {
     RelativeLayout beforeSearch;
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
-    ArrayList<SearchDestinationModel> data;
+    ArrayList<SearchPointModel> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,10 +81,10 @@ public class SearchDestinationActivity extends AppCompatActivity {
 
             if(addressList != null) {
                 for (int i = 0; i < addressList.size(); i++) {
-                    data.add(new SearchDestinationModel(addressList.get(i).getFeatureName(), addressList.get(i).getAddressLine(0)));
+                    data.add(new SearchPointModel(addressList.get(i).getFeatureName(), addressList.get(i).getAddressLine(0)));
                 }
 
-                recyclerView.setAdapter(new SearchDestinationAdapter(data, getApplicationContext()));
+                recyclerView.setAdapter(new SearchDestinationAdapter(data));
             }
             if(addressList.size() == 0) {
                 beforeSearch.setVisibility(View.VISIBLE);

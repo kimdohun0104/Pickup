@@ -1,5 +1,6 @@
 package com.example.dsm2018.pickup.activity;
 
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.support.v7.app.AppCompatActivity;
@@ -12,12 +13,15 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import com.example.dsm2018.pickup.R;
+import com.example.dsm2018.pickup.adapter.RecyclerItemClickListener;
 import com.example.dsm2018.pickup.adapter.SearchDestinationAdapter;
-import com.example.dsm2018.pickup.model.SearchDestinationModel;
+import com.example.dsm2018.pickup.adapter.SearchStartingPointAdapter;
+import com.example.dsm2018.pickup.model.SearchPointModel;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class SearchStartingPointActivity extends AppCompatActivity {
 
@@ -25,7 +29,7 @@ public class SearchStartingPointActivity extends AppCompatActivity {
     EditText inputStartingPoint;
     RelativeLayout beforeSearch;
     RecyclerView recyclerView;
-    ArrayList<SearchDestinationModel> data;
+    ArrayList<SearchPointModel> data;
     LinearLayoutManager layoutManager;
 
     @Override
@@ -46,6 +50,48 @@ public class SearchStartingPointActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(layoutManager);
 
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                String title = data.get(position).title;
+                Intent intent = new Intent();
+                intent.putExtra("startingPoint", title);
+                setResult(100, intent);
+                finish();
+            }
 
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
+
+        searchButton.setOnClickListener((v)->{
+            data.clear();
+            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+            beforeSearch.setVisibility(View.INVISIBLE);
+            recyclerView.setVisibility(View.VISIBLE);
+
+            recyclerView.setLayoutManager(layoutManager);
+
+            List<Address> addressList = new ArrayList<>();
+            try {
+                addressList = geocoder.getFromLocationName(inputStartingPoint.getText().toString().trim(), 5);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            if(addressList != null) {
+                for (int i = 0; i < addressList.size(); i++) {
+                    data.add(new SearchPointModel(addressList.get(i).getFeatureName(), addressList.get(i).getAddressLine(0)));
+                }
+
+                recyclerView.setAdapter(new SearchStartingPointAdapter(data));
+            }
+            if(addressList.size() == 0) {
+                beforeSearch.setVisibility(View.VISIBLE);
+                recyclerView.setVisibility(View.INVISIBLE);
+            }
+        });
     }
 }

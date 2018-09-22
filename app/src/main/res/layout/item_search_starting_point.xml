@@ -18,14 +18,14 @@
             android:layout_height="wrap_content"
             android:text="대덕대학교"
             android:textColor="@color/colorTextBlack"
-            android:id="@+id/buildingName"/>
+            android:id="@+id/titleText"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="대전광역시 대덕구 가정북로 48-2"
             android:layout_marginTop="10dp"
             android:textSize="11sp"
-            android:id="@+id/address"/>
+            android:id="@+id/addressText"/>
     </LinearLayout>
     
     <TextView
@@ -35,6 +35,7 @@
         android:text="출발지 설정"
         android:gravity="center"
         android:textColor="@color/colorPrimary"
-        android:textSize="11sp"/>
+        android:textSize="11sp"
+        android:id="@+id/setStartingPointButton"/>
 
 </LinearLayout>

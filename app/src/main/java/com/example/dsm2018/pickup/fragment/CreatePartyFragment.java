@@ -37,11 +37,17 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode == 101) {
+        if(resultCode == 100) {
+            startingPointText.setText(data.getStringExtra("startingPoint"));
+            searchStartingPoint.setBackgroundResource(R.drawable.round_layout_side_orange);
+            setStartingPointIcon.setImageResource(R.drawable.ic_location_orange);
+        } else if(resultCode == 101) {
             destinationText.setText(data.getStringExtra("destination"));
             searchDestination.setBackgroundResource(R.drawable.round_layout_side_orange);
             setDestinationIcon.setImageResource(R.drawable.ic_location_orange);
         }
+
+
     }
 
     @Nullable
