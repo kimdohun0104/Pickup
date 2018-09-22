@@ -1,6 +1,8 @@
 package com.example.dsm2018.pickup.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,11 +26,17 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 
+//todo 파티 로그로 넘어갈 때 onPause 되는 문제
+//todo 출발지, 도착지 설정 시 지도
+//todo 출발지, 도착지 모두 설정되었을 때 파티생성 버튼 처리
+
 public class CreatePartyFragment extends Fragment implements OnMapReadyCallback {
 
     LinearLayout searchStartingPoint, searchDestination;
     TextView startingPointText, destinationText;
     ImageView setStartingPointIcon, setDestinationIcon;
+
+    double latitude = 0, longitude = 0;
 
     private GoogleMap mMap = null;
     private MapView startingPoint, endPoint;
@@ -38,16 +46,23 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode == 100) {
-            startingPointText.setText(data.getStringExtra("startingPoint"));
+            startingPointText.setText(data.getExtras().getString("startingPoint"));
             searchStartingPoint.setBackgroundResource(R.drawable.round_layout_side_orange);
             setStartingPointIcon.setImageResource(R.drawable.ic_location_orange);
+            startingPointText.setTextColor(getResources().getColor(R.color.colorTextBlack));
+            latitude = data.getExtras().getDouble("latitude");
+            longitude = data.getExtras().getDouble("longitude");
+            startingPoint.getMapAsync(this);
+
         } else if(resultCode == 101) {
             destinationText.setText(data.getStringExtra("destination"));
             searchDestination.setBackgroundResource(R.drawable.round_layout_side_orange);
             setDestinationIcon.setImageResource(R.drawable.ic_location_orange);
+            destinationText.setTextColor(getResources().getColor(R.color.colorTextBlack));
+            latitude = data.getExtras().getDouble("latitude");
+            longitude = data.getExtras().getDouble("longitude");
+            endPoint.getMapAsync(this);
         }
-
-
     }
 
     @Nullable
@@ -74,13 +89,12 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
             startActivityForResult(intent, 101);
         });
 
-        endPoint.getMapAsync(this);
-        startingPoint.getMapAsync(this);
         endPoint.onCreate(savedInstanceState);
         startingPoint.onCreate(savedInstanceState);
         endPoint.onResume();
         startingPoint.onResume();
-
+        startingPoint.getMapAsync(this);
+        endPoint.getMapAsync(this);
         MapsInitializer.initialize(getActivity().getApplicationContext());
 
         return view;
@@ -90,7 +104,7 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        LatLng position = new LatLng(37.52487, 126.92723);
+        LatLng position = new LatLng(latitude, longitude);
 
         mMap.getUiSettings().setAllGesturesEnabled(false);
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);

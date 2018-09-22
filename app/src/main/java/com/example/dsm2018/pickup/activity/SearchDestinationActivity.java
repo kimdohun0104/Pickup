@@ -30,6 +30,7 @@ public class SearchDestinationActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
     ArrayList<SearchPointModel> data;
+    List<Address> addressList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,8 @@ public class SearchDestinationActivity extends AppCompatActivity {
                 String title = data.get(position).title;
                 Intent intent = new Intent();
                 intent.putExtra("destination", title);
+                intent.putExtra("latitude", addressList.get(position).getLatitude());
+                intent.putExtra("longitude", addressList.get(position).getLongitude());
                 setResult(101, intent);
                 finish();
             }
@@ -72,7 +75,6 @@ public class SearchDestinationActivity extends AppCompatActivity {
 
             recyclerView.setLayoutManager(layoutManager);
 
-            List<Address> addressList = new ArrayList<>();
             try {
                 addressList = geocoder.getFromLocationName(inputDestination.getText().toString().trim(), 5);
             } catch (IOException e) {

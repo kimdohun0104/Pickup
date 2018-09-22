@@ -29,8 +29,10 @@ public class SearchStartingPointActivity extends AppCompatActivity {
     EditText inputStartingPoint;
     RelativeLayout beforeSearch;
     RecyclerView recyclerView;
-    ArrayList<SearchPointModel> data;
     LinearLayoutManager layoutManager;
+
+    ArrayList<SearchPointModel> data;
+    List<Address> addressList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +58,8 @@ public class SearchStartingPointActivity extends AppCompatActivity {
                 String title = data.get(position).title;
                 Intent intent = new Intent();
                 intent.putExtra("startingPoint", title);
+                intent.putExtra("latitude", addressList.get(position).getLatitude());
+                intent.putExtra("longitude", addressList.get(position).getLongitude());
                 setResult(100, intent);
                 finish();
             }
@@ -74,7 +78,7 @@ public class SearchStartingPointActivity extends AppCompatActivity {
 
             recyclerView.setLayoutManager(layoutManager);
 
-            List<Address> addressList = new ArrayList<>();
+            addressList = new ArrayList<>();
             try {
                 addressList = geocoder.getFromLocationName(inputStartingPoint.getText().toString().trim(), 5);
             } catch (IOException e) {
@@ -85,6 +89,8 @@ public class SearchStartingPointActivity extends AppCompatActivity {
                 for (int i = 0; i < addressList.size(); i++) {
                     data.add(new SearchPointModel(addressList.get(i).getFeatureName(), addressList.get(i).getAddressLine(0)));
                 }
+                addressList.get(0).getLatitude();
+                addressList.get(0).getLongitude();
 
                 recyclerView.setAdapter(new SearchStartingPointAdapter(data));
             }
