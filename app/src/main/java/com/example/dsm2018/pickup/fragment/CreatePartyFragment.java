@@ -1,6 +1,8 @@
 package com.example.dsm2018.pickup.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,7 +24,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 public class CreatePartyFragment extends Fragment implements OnMapReadyCallback {
 
@@ -30,6 +34,10 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
     TextView startingPointText, destinationText;
     ImageView setStartingPointIcon, setDestinationIcon;
     Button createPartyButton;
+
+    Bitmap pin = null;
+
+    String startingPointName, endPointName;
 
     double latitude = 0, longitude = 0;
     boolean isStartingPointSet = false, isDestinationSet = false;
@@ -42,21 +50,25 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode == 100) {
-            startingPointText.setText(data.getExtras().getString("startingPoint"));
+            startingPointName = data.getExtras().getString("startingPoint");
+            startingPointText.setText(startingPointName);
             searchStartingPoint.setBackgroundResource(R.drawable.round_layout_side_orange);
             setStartingPointIcon.setImageResource(R.drawable.ic_location_orange);
             startingPointText.setTextColor(getResources().getColor(R.color.colorTextBlack));
             latitude = data.getExtras().getDouble("latitude");
             longitude = data.getExtras().getDouble("longitude");
+            pin = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.ic_start), 80, 80, false);
             startingPoint.getMapAsync(this);
             isStartingPointSet = true;
         } else if(resultCode == 101) {
-            destinationText.setText(data.getStringExtra("destination"));
+            endPointName = data.getStringExtra("destination");
+            destinationText.setText(endPointName);
             searchDestination.setBackgroundResource(R.drawable.round_layout_side_orange);
             setDestinationIcon.setImageResource(R.drawable.ic_location_orange);
             destinationText.setTextColor(getResources().getColor(R.color.colorTextBlack));
             latitude = data.getExtras().getDouble("latitude");
             longitude = data.getExtras().getDouble("longitude");
+            pin = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.ic_arrive), 80, 80, false);
             endPoint.getMapAsync(this);
             isDestinationSet = true;
         }
@@ -96,6 +108,8 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
 
         createPartyButton.setOnClickListener((v)-> {
             Intent intent = new Intent(getActivity(), CreatePartyActivity.class);
+            intent.putExtra("startingPointName", startingPointName);
+            intent.putExtra("endPointName", endPointName);
             startActivity(intent);
         });
 
@@ -119,5 +133,12 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
         mMap.getUiSettings().setAllGesturesEnabled(false);
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 16));
+
+        if(pin != null) {
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(position);
+            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(pin));
+            mMap.addMarker(markerOptions);
+        }
     }
 }
