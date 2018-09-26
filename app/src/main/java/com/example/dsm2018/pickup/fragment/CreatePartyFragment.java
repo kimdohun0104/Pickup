@@ -36,8 +36,8 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
     Button createPartyButton;
 
     Bitmap pin = null;
-
     String startingPointName, endPointName;
+    Intent createPartyIntent;
 
     double latitude = 0, longitude = 0;
     boolean isStartingPointSet = false, isDestinationSet = false;
@@ -57,6 +57,8 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
             startingPointText.setTextColor(getResources().getColor(R.color.colorTextBlack));
             latitude = data.getExtras().getDouble("latitude");
             longitude = data.getExtras().getDouble("longitude");
+            createPartyIntent.putExtra("startingPointLatitude", latitude);
+            createPartyIntent.putExtra("startingPointLongitude", longitude);
             pin = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.ic_start), 80, 80, false);
             startingPoint.getMapAsync(this);
             isStartingPointSet = true;
@@ -68,6 +70,8 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
             destinationText.setTextColor(getResources().getColor(R.color.colorTextBlack));
             latitude = data.getExtras().getDouble("latitude");
             longitude = data.getExtras().getDouble("longitude");
+            createPartyIntent.putExtra("endPointLatitude", latitude);
+            createPartyIntent.putExtra("endPointLongitude", longitude);
             pin = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.ic_arrive), 80, 80, false);
             endPoint.getMapAsync(this);
             isDestinationSet = true;
@@ -93,8 +97,9 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
         setStartingPointIcon = (ImageView)view.findViewById(R.id.setStartingPointIcon);
         setDestinationIcon = (ImageView)view.findViewById(R.id.setDestinationIcon);
         createPartyButton = (Button)view.findViewById(R.id.createPartyButton);
-
         createPartyButton.setEnabled(false);
+
+        createPartyIntent = new Intent(getActivity(), CreatePartyActivity.class);
 
         searchStartingPoint.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), SearchStartingPointActivity.class);
@@ -107,10 +112,9 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
         });
 
         createPartyButton.setOnClickListener((v)-> {
-            Intent intent = new Intent(getActivity(), CreatePartyActivity.class);
-            intent.putExtra("startingPointName", startingPointName);
-            intent.putExtra("endPointName", endPointName);
-            startActivity(intent);
+            createPartyIntent.putExtra("startingPointName", startingPointName);
+            createPartyIntent.putExtra("endPointName", endPointName);
+            startActivity(createPartyIntent);
         });
 
         endPoint.onCreate(savedInstanceState);
