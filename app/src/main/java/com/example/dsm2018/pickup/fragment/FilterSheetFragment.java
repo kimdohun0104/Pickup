@@ -112,8 +112,6 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
 
         setDate.setOnClickListener(v -> {
             FragmentManager fragmentManager = getFragmentManager();
-            SearchDateDialog dialogFragment = new SearchDateDialog();
-            dialogFragment.show(fragmentManager, "SearchDateDialog");
         });
 
         setTime.setOnClickListener(v -> {

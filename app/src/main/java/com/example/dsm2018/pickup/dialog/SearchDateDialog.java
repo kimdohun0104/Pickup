@@ -1,15 +1,12 @@
 package com.example.dsm2018.pickup.dialog;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.NumberPicker;
 
@@ -19,34 +16,38 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-public class SearchDateDialog extends DialogFragment{
+public class SearchDateDialog {
+
+    Context context;
 
     NumberPicker yearPicker, monthPicker, dayPicker;
     Calendar calendar;
-    Button cancelButton;
+    Button cancelButton, selectionButton;
     int year, month, day;
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        int width = getResources().getDimensionPixelSize(R.dimen.dialog_width);
-        int height = getResources().getDimensionPixelSize(R.dimen.dialog_height);
-        getDialog().getWindow().setLayout(width, height);
+    public SearchDateDialog(Context context) {
+        this.context = context;
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_search_date, container, false);
+    public void showDialog() {
+        Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog_search_date);
+
+        ViewGroup.LayoutParams params = dialog.getWindow().getAttributes();
+        params.width = 850;
+        params.height = 750;
+        dialog.getWindow().setAttributes((WindowManager.LayoutParams) params);
+        dialog.show();
 
         calendar = new GregorianCalendar(Locale.KOREA);
 
-        yearPicker = view.findViewById(R.id.yearPicker);
-        monthPicker = view.findViewById(R.id.monthPicker);
-        dayPicker = view.findViewById(R.id.dayPicker);
-        cancelButton = (Button)view.findViewById(R.id.cancelButton);
+        yearPicker = (NumberPicker)dialog.findViewById(R.id.yearPicker);
+        monthPicker = (NumberPicker)dialog.findViewById(R.id.monthPicker);
+        dayPicker = (NumberPicker)dialog.findViewById(R.id.dayPicker);
+        cancelButton = (Button)dialog.findViewById(R.id.cancelButton);
+        selectionButton = (Button)dialog.findViewById(R.id.selectionButton);
 
-        cancelButton.setOnClickListener(v -> dismiss());
+        cancelButton.setOnClickListener(v -> dialog.dismiss());
 
         numberPickerInit();
 
@@ -63,7 +64,6 @@ public class SearchDateDialog extends DialogFragment{
             setDayPicker();
         });
 
-        return view;
     }
 
     public void numberPickerInit(){

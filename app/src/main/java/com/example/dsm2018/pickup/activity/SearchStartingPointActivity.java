@@ -89,8 +89,6 @@ public class SearchStartingPointActivity extends AppCompatActivity {
                 for (int i = 0; i < addressList.size(); i++) {
                     data.add(new SearchPointModel(addressList.get(i).getFeatureName(), addressList.get(i).getAddressLine(0)));
                 }
-                addressList.get(0).getLatitude();
-                addressList.get(0).getLongitude();
 
                 recyclerView.setAdapter(new SearchStartingPointAdapter(data));
             }

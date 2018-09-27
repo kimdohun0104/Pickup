@@ -29,7 +29,7 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
     TextView startingPointText, endPointText;
     EditText titleEdit, contentEdit;
     TextView setDateButton, setTimeButton, numberOfPeopleText;
-    Button addPersonnel, reductionPersonnel;
+    Button addPersonnel, reductionPersonnel, backButton;
     Bitmap startingPointPin, endPointPin;
     LatLng startingPointPosition, endPointPosition, centerPointPosition;
 
@@ -52,8 +52,7 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
         setDateButton = (TextView)findViewById(R.id.setDateButton);
         setTimeButton = (TextView)findViewById(R.id.setTimeButton);
         reductionPersonnel = (Button)findViewById(R.id.reductionPersonnel);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        backButton = (Button)findViewById(R.id.backButton);
 
         Intent intent = getIntent();
         startingPointText.setText(intent.getExtras().getString("startingPointName"));
@@ -108,9 +107,10 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
             }
         });
 
-        setDateButton.setOnClickListener(v-> new SearchDateDialog().show(fragmentManager, "searchDateDialog"));
+        SearchDateDialog searchDateDialog = new SearchDateDialog(CreatePartyActivity.this);
+        setDateButton.setOnClickListener(v-> searchDateDialog.showDialog());
 
-        setTimeButton.setOnClickListener(v-> new SearchTimeDialog().show(fragmentManager, "searchTimeDialog"));
+
 
         addPersonnel.setOnClickListener(v->{
             if(personnelCount >= 0 && personnelCount < 4) {
@@ -127,6 +127,8 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
                 numberOfPeopleText.setText(personnelCount + "명");
             }
         });
+
+        backButton.setOnClickListener(v->finish());
     }
 
     @Override
