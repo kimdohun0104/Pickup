@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import com.example.dsm2018.pickup.R;
-import com.example.dsm2018.pickup.adapter.RecyclerItemClickListener;
+import com.example.dsm2018.pickup.RecyclerItemClickListener;
 import com.example.dsm2018.pickup.adapter.SearchDestinationAdapter;
 import com.example.dsm2018.pickup.model.SearchPointModel;
 
@@ -39,7 +39,6 @@ public class SearchDestinationActivity extends AppCompatActivity {
 
         data = new ArrayList<>();
         layoutManager = new LinearLayoutManager(this);
-
 
         backButton = (Button)findViewById(R.id.backButton);
         backButton.setOnClickListener(v -> finish());

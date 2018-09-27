@@ -1,5 +1,7 @@
 package com.example.dsm2018.pickup.dialog;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -10,6 +12,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.NumberPicker;
 
@@ -19,38 +22,38 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-public class SearchTimeDialog extends DialogFragment {
+public class SearchTimeDialog {
+
+    public SearchTimeDialog(Context context) {
+        this.context = context;
+    }
+
+    Context context;
 
     NumberPicker timeZonePicker, hourPicker, minutePicker;
     Calendar calendar;
     int timeZone, hour, minute;
     Button cancelButton;
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        int width = getResources().getDimensionPixelSize(R.dimen.dialog_width);
-        int height = getResources().getDimensionPixelSize(R.dimen.dialog_height);
-        getDialog().getWindow().setLayout(width, height);
-    }
+    public void showDialog() {
+        Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog_search_time);
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_search_time, container, false);
+        ViewGroup.LayoutParams params = dialog.getWindow().getAttributes();
+        params.width = 850;
+        params.height = 750;
+        dialog.getWindow().setAttributes((WindowManager.LayoutParams) params);
+        dialog.show();
 
         calendar = new GregorianCalendar(Locale.KOREA);
+        timeZonePicker = (NumberPicker)dialog.findViewById(R.id.timeZonePicker);
+        hourPicker = (NumberPicker)dialog.findViewById(R.id.hourPicker);
+        minutePicker = (NumberPicker)dialog.findViewById(R.id.minutePicker);
+        cancelButton = (Button)dialog.findViewById(R.id.cancelButton);
 
-        timeZonePicker = (NumberPicker)view.findViewById(R.id.timeZonePicker);
-        hourPicker = (NumberPicker)view.findViewById(R.id.hourPicker);
-        minutePicker = (NumberPicker)view.findViewById(R.id.minutePicker);
-        cancelButton = (Button)view.findViewById(R.id.cancelButton);
-
-        cancelButton.setOnClickListener(v -> dismiss());
+        cancelButton.setOnClickListener(v -> dialog.dismiss());
 
         initNumberPicker();
-
-        return view;
     }
 
     public void initNumberPicker(){

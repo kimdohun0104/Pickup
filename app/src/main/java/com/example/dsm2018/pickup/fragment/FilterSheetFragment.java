@@ -16,11 +16,13 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Transformation;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.dsm2018.pickup.R;
+import com.example.dsm2018.pickup.activity.SearchActivity;
 import com.example.dsm2018.pickup.activity.SearchDestinationActivity;
 import com.example.dsm2018.pickup.activity.SearchStartingPointActivity;
 import com.example.dsm2018.pickup.dialog.EmailDialog;
@@ -32,9 +34,30 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
     RelativeLayout startingPointTab, setStartingPointView, destinationTab, setDestinationView, timeTab;
     LinearLayout setTimeView;
     TextView setStartingPoint, setDestination, setDate, setTime, cancel;
+    ImageView startingPointIcon, endPointIcon;
 
+    @NonNull
     public static FilterSheetFragment getInstance() {
         return new FilterSheetFragment();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(resultCode == 100) {
+            String title = data.getExtras().getString("startingPoint");
+            setStartingPoint.setBackgroundResource(R.drawable.round_layout_side_orange);
+            setStartingPoint.setText(title);
+            setStartingPoint.setTextColor(getResources().getColor(R.color.colorTextBlack));
+            startingPointIcon.setImageResource(R.drawable.ic_location_orange);
+        } else if(resultCode == 101) {
+            String title = data.getExtras().getString("destination");
+            setDestination.setBackgroundResource(R.drawable.round_layout_side_orange);
+            setDestination.setText(title);
+            setDestination.setTextColor(getResources().getColor(R.color.colorTextBlack));
+            endPointIcon.setImageResource(R.drawable.ic_location_orange);
+        }
     }
 
     @Nullable
@@ -53,6 +76,8 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
         setDate = (TextView) view.findViewById(R.id.setDate);
         setTime = (TextView) view.findViewById(R.id.setTime);
         cancel = (TextView) view.findViewById(R.id.cancelButton);
+        startingPointIcon = (ImageView) view.findViewById(R.id.startingPointIcon);
+        endPointIcon = (ImageView) view.findViewById(R.id.endPointIcon);
 
         setStartingPointView.setVisibility(View.GONE);
         setDestinationView.setVisibility(View.GONE);
@@ -102,22 +127,22 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
 
         setStartingPoint.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), SearchStartingPointActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, 100);
         });
 
         setDestination.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), SearchDestinationActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, 101);
         });
 
         setDate.setOnClickListener(v -> {
-            FragmentManager fragmentManager = getFragmentManager();
+            SearchDateDialog searchDateDialog = new SearchDateDialog(getActivity());
+            searchDateDialog.showDialog();
         });
 
         setTime.setOnClickListener(v -> {
-            FragmentManager fragmentManager = getFragmentManager();
-            SearchTimeDialog dialogFragment = new SearchTimeDialog();
-            dialogFragment.show(fragmentManager, "SearchTimeDialog");
+            SearchTimeDialog searchTimeDialog = new SearchTimeDialog(getActivity());
+            searchTimeDialog.showDialog();
         });
 
         cancel.setOnClickListener(v -> dismiss());
@@ -125,8 +150,8 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
         return view;
     }
 
+
     private void expand(View view) {
-        //set Visible
         view.setVisibility(View.VISIBLE);
 
         ValueAnimator mAnimator = slideAnimator(0, dpToPx(getActivity(), 100), view);
@@ -169,7 +194,6 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
         ValueAnimator animator = ValueAnimator.ofInt(start, end);
 
         animator.addUpdateListener(valueAnimator -> {
-            //Update Height
             int value = (Integer) valueAnimator.getAnimatedValue();
             ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
             layoutParams.height = value;

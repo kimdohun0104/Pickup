@@ -1,4 +1,4 @@
-package com.example.dsm2018.pickup.adapter;
+package com.example.dsm2018.pickup;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

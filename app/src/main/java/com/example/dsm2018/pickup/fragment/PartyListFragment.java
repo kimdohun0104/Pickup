@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.dsm2018.pickup.R;
-import com.example.dsm2018.pickup.adapter.GPSTracker;
+import com.example.dsm2018.pickup.GPSTracker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;

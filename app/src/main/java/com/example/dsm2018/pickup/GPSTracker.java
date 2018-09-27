@@ -1,4 +1,4 @@
-package com.example.dsm2018.pickup.adapter;
+package com.example.dsm2018.pickup;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -9,8 +9,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
-
-import com.google.android.gms.maps.GoogleMap;
 
 public final class GPSTracker implements LocationListener{
 

@@ -60,7 +60,8 @@
             android:layout_height="25dp"
             android:src="@drawable/ic_location_grey"
             android:layout_centerVertical="true"
-            android:layout_marginStart="30dp"/>
+            android:layout_marginStart="30dp"
+            android:id="@+id/startingPointIcon"/>
 
         <LinearLayout
             android:layout_marginStart="80dp"
@@ -127,7 +128,8 @@
             android:layout_height="25dp"
             android:src="@drawable/ic_location_grey"
             android:layout_centerVertical="true"
-            android:layout_marginStart="30dp"/>
+            android:layout_marginStart="30dp"
+            android:id="@+id/endPointIcon"/>
 
         <LinearLayout
             android:layout_marginStart="80dp"

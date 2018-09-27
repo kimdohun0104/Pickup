@@ -13,8 +13,7 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import com.example.dsm2018.pickup.R;
-import com.example.dsm2018.pickup.adapter.RecyclerItemClickListener;
-import com.example.dsm2018.pickup.adapter.SearchDestinationAdapter;
+import com.example.dsm2018.pickup.RecyclerItemClickListener;
 import com.example.dsm2018.pickup.adapter.SearchStartingPointAdapter;
 import com.example.dsm2018.pickup.model.SearchPointModel;
 

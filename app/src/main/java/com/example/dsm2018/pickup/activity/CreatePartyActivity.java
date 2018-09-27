@@ -110,7 +110,8 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
         SearchDateDialog searchDateDialog = new SearchDateDialog(CreatePartyActivity.this);
         setDateButton.setOnClickListener(v-> searchDateDialog.showDialog());
 
-
+        SearchTimeDialog searchTimeDialog = new SearchTimeDialog(CreatePartyActivity.this);
+        setTimeButton.setOnClickListener(v->searchTimeDialog.showDialog());
 
         addPersonnel.setOnClickListener(v->{
             if(personnelCount >= 0 && personnelCount < 4) {
