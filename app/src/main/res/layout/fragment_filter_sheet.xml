@@ -101,7 +101,7 @@
         android:layout_height="62dp"
         android:paddingStart="40dp"
         android:paddingEnd="40dp"
-        android:id="@+id/destinationTab">
+        android:id="@+id/endPointTab">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

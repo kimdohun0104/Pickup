@@ -27,7 +27,7 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
 
     RelativeLayout startingPointTab, setStartingPointView, destinationTab, setDestinationView, timeTab;
     LinearLayout setTimeView;
-    TextView setStartingPoint, setDestination, setDate, setTime, cancel;
+    TextView setStartingPoint, setDestination, setDate, setTime, cancelButton;
     ImageView startingPointIcon, endPointIcon;
 
     @NonNull
@@ -40,13 +40,13 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode == 100) {
-            String title = data.getExtras().getString("startingPoint");
+            String title = data.getExtras().getString("startingPointName");
             setStartingPoint.setBackgroundResource(R.drawable.round_layout_side_orange);
             setStartingPoint.setText(title);
             setStartingPoint.setTextColor(getResources().getColor(R.color.colorTextBlack));
             startingPointIcon.setImageResource(R.drawable.ic_location_orange);
         } else if(resultCode == 101) {
-            String title = data.getExtras().getString("destination");
+            String title = data.getExtras().getString("endPointName");
             setDestination.setBackgroundResource(R.drawable.round_layout_side_orange);
             setDestination.setText(title);
             setDestination.setTextColor(getResources().getColor(R.color.colorTextBlack));
@@ -62,14 +62,14 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
         startingPointTab = (RelativeLayout) view.findViewById(R.id.startingPointTab);
         setStartingPointView = (RelativeLayout) view.findViewById(R.id.setStartingPointView);
         setStartingPoint = (TextView) view.findViewById(R.id.setStartingPoint);
-        destinationTab = (RelativeLayout) view.findViewById(R.id.destinationTab);
+        destinationTab = (RelativeLayout) view.findViewById(R.id.endPointTab);
         setDestinationView = (RelativeLayout) view.findViewById(R.id.setDestinationView);
         setDestination = (TextView) view.findViewById(R.id.setDestination);
         timeTab = (RelativeLayout) view.findViewById(R.id.timeTab);
         setTimeView = (LinearLayout) view.findViewById(R.id.setTimeView);
         setDate = (TextView) view.findViewById(R.id.setDate);
         setTime = (TextView) view.findViewById(R.id.setTime);
-        cancel = (TextView) view.findViewById(R.id.cancelButton);
+        cancelButton = (TextView) view.findViewById(R.id.cancelButton);
         startingPointIcon = (ImageView) view.findViewById(R.id.startingPointIcon);
         endPointIcon = (ImageView) view.findViewById(R.id.endPointIcon);
 
@@ -139,7 +139,7 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
             searchTimeDialog.showDialog();
         });
 
-        cancel.setOnClickListener(v -> dismiss());
+        cancelButton.setOnClickListener(v -> dismiss());
 
         return view;
     }

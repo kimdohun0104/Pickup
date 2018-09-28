@@ -51,8 +51,8 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback{
         pin = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.ic_pin), 80, 80, false);
         gpsTracker = new GPSTracker(getActivity());
 
-        mapView = (MapView)view.findViewById(R.id.currentLocation);
-        currentLocationText = (TextView)view.findViewById(R.id.locationText);
+        mapView = view.findViewById(R.id.currentLocation);
+        currentLocationText = view.findViewById(R.id.locationText);
 
         mapView.getMapAsync(this);
 
@@ -71,16 +71,11 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback{
 
         mMap.getUiSettings().setAllGesturesEnabled(false);
 
-        Log.d("debugLog", "isGpsEnabled : " + gpsTracker.isGPSEnabled);
-        Log.d("debugLog", "isNetworkEnabled : " + gpsTracker.isNetworkEnabled);
-
         if(gpsTracker.isGPSEnabled) {
             latitude = gpsTracker.getLatitude();
             longitude = gpsTracker.getLongitude();
 
             LatLng position = new LatLng(latitude, longitude);
-
-            Log.d("debugLog", latitude + ", " + longitude);
 
             mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position, 16));
@@ -103,7 +98,7 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback{
                 address = geocoder.getFromLocation(lat, lng, 1);
 
                 if (address != null && address.size() > 0) {
-                    String currentLocationAddress = address.get(0).getAddressLine(0).toString();
+                    String currentLocationAddress = address.get(0).getAddressLine(0);
                     nowAddress  = currentLocationAddress;
                 }
             }
