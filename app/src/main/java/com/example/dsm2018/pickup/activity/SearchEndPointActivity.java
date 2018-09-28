@@ -22,10 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class SearchDestinationActivity extends AppCompatActivity {
+public class SearchEndPointActivity extends AppCompatActivity {
 
     Button backButton, searchButton;
-    EditText inputDestination;
+    EditText inputEndPoint;
     RelativeLayout beforeSearch;
     RecyclerView recyclerView;
     LinearLayoutManager layoutManager;
@@ -35,25 +35,26 @@ public class SearchDestinationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search_destination);
-
-        data = new ArrayList<>();
-        layoutManager = new LinearLayoutManager(this);
+        setContentView(R.layout.activity_search_end_point);
 
         backButton = (Button)findViewById(R.id.backButton);
-        backButton.setOnClickListener(v -> finish());
-
-        inputDestination = (EditText)findViewById(R.id.inputDestination);
+        inputEndPoint = (EditText)findViewById(R.id.inputEndPoint);
         searchButton = (Button)findViewById(R.id.searchButton);
         beforeSearch = (RelativeLayout) findViewById(R.id.beforeSearch);
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
+
+        data = new ArrayList<>();
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        backButton.setOnClickListener(v -> finish());
 
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 String title = data.get(position).title;
                 Intent intent = new Intent();
-                intent.putExtra("destination", title);
+                intent.putExtra("endPointName", title);
                 intent.putExtra("latitude", addressList.get(position).getLatitude());
                 intent.putExtra("longitude", addressList.get(position).getLongitude());
                 setResult(101, intent);
@@ -69,13 +70,9 @@ public class SearchDestinationActivity extends AppCompatActivity {
         searchButton.setOnClickListener((v)->{
             data.clear();
             Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-            beforeSearch.setVisibility(View.INVISIBLE);
-            recyclerView.setVisibility(View.VISIBLE);
-
-            recyclerView.setLayoutManager(layoutManager);
 
             try {
-                addressList = geocoder.getFromLocationName(inputDestination.getText().toString().trim(), 5);
+                addressList = geocoder.getFromLocationName(inputEndPoint.getText().toString().trim(), 5);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -84,12 +81,12 @@ public class SearchDestinationActivity extends AppCompatActivity {
                 for (int i = 0; i < addressList.size(); i++) {
                     data.add(new SearchPointModel(addressList.get(i).getFeatureName(), addressList.get(i).getAddressLine(0)));
                 }
-
                 recyclerView.setAdapter(new SearchDestinationAdapter(data));
             }
-            if(addressList.size() == 0) {
-                beforeSearch.setVisibility(View.VISIBLE);
-                recyclerView.setVisibility(View.INVISIBLE);
+
+            if(addressList.size() != 0) {
+                beforeSearch.setVisibility(View.INVISIBLE);
+                recyclerView.setVisibility(View.VISIBLE);
             }
         });
     }

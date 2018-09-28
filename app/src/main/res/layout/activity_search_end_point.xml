@@ -32,7 +32,7 @@
                 android:hint="도착지 검색"
                 android:textColor="@color/colorGrey"
                 android:textSize="14sp"
-                android:id="@+id/inputDestination"
+                android:id="@+id/inputEndPoint"
                 android:background="@null"
                 android:singleLine="true"/>
             <Button

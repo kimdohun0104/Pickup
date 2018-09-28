@@ -3,7 +3,6 @@ package com.example.dsm2018.pickup.activity;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 import com.example.dsm2018.pickup.R;

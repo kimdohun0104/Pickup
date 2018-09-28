@@ -38,36 +38,16 @@ public class SearchStartingPointActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_starting_point);
 
-        data = new ArrayList<>();
-        layoutManager = new LinearLayoutManager(this);
-
         inputStartingPoint = (EditText)findViewById(R.id.inputStartingPoint);
         backButton = (Button)findViewById(R.id.backButton);
         beforeSearch = (RelativeLayout)findViewById(R.id.beforeSearch);
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         searchButton = (Button)findViewById(R.id.searchButton);
 
+        data = new ArrayList<>();
+        layoutManager = new LinearLayoutManager(this);
+
         backButton.setOnClickListener(v -> finish());
-
-        recyclerView.setLayoutManager(layoutManager);
-
-        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                String title = data.get(position).title;
-                Intent intent = new Intent();
-                intent.putExtra("startingPoint", title);
-                intent.putExtra("latitude", addressList.get(position).getLatitude());
-                intent.putExtra("longitude", addressList.get(position).getLongitude());
-                setResult(100, intent);
-                finish();
-            }
-
-            @Override
-            public void onLongItemClick(View view, int position) {
-
-            }
-        }));
 
         searchButton.setOnClickListener((v)->{
             data.clear();
@@ -96,5 +76,24 @@ public class SearchStartingPointActivity extends AppCompatActivity {
                 recyclerView.setVisibility(View.INVISIBLE);
             }
         });
+
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                String title = data.get(position).title;
+                Intent intent = new Intent();
+                intent.putExtra("startingPointName", title);
+                intent.putExtra("latitude", addressList.get(position).getLatitude());
+                intent.putExtra("longitude", addressList.get(position).getLongitude());
+                setResult(100, intent);
+                finish();
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
     }
 }

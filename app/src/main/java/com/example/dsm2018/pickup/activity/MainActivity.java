@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     ViewPager viewPager;
     TabLayout tabLayout;
-    VIewPagerAdapter vIewPagerAdapter;
+    VIewPagerAdapter viewPagerAdapter;
     DrawerLayout drawerLayout;
     View drawerView;
     Button openDrawerButton, searchButton;
@@ -41,19 +41,12 @@ public class MainActivity extends AppCompatActivity {
         logOut = (LinearLayout)findViewById(R.id.logOut);
         searchButton = (Button)findViewById(R.id.searchButton);
 
-        searchButton.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-            startActivity(intent);
-        });
-
-        openDrawerButton.setOnClickListener(v -> drawerLayout.openDrawer(drawerView));
-
         tabLayout.addTab(tabLayout.newTab().setText("파티생성"));
         tabLayout.addTab(tabLayout.newTab().setText("파티목록"));
         tabLayout.addTab(tabLayout.newTab().setText("파티로그"));
 
-        vIewPagerAdapter = new VIewPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
-        viewPager.setAdapter(vIewPagerAdapter);
+        viewPagerAdapter = new VIewPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(viewPagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -71,6 +64,13 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        searchButton.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+            startActivity(intent);
+        });
+
+        openDrawerButton.setOnClickListener(v -> drawerLayout.openDrawer(drawerView));
 
         userInformation.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), UserInformationActivity.class);

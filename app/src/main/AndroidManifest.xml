@@ -32,7 +32,7 @@
         <activity android:name=".activity.CreatePartyActivity" />
         <activity android:name=".activity.PartyDetailActivity" />
         <activity android:name=".activity.UserInformationActivity" />
-        <activity android:name=".activity.SearchDestinationActivity"></activity>
+        <activity android:name=".activity.SearchEndPointActivity"></activity>
     </application>
 
 </manifest>

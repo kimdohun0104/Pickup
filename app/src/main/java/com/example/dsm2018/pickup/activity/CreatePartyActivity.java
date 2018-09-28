@@ -3,7 +3,6 @@ package com.example.dsm2018.pickup.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -18,7 +17,6 @@ import com.example.dsm2018.pickup.dialog.SearchTimeDialog;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -26,10 +24,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class CreatePartyActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    TextView startingPointText, endPointText;
+    TextView startingPointNameText, endPointNameText, setDateButton, setTimeButton, numberOfPeopleText;
     EditText titleEdit, contentEdit;
-    TextView setDateButton, setTimeButton, numberOfPeopleText;
-    Button addPersonnel, reductionPersonnel, backButton;
+    Button addPersonnelButton, reductionPersonnelButton, backButton;
     Bitmap startingPointPin, endPointPin;
     LatLng startingPointPosition, endPointPosition, centerPointPosition;
 
@@ -42,21 +39,21 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_party);
 
-        startingPointText = (TextView)findViewById(R.id.startingPointText);
-        endPointText = (TextView)findViewById(R.id.endPointText);
+        startingPointNameText = (TextView)findViewById(R.id.startingPointNameText);
         numberOfPeopleText = (TextView)findViewById(R.id.numberOfPeopleText);
-        addPersonnel = (Button)findViewById(R.id.addPersonnel);
-        reductionPersonnel = (Button)findViewById(R.id.reductionPersonnel);
+        addPersonnelButton = (Button)findViewById(R.id.addPersonnelButton);
+        reductionPersonnelButton = (Button)findViewById(R.id.reductionPersonnelButton);
         titleEdit = (EditText)findViewById(R.id.titleEdit);
         contentEdit = (EditText)findViewById(R.id.contentEdit);
         setDateButton = (TextView)findViewById(R.id.setDateButton);
         setTimeButton = (TextView)findViewById(R.id.setTimeButton);
-        reductionPersonnel = (Button)findViewById(R.id.reductionPersonnel);
+        reductionPersonnelButton = (Button)findViewById(R.id.reductionPersonnelButton);
         backButton = (Button)findViewById(R.id.backButton);
+        endPointNameText = (TextView) findViewById(R.id.endPointNameText);
 
         Intent intent = getIntent();
-        startingPointText.setText(intent.getExtras().getString("startingPointName"));
-        endPointText.setText(intent.getExtras().getString("endPointName"));
+        startingPointNameText.setText(intent.getExtras().getString("startingPointName"));
+        endPointNameText.setText(intent.getExtras().getString("endPointName"));
         startingPointPosition = new LatLng(intent.getExtras().getDouble("startingPointLatitude"), intent.getExtras().getDouble("startingPointLongitude"));
         endPointPosition = new LatLng(intent.getExtras().getDouble("endPointLatitude"), intent.getExtras().getDouble("endPointLongitude"));
 
@@ -113,7 +110,7 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
         SearchTimeDialog searchTimeDialog = new SearchTimeDialog(CreatePartyActivity.this);
         setTimeButton.setOnClickListener(v->searchTimeDialog.showDialog());
 
-        addPersonnel.setOnClickListener(v->{
+        addPersonnelButton.setOnClickListener(v->{
             if(personnelCount >= 0 && personnelCount < 4) {
                 personnelCount++;
                 numberOfPeopleText.setText(personnelCount + "명");
@@ -122,7 +119,7 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
             }
         });
 
-        reductionPersonnel.setOnClickListener(v->{
+        reductionPersonnelButton.setOnClickListener(v->{
             if(personnelCount > 1) {
                 personnelCount--;
                 numberOfPeopleText.setText(personnelCount + "명");

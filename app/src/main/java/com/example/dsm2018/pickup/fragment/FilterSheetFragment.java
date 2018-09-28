@@ -8,24 +8,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v4.app.FragmentManager;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.DecelerateInterpolator;
-import android.view.animation.Transformation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.dsm2018.pickup.R;
-import com.example.dsm2018.pickup.activity.SearchActivity;
-import com.example.dsm2018.pickup.activity.SearchDestinationActivity;
+import com.example.dsm2018.pickup.activity.SearchEndPointActivity;
 import com.example.dsm2018.pickup.activity.SearchStartingPointActivity;
-import com.example.dsm2018.pickup.dialog.EmailDialog;
 import com.example.dsm2018.pickup.dialog.SearchDateDialog;
 import com.example.dsm2018.pickup.dialog.SearchTimeDialog;
 
@@ -131,7 +125,7 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
         });
 
         setDestination.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), SearchDestinationActivity.class);
+            Intent intent = new Intent(getActivity(), SearchEndPointActivity.class);
             startActivityForResult(intent, 101);
         });
 
