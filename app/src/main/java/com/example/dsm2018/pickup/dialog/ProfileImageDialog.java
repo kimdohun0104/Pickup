@@ -1,6 +1,9 @@
 package com.example.dsm2018.pickup.dialog;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -27,24 +30,17 @@ import com.example.dsm2018.pickup.R;
 
 import java.io.IOException;
 
-public class ProfileImageDialog extends DialogFragment {
+public class ProfileImageDialog extends DialogFragment{
 
     Button cancelButton, nextButton;
     LinearLayout changeImage;
     ImageView profileImage;
     Bitmap bitmap;
+
     int exifDegree;
+
     private final int REQUEST_PERMISSION_CODE = 101;
     private final int GALLERY_CODE=1112;
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        int width = getResources().getDimensionPixelSize(R.dimen.dialog_width);
-        int height = getResources().getDimensionPixelSize(R.dimen.dialog_height);
-        getDialog().getWindow().setLayout(width, height);
-    }
 
     @Nullable
     @Override

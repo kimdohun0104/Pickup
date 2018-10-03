@@ -1,5 +1,6 @@
 package com.example.dsm2018.pickup.activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.RecyclerItemClickListener;
@@ -52,13 +54,32 @@ public class SearchEndPointActivity extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
+                Dialog dialog = new Dialog(SearchEndPointActivity.this);
+                dialog.setContentView(R.layout.dialog_setting_end_point);
+
                 String title = data.get(position).title;
-                Intent intent = new Intent();
-                intent.putExtra("endPointName", title);
-                intent.putExtra("latitude", addressList.get(position).getLatitude());
-                intent.putExtra("longitude", addressList.get(position).getLongitude());
-                setResult(101, intent);
-                finish();
+                String address = data.get(position).address;
+
+                TextView titleText = (TextView) dialog.findViewById(R.id.titleText);
+                TextView addressText = (TextView) dialog.findViewById(R.id.addressText);
+                Button cancelButton = (Button) dialog.findViewById(R.id.cancelButton);
+                Button selectButton = (Button) dialog.findViewById(R.id.selectButton);
+
+                titleText.setText(title);
+                addressText.setText(address);
+
+                cancelButton.setOnClickListener(v-> dialog.dismiss());
+
+                selectButton.setOnClickListener(v-> {
+                    Intent intent = new Intent();
+                    intent.putExtra("endPointName", title);
+                    intent.putExtra("latitude", addressList.get(position).getLatitude());
+                    intent.putExtra("longitude", addressList.get(position).getLongitude());
+                    setResult(101, intent);
+                    finish();
+                });
+
+                dialog.show();
             }
 
             @Override

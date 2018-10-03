@@ -39,12 +39,6 @@ public class SearchTimeDialog {
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_search_time);
 
-        ViewGroup.LayoutParams params = dialog.getWindow().getAttributes();
-        params.width = 850;
-        params.height = 750;
-        dialog.getWindow().setAttributes((WindowManager.LayoutParams) params);
-        dialog.show();
-
         calendar = new GregorianCalendar(Locale.KOREA);
         timeZonePicker = (NumberPicker)dialog.findViewById(R.id.timeZonePicker);
         hourPicker = (NumberPicker)dialog.findViewById(R.id.hourPicker);
@@ -54,6 +48,8 @@ public class SearchTimeDialog {
         cancelButton.setOnClickListener(v -> dialog.dismiss());
 
         initNumberPicker();
+
+        dialog.show();
     }
 
     public void initNumberPicker(){

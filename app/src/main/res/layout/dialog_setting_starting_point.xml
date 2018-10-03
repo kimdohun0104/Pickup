@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="350dp"
     android:layout_height="200dp"
     android:orientation="vertical">
 
@@ -28,12 +28,14 @@
                 android:layout_height="wrap_content"
                 android:text="대덕대학교"
                 android:textColor="@color/colorBlack"
-                android:layout_marginBottom="4dp"/>
+                android:layout_marginBottom="4dp"
+                android:id="@+id/titleText"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="대전광역시 대덕구 가정북로 48 - 2"
-                android:textSize="8.5sp"/>
+                android:textSize="8.5sp"
+                android:id="@+id/addressText"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -57,7 +59,8 @@
             android:background="@color/colorPrimary"
             android:textColor="@color/colorWhite"
             android:gravity="center"
-            android:text="선택완료"/>
+            android:text="선택완료"
+            android:id="@+id/selectButton"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -33,12 +33,6 @@ public class SearchDateDialog {
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_search_date);
 
-        ViewGroup.LayoutParams params = dialog.getWindow().getAttributes();
-        params.width = 850;
-        params.height = 750;
-        dialog.getWindow().setAttributes((WindowManager.LayoutParams) params);
-        dialog.show();
-
         calendar = new GregorianCalendar(Locale.KOREA);
 
         yearPicker = (NumberPicker)dialog.findViewById(R.id.yearPicker);
@@ -64,6 +58,7 @@ public class SearchDateDialog {
             setDayPicker();
         });
 
+        dialog.show();
     }
 
     public void numberPickerInit(){
@@ -76,7 +71,7 @@ public class SearchDateDialog {
         String[] displayDay = new String[31];
 
         for(int i = 0, j = -5; i < 11; i++, j++)
-                displayYear[i] = year + j + "년";
+            displayYear[i] = year + j + "년";
 
         for(int i = 1; i < 13; i++)
             displayMonth[i - 1] = i + "월";

@@ -1,5 +1,7 @@
 package com.example.dsm2018.pickup.dialog;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,27 +13,25 @@ import android.widget.Button;
 
 import com.example.dsm2018.pickup.R;
 
-public class DeleteAccountDialog extends DialogFragment {
+public class DeleteAccountDialog {
 
-    Button cancelButton;
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        int width = getResources().getDimensionPixelSize(R.dimen.dialog_width);
-        int height = getResources().getDimensionPixelSize(R.dimen.dialog_height_short);
-        getDialog().getWindow().setLayout(width, height);
+    public DeleteAccountDialog(Context context) {
+        this.context = context;
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_delete_account, container, false);
+    Context context;
 
-        cancelButton = (Button)view.findViewById(R.id.cancel_button);
+    Button cancelButton;
+    Button deleteAccountButton;
 
-        cancelButton.setOnClickListener(v -> dismiss());
+    public void showDialog() {
+        Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog_delete_account);
 
-        return view;
+        cancelButton = (Button) dialog.findViewById(R.id.cancel_button);
+
+        cancelButton.setOnClickListener(v-> dialog.dismiss());
+
+        dialog.show();
     }
 }

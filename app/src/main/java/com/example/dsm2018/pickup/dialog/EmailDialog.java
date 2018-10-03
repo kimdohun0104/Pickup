@@ -1,5 +1,7 @@
 package com.example.dsm2018.pickup.dialog;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,32 +16,27 @@ import android.widget.Toast;
 
 import com.example.dsm2018.pickup.R;
 
-public class EmailDialog extends DialogFragment {
+public class EmailDialog {
+
+    public EmailDialog(Context context) {
+        this.context = context;
+    }
+
+    Context context;
 
     String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
     Button nextButton, cancelButton;
     EditText inputEmail;
     TextView errorText;
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        int width = getResources().getDimensionPixelSize(R.dimen.dialog_width);
-        int height = getResources().getDimensionPixelSize(R.dimen.dialog_height);
-        getDialog().getWindow().setLayout(width, height);
-    }
+    public void showDialog() {
+        Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog_email);
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_email, container, false);
-
-        nextButton = (Button)view.findViewById(R.id.nextButton);
-        inputEmail = (EditText)view.findViewById(R.id.inputEmail);
-        errorText = (TextView)view.findViewById(R.id.dialogError);
-        cancelButton = (Button)view.findViewById(R.id.cancelButton);
-
-        cancelButton.setOnClickListener(v -> dismiss());
+        nextButton = (Button)dialog.findViewById(R.id.nextButton);
+        inputEmail = (EditText)dialog.findViewById(R.id.inputEmail);
+        errorText = (TextView)dialog.findViewById(R.id.dialogError);
+        cancelButton = (Button)dialog.findViewById(R.id.cancelButton);
 
         nextButton.setOnClickListener(v -> {
             if(inputEmail.getText().toString().matches(emailPattern)){
@@ -50,6 +47,8 @@ public class EmailDialog extends DialogFragment {
             }
         });
 
-        return view;
+        cancelButton.setOnClickListener(v->dialog.dismiss());
+
+        dialog.show();
     }
 }

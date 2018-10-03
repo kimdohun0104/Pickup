@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -77,16 +78,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        accountDelete.setOnClickListener(v -> {
-            FragmentManager fm = getSupportFragmentManager();
-            DeleteAccountDialog dialogFragment = new DeleteAccountDialog();
-            dialogFragment.show(fm, "");
-        });
+        accountDelete.setOnClickListener(v -> new DeleteAccountDialog(MainActivity.this).showDialog());
 
-        logOut.setOnClickListener(v -> {
-            FragmentManager fm = getSupportFragmentManager();
-            LogoutDialog dialogFragment = new LogoutDialog();
-            dialogFragment.show(fm, "");
-        });
+        logOut.setOnClickListener(v -> new LogoutDialog(MainActivity.this).showDialog());
     }
 }

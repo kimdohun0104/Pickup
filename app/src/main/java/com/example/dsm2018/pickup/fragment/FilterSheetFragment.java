@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.dsm2018.pickup.R;
+import com.example.dsm2018.pickup.activity.SearchActivity;
 import com.example.dsm2018.pickup.activity.SearchEndPointActivity;
 import com.example.dsm2018.pickup.activity.SearchStartingPointActivity;
 import com.example.dsm2018.pickup.dialog.SearchDateDialog;
@@ -130,13 +131,11 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
         });
 
         setDate.setOnClickListener(v -> {
-            SearchDateDialog searchDateDialog = new SearchDateDialog(getActivity());
-            searchDateDialog.showDialog();
+            new SearchDateDialog(getActivity()).showDialog();
         });
 
         setTime.setOnClickListener(v -> {
-            SearchTimeDialog searchTimeDialog = new SearchTimeDialog(getActivity());
-            searchTimeDialog.showDialog();
+            new SearchTimeDialog(getActivity()).showDialog();
         });
 
         cancelButton.setOnClickListener(v -> dismiss());

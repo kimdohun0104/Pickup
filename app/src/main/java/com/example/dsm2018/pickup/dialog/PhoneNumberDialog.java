@@ -1,5 +1,7 @@
 package com.example.dsm2018.pickup.dialog;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,35 +18,35 @@ import com.example.dsm2018.pickup.R;
 
 import java.util.Locale;
 
-public class PhoneNumberDialog extends DialogFragment {
+public class PhoneNumberDialog {
+
+    public PhoneNumberDialog(Context context) {
+        this.context = context;
+    }
+
+    Context context;
 
     EditText inputPhoneNumber;
     TextView errorText;
     Button nextButton, cancelButton;
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        int width = getResources().getDimensionPixelSize(R.dimen.dialog_width);
-        int height = getResources().getDimensionPixelSize(R.dimen.dialog_height);
-        getDialog().getWindow().setLayout(width, height);
-    }
+    String phonePattern = "[0-9]-[0-9]-[0-9]";
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_phone_number, container, false);
 
-        inputPhoneNumber = (EditText)view.findViewById(R.id.inputPhoneNumber);
-        inputPhoneNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
-        errorText = (TextView)view.findViewById(R.id.dialogError);
-        nextButton = (Button)view.findViewById(R.id.nextButton);
-        cancelButton = (Button)view.findViewById(R.id.cancelButton);
+    public void showDialog() {
+        Dialog dialog = new Dialog(context);
+        dialog.setContentView(R.layout.dialog_phone_number);
 
-        cancelButton.setOnClickListener(v -> dismiss());
+        inputPhoneNumber = (EditText) dialog.findViewById(R.id.inputPhoneNumber);
+        errorText = (TextView) dialog.findViewById(R.id.dialogError);
+        nextButton = (Button) dialog.findViewById(R.id.nextButton);
+        cancelButton = (Button) dialog.findViewById(R.id.cancelButton);
+
+        cancelButton.setOnClickListener(v -> dialog.dismiss());
 
         nextButton.setOnClickListener(v -> {
-            if(inputPhoneNumber.getText().toString().length() == 13){
+            String number = inputPhoneNumber.getText().toString();
+            if(number.length() == 13) {
 
             } else {
                 errorText.setVisibility(View.VISIBLE);
@@ -52,6 +54,6 @@ public class PhoneNumberDialog extends DialogFragment {
             }
         });
 
-        return view;
+        dialog.show();
     }
 }
