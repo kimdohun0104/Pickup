@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.dsm2018.pickup.R;
@@ -39,6 +40,7 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback{
     MapView mapView;
     Bitmap pin;
     TextView currentLocationText;
+    ImageView currentLocationIcon;
 
     @Nullable
     @Override
@@ -51,8 +53,9 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback{
         pin = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.ic_pin), 80, 80, false);
         gpsTracker = new GPSTracker(getActivity());
 
-        mapView = view.findViewById(R.id.currentLocation);
-        currentLocationText = view.findViewById(R.id.locationText);
+        currentLocationText = (TextView) view.findViewById(R.id.currentLocationText);
+        mapView = (MapView) view.findViewById(R.id.currentLocation);
+        currentLocationIcon = (ImageView) view.findViewById(R.id.currentLocationIcon);
 
         mapView.getMapAsync(this);
 
@@ -60,6 +63,10 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback{
         mapView.onResume();
 
         MapsInitializer.initialize(getActivity().getApplicationContext());
+
+        currentLocationText.setOnClickListener(v->{
+            mapView.getMapAsync(this);
+        });
 
         return view;
     }
@@ -86,6 +93,9 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback{
             mMap.addMarker(markerOptions);
 
             currentLocationText.setText(getAddress(getActivity(), latitude, longitude));
+            currentLocationText.setTextColor(getResources().getColor(R.color.colorTextBlack));
+            currentLocationText.setBackgroundResource(R.drawable.round_layout_side_orange);
+            currentLocationIcon.setImageResource(R.drawable.ic_location_orange);
         }
     }
 
