@@ -3,7 +3,6 @@ package com.example.dsm2018.pickup.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Camera;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -15,12 +14,14 @@ import android.widget.TextView;
 import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.dialog.SearchDateDialog;
 import com.example.dsm2018.pickup.dialog.SearchTimeDialog;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 public class CreatePartyActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -32,7 +33,6 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
     LatLng startingPointPosition, endPointPosition, centerPointPosition;
 
     int personnelCount = 0;
-    double baseZoom;
 
     private GoogleMap mMap;
 
@@ -133,7 +133,6 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        zoom();
         mMap = googleMap;
 
         MarkerOptions markerOptions = new MarkerOptions();
@@ -150,25 +149,17 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
 
         mMap.getUiSettings().setAllGesturesEnabled(false);
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centerPointPosition, (float) baseZoom));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centerPointPosition, 16));
+        zoom();
     }
 
     private void zoom() {
-        double startingPointLat = startingPointPosition.latitude;   //x1
-        double startingPointLng = startingPointPosition.longitude;  //y1
-        double endPointLat = endPointPosition.latitude;             //x2
-        double endPointLng = endPointPosition.longitude;            //y2
-
-        double baseDistance = 0.0027242337362990057;
-        baseZoom = 16;
-        double x;
-
-        double distance = Math.sqrt(Math.pow((endPointLat - startingPointLat), 2) + Math.pow(endPointLng - startingPointLng, 2));
-        System.out.println(distance);
-
-        x = baseDistance / distance;
-        System.out.println(x);
-        baseZoom *= x;
-        System.out.println(baseZoom);
+        LatLngBounds.Builder zoomToFitBuilder = new LatLngBounds.Builder();
+        zoomToFitBuilder.include(startingPointPosition);
+        zoomToFitBuilder.include(endPointPosition);
+        LatLngBounds zoomToFitBound = zoomToFitBuilder.build();
+        int padding = 150;
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngBounds(zoomToFitBound, padding);
+        mMap.animateCamera(cameraUpdate);
     }
 }

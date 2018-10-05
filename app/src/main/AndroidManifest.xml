@@ -14,9 +14,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyD9FyySUj4DfnpS4yzGfJ3bos4-bsF8dAQ" />
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyD9FyySUj4DfnpS4yzGfJ3bos4-bsF8dAQ" />
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider823183424739517"
+            android:exported="true"/>
 
         <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.SplashActivity">
@@ -34,5 +38,4 @@
         <activity android:name=".activity.UserInformationActivity" />
         <activity android:name=".activity.SearchEndPointActivity"></activity>
     </application>
-
 </manifest>

@@ -10,7 +10,7 @@ import com.example.dsm2018.pickup.R;
 public class LoginActivity extends AppCompatActivity {
 
     RelativeLayout facebookLoginButton;
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
