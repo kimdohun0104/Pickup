@@ -23,12 +23,15 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.dialog.EmailDialog;
 import com.example.dsm2018.pickup.dialog.PhoneNumberDialog;
 import com.example.dsm2018.pickup.dialog.ProfileImageDialog;
 import com.example.dsm2018.pickup.dialog.UserNameDialog;
+import com.facebook.AccessToken;
+import com.facebook.Profile;
 
 import java.io.IOException;
 
@@ -37,6 +40,7 @@ public class UserInformationActivity extends AppCompatActivity implements Compou
     ImageView profileImage;
     Button backButton, modifyUserInformation;
     CheckBox profileImageCheckBox, userNameCheckBox, phoneNumberCheckBox, emailCheckBox;
+    TextView userName, userPhoneNumber, userEmail;
 
     int count = 0;
 
@@ -52,6 +56,9 @@ public class UserInformationActivity extends AppCompatActivity implements Compou
         modifyUserInformation = (Button)findViewById(R.id.modifyUserInformation);
         backButton = (Button)findViewById(R.id.backButton);
         profileImage = (ImageView)findViewById(R.id.profileImage);
+        userName = (TextView) findViewById(R.id.userName);
+        userPhoneNumber = (TextView) findViewById(R.id.userPhoneNumber);
+        userEmail = (TextView) findViewById(R.id.userEmail);
 
         profileImageCheckBox.setOnCheckedChangeListener(this);
         userNameCheckBox.setOnCheckedChangeListener(this);

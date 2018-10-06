@@ -118,7 +118,8 @@
                             android:layout_height="wrap_content"
                             android:text="조성륜"
                             android:textSize="14sp"
-                            android:textColor="@color/colorBlack"/>
+                            android:textColor="@color/colorBlack"
+                            android:id="@+id/userName"/>
                     </LinearLayout>
                     <CheckBox
                         android:layout_width="wrap_content"
@@ -162,7 +163,8 @@
                             android:layout_height="wrap_content"
                             android:text="010-2342-2345"
                             android:textSize="14sp"
-                            android:textColor="@color/colorBlack"/>
+                            android:textColor="@color/colorBlack"
+                            android:id="@+id/userPhoneNumber"/>
                     </LinearLayout>
                     <CheckBox
                         android:layout_width="wrap_content"
@@ -206,7 +208,8 @@
                             android:layout_height="wrap_content"
                             android:text="gdgbang@naver.com"
                             android:textSize="14sp"
-                            android:textColor="@color/colorBlack"/>
+                            android:textColor="@color/colorBlack"
+                            android:id="@+id/userEmail"/>
                     </LinearLayout>
                     <CheckBox
                         android:layout_width="wrap_content"

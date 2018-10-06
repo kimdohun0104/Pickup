@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -14,6 +15,8 @@ import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.adapter.VIewPagerAdapter;
 import com.example.dsm2018.pickup.dialog.DeleteAccountDialog;
 import com.example.dsm2018.pickup.dialog.LogoutDialog;
+import com.facebook.AccessToken;
+import com.facebook.FacebookSdk;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +32,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+
+        Log.d("facebooklog", String.valueOf(isLoggedIn));
 
         viewPager = (ViewPager)findViewById(R.id.viewPager);
         tabLayout = (TabLayout)findViewById(R.id.tabLayout);

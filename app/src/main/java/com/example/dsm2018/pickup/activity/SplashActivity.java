@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.dsm2018.pickup.R;
+import com.facebook.Profile;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -25,9 +26,15 @@ public class SplashActivity extends AppCompatActivity {
 
         new Handler().postDelayed(() -> {
             getHashKey();
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-            startActivity(intent);
-            finish();
+            if(Profile.getCurrentProfile() != null) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
         }, 1000);
     }
 
