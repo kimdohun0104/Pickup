@@ -3,6 +3,7 @@ package com.example.dsm2018.pickup.activity;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -12,8 +13,8 @@ import android.util.Log;
 import android.widget.RelativeLayout;
 
 import com.example.dsm2018.pickup.R;
+import com.example.dsm2018.pickup.RetrofitHelp;
 import com.example.dsm2018.pickup.RetrofitService;
-import com.example.dsm2018.pickup.UserInformation;
 import com.example.dsm2018.pickup.model.SignupRequest;
 import com.example.dsm2018.pickup.model.SignupResponse;
 import com.facebook.CallbackManager;
@@ -36,23 +37,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
-    Retrofit retrofit;
     RetrofitService retrofitService;
+
+    SharedPreferences preferences = getSharedPreferences("pref", MODE_PRIVATE);
+    SharedPreferences.Editor editor = preferences.edit();
 
     CallbackManager callbackManager;
     RelativeLayout loginButton;
 
     String user_name, user_phone, user_key, user_email;
 
-    private final String BASE_URL = "http://52.78.89.71:9000/";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
-
-        retrofitInit();
 
         ActivityCompat.requestPermissions(LoginActivity.this,
                 new String[]{Manifest.permission.READ_PHONE_STATE}, 101);
@@ -68,31 +67,23 @@ public class LoginActivity extends AppCompatActivity {
                     user_key = loginResult.getAccessToken().getToken();
                     user_phone = getPhone();
 
-                    Log.d("userInformation", user_key);
-                    Log.d("userInformation", user_phone);
-
                     GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), (object, response) -> {
-                        try {
-                            user_email = object.getString("email");
-                            Log.d("userInformation", user_email);
-                        } catch (JSONException e) { e.printStackTrace(); user_email = ""; }
-                        try{
-                            user_name = object.getString("name");
-                            Log.d("userInformation", user_name);
-                        } catch (JSONException e) { e.printStackTrace(); }
+                        try { user_email = object.getString("email"); } catch (JSONException e) { user_email = ""; }
+                        try{ user_name = object.getString("name"); } catch (JSONException e) { }
                     });
                     Bundle parameters = new Bundle();
                     parameters.putString("fields", "name,email");
                     graphRequest.setParameters(parameters);
                     graphRequest.executeAsync();
 
+                    retrofitService = new RetrofitHelp().retrofitService;
                     Call<SignupResponse> call = retrofitService.signup(new SignupRequest(user_key, user_name, user_phone, user_email));
                     call.enqueue(new Callback<SignupResponse>() {
                         @Override
                         public void onResponse(Call<SignupResponse> call, Response<SignupResponse> response) {
                             if(response.code() == 200) {
                                 SignupResponse signupResponse = response.body();
-                                UserInformation.getInstance().user_authorization = signupResponse.user_authorization;
+                                editor.putString("user_authorization", signupResponse.user_authorization);
                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                 finish();
                             }
@@ -134,10 +125,5 @@ public class LoginActivity extends AppCompatActivity {
             return "";
         }
         return telephonyManager.getLine1Number().replace("+82", "0");
-    }
-
-    private void retrofitInit() {
-        retrofit = new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build();
-        retrofitService = retrofit.create(RetrofitService.class);
     }
 }

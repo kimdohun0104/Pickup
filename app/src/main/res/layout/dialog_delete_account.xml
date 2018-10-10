@@ -57,7 +57,8 @@
             android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:textColor="@color/colorWhite"
-            android:text="계정 탈퇴"/>
+            android:text="계정 탈퇴"
+            android:id="@+id/deleteAccountButton"/>
     </LinearLayout>
 
 </LinearLayout>
