@@ -55,7 +55,8 @@
             android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:textColor="@color/colorWhite"
-            android:text="로그아웃"/>
+            android:text="로그아웃"
+            android:id="@+id/logoutButton"/>
     </LinearLayout>
 
 </LinearLayout>
