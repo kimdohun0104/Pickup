@@ -35,7 +35,8 @@
                 android:paddingStart="26dp"
                 android:textSize="14sp"
                 android:singleLine="true"
-                android:inputType="textPersonName"/>
+                android:inputType="textPersonName"
+                android:id="@+id/inputName"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -57,7 +58,8 @@
             android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:text="다음"
-            android:textColor="@color/colorWhite"/>
+            android:textColor="@color/colorWhite"
+            android:id="@+id/nextButton"/>
     </LinearLayout>
     
 </LinearLayout>

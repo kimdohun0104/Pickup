@@ -62,7 +62,8 @@
             android:background="@color/colorPrimary"
             android:textColor="@color/colorWhite"
             android:gravity="center"
-            android:text="선택완료"/>
+            android:text="선택완료"
+            android:id="@+id/selectionButton"/>
     </LinearLayout>
 
 </LinearLayout>

@@ -1,5 +1,6 @@
 package com.example.dsm2018.pickup.dialog;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.Resources;
@@ -11,6 +12,8 @@ import android.widget.Button;
 import android.widget.NumberPicker;
 
 import com.example.dsm2018.pickup.R;
+import com.example.dsm2018.pickup.activity.CreatePartyActivity;
+import com.example.dsm2018.pickup.activity.MainActivity;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -19,14 +22,16 @@ import java.util.Locale;
 public class SearchDateDialog {
 
     Context context;
+    Activity activity;
 
     NumberPicker yearPicker, monthPicker, dayPicker;
     Calendar calendar;
     Button cancelButton, selectionButton;
     int year, month, day;
 
-    public SearchDateDialog(Context context) {
+    public SearchDateDialog(Context context, Activity activity) {
         this.context = context;
+        this.activity = activity;
     }
 
     public void showDialog() {
@@ -42,6 +47,15 @@ public class SearchDateDialog {
         selectionButton = (Button)dialog.findViewById(R.id.selectionButton);
 
         cancelButton.setOnClickListener(v -> dialog.dismiss());
+
+        selectionButton.setOnClickListener(v-> {
+            CreatePartyActivity.partyCreateRequest.setParty_year(String.valueOf(yearPicker.getValue()));
+            CreatePartyActivity.partyCreateRequest.setParty_month(String.valueOf(monthPicker.getValue()));
+            CreatePartyActivity.partyCreateRequest.setParty_day(String.valueOf(dayPicker.getValue()));
+
+            activity.findViewById(R.id.setDateButton).setBackgroundResource(R.drawable.round_layout_side_orange);
+            CreatePartyActivity.isDate = true;
+        });
 
         numberPickerInit();
 

@@ -131,11 +131,11 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
         });
 
         setDate.setOnClickListener(v -> {
-            new SearchDateDialog(getActivity()).showDialog();
+            new SearchDateDialog(getActivity(), getActivity()).showDialog();
         });
 
         setTime.setOnClickListener(v -> {
-            new SearchTimeDialog(getActivity()).showDialog();
+            new SearchTimeDialog(getActivity(), getActivity()).showDialog();
         });
 
         cancelButton.setOnClickListener(v -> dismiss());

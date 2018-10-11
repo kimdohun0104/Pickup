@@ -1,9 +1,6 @@
 package com.example.dsm2018.pickup;
 
-import com.example.dsm2018.pickup.model.ModifyEmailRequest;
-import com.example.dsm2018.pickup.model.ModifyNameRequest;
-import com.example.dsm2018.pickup.model.ModifyPhoneRequest;
-import com.example.dsm2018.pickup.model.ModifyProfileRequest;
+import com.example.dsm2018.pickup.model.ModifyinfoRequest;
 import com.example.dsm2018.pickup.model.PartyCreateRequest;
 import com.example.dsm2018.pickup.model.PartyLocationRequest;
 import com.example.dsm2018.pickup.model.PartyLocationResponse;
@@ -41,24 +38,9 @@ public interface RetrofitService {
             @Body SignoutRequest params
     );
 
-    @POST("account/modify/name")
-    Call<ModifyNameRequest> modifyName(
-            @Body ModifyNameRequest params
-    );
-
-    @POST("account/modify/profile")
-    Call<ModifyProfileRequest> modifyProfile(
-            @Body ModifyProfileRequest params
-    );
-
-    @POST("account/modify/phone")
-    Call<ModifyPhoneRequest> modifyPhone(
-            @Body ModifyPhoneRequest params
-    );
-
-    @POST("account/modify/email")
-    Call<ModifyEmailRequest> modifyEmail(
-            @Body ModifyEmailRequest params
+    @POST("account/modifyinfo")
+    Call<ModifyinfoRequest> modifyinfo(
+            @Body ModifyinfoRequest params
     );
 
     @POST("party/location")

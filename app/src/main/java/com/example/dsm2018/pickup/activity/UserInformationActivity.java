@@ -3,6 +3,7 @@ package com.example.dsm2018.pickup.activity;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,6 +11,7 @@ import android.graphics.Matrix;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.media.ExifInterface;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -26,18 +28,23 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.dsm2018.pickup.R;
+import com.example.dsm2018.pickup.RetrofitHelp;
+import com.example.dsm2018.pickup.RetrofitService;
 import com.example.dsm2018.pickup.dialog.EmailDialog;
 import com.example.dsm2018.pickup.dialog.PhoneNumberDialog;
 import com.example.dsm2018.pickup.dialog.ProfileImageDialog;
 import com.example.dsm2018.pickup.dialog.UserNameDialog;
+import com.example.dsm2018.pickup.model.ModifyinfoRequest;
 import com.facebook.AccessToken;
 import com.facebook.Profile;
 
 import java.io.IOException;
 
+import retrofit2.Call;
+
 public class UserInformationActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener{
 
-    ImageView profileImage;
+    ImageView profileImage, bigProfileImage;
     Button backButton, modifyUserInformation;
     CheckBox profileImageCheckBox, userNameCheckBox, phoneNumberCheckBox, emailCheckBox;
     TextView userName, userPhoneNumber, userEmail;
@@ -59,6 +66,7 @@ public class UserInformationActivity extends AppCompatActivity implements Compou
         userName = (TextView) findViewById(R.id.userName);
         userPhoneNumber = (TextView) findViewById(R.id.userPhoneNumber);
         userEmail = (TextView) findViewById(R.id.userEmail);
+        bigProfileImage = (ImageView) findViewById(R.id.bigProfileImage);
 
         profileImageCheckBox.setOnCheckedChangeListener(this);
         userNameCheckBox.setOnCheckedChangeListener(this);
@@ -108,6 +116,9 @@ public class UserInformationActivity extends AppCompatActivity implements Compou
     ImageView dialogProfileImage;
     Bitmap bitmap;
 
+    RetrofitService retrofitService;
+    SharedPreferences sharedPreferences;
+
     int exifDegree;
 
     private final int REQUEST_PERMISSION_CODE = 101;
@@ -116,6 +127,8 @@ public class UserInformationActivity extends AppCompatActivity implements Compou
     public void showImageDialog() {
         Dialog dialog = new Dialog(UserInformationActivity.this);
         dialog.setContentView(R.layout.dialog_profile_image);
+
+        sharedPreferences = getSharedPreferences("pref", MODE_PRIVATE);
 
         ActivityCompat.requestPermissions(UserInformationActivity.this,
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
@@ -142,6 +155,14 @@ public class UserInformationActivity extends AppCompatActivity implements Compou
 
         cancelButton.setOnClickListener(v-> dialog.dismiss());
 
+        nextButton.setOnClickListener(v-> {
+            if(bitmap != null) {
+                profileImage.setImageBitmap(rotate(bitmap, exifDegree));
+                bigProfileImage.setImageBitmap(rotate(bitmap, exifDegree));
+
+                retrofitService = new RetrofitHelp().retrofitService;
+            }
+        });
         dialog.show();
     }
 

@@ -24,40 +24,42 @@ public class SplashActivity extends AppCompatActivity {
 
     RetrofitService retrofitService;
 
-    SharedPreferences sharedPreferences = getSharedPreferences("pref", MODE_PRIVATE);
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        sharedPreferences = getSharedPreferences("pref", MODE_PRIVATE);
+
         new Handler().postDelayed(() -> {
             if(Profile.getCurrentProfile() != null) {
-                retrofitService = new RetrofitHelp().retrofitService;
-
-                Call<SigninResponse> call = retrofitService.signin(new SigninRequest(sharedPreferences.getString("user_authorization", "")));
-                call.enqueue(new Callback<SigninResponse>() {
-                    @Override
-                    public void onResponse(Call<SigninResponse> call, Response<SigninResponse> response) {
-                        if(response.code() == 200) {
-                            SigninResponse signinResponse = response.body();
-                            UserInformation userInformation = UserInformation.getInstance();
-                            userInformation.user_email = signinResponse.user_email;
-                            userInformation.user_name = signinResponse.user_name;
-                            userInformation.user_phone = signinResponse.user_phone;
-                            userInformation.user_profile = signinResponse.user_profile;
-
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<SigninResponse> call, Throwable t) {
-
-                    }
-                });
+//                retrofitService = new RetrofitHelp().retrofitService;
+//
+//                Call<SigninResponse> call = retrofitService.signin(new SigninRequest(sharedPreferences.getString("user_authorization", "")));
+//                call.enqueue(new Callback<SigninResponse>() {
+//                    @Override
+//                    public void onResponse(Call<SigninResponse> call, Response<SigninResponse> response) {
+//                        if(response.code() == 200) {
+//                            SigninResponse signinResponse = response.body();
+//                            UserInformation userInformation = UserInformation.getInstance();
+//                            userInformation.user_email = signinResponse.user_email;
+//                            userInformation.user_name = signinResponse.user_name;
+//                            userInformation.user_phone = signinResponse.user_phone;
+//                            userInformation.user_profile = signinResponse.user_profile;
+//
+//                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                            startActivity(intent);
+//                            finish();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<SigninResponse> call, Throwable t) {
+//
+//                    }
+//                });
 
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);

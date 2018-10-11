@@ -1,6 +1,7 @@
 package com.example.dsm2018.pickup.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
@@ -12,8 +13,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.dsm2018.pickup.R;
+import com.example.dsm2018.pickup.RetrofitHelp;
+import com.example.dsm2018.pickup.RetrofitService;
 import com.example.dsm2018.pickup.dialog.SearchDateDialog;
 import com.example.dsm2018.pickup.dialog.SearchTimeDialog;
+import com.example.dsm2018.pickup.model.PartyCreateRequest;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -24,15 +28,26 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class CreatePartyActivity extends AppCompatActivity implements OnMapReadyCallback {
+
+    public static PartyCreateRequest partyCreateRequest;
+    SharedPreferences sharedPreferences;
+    RetrofitService retrofitService;
 
     TextView startingPointNameText, endPointNameText, setDateButton, setTimeButton, numberOfPeopleText;
     EditText titleEdit, contentEdit;
-    Button addPersonnelButton, reductionPersonnelButton, backButton;
+    Button addPersonnelButton, reductionPersonnelButton, backButton, createPartyButton;
     Bitmap startingPointPin, endPointPin;
     LatLng startingPointPosition, endPointPosition, centerPointPosition;
 
     int personnelCount = 0;
+
+    boolean isTitle = false,  isContent = false, isPersonal = false;
+    public static boolean isDate = false, isTime = false;
 
     private GoogleMap mMap;
 
@@ -40,6 +55,12 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_party);
+
+        partyCreateRequest = new PartyCreateRequest();
+
+        sharedPreferences = getSharedPreferences("pref", MODE_PRIVATE);
+        partyCreateRequest.setUser_authorization(sharedPreferences.getString("user_authorization", ""));
+        retrofitService = new RetrofitHelp().retrofitService;
 
         startingPointNameText = (TextView)findViewById(R.id.startingPointNameText);
         numberOfPeopleText = (TextView)findViewById(R.id.numberOfPeopleText);
@@ -52,12 +73,19 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
         reductionPersonnelButton = (Button)findViewById(R.id.reductionPersonnelButton);
         backButton = (Button)findViewById(R.id.backButton);
         endPointNameText = (TextView) findViewById(R.id.endPointNameText);
+        createPartyButton = (Button) findViewById(R.id.createPartyButton);
 
         Intent intent = getIntent();
         startingPointNameText.setText(intent.getExtras().getString("startingPointName"));
+        partyCreateRequest.setParty_departure_name(intent.getExtras().getString("startingPointName"));
         endPointNameText.setText(intent.getExtras().getString("endPointName"));
+        partyCreateRequest.setParty_destination_name(intent.getExtras().getString("endPointName"));
         startingPointPosition = new LatLng(intent.getExtras().getDouble("startingPointLatitude"), intent.getExtras().getDouble("startingPointLongitude"));
+        partyCreateRequest.setParty_departure_lat(String.valueOf(intent.getExtras().getDouble("startingPointLatitude")));
+        partyCreateRequest.setParty_departure_lng(String.valueOf(intent.getExtras().getDouble("startingPointLongitude")));
         endPointPosition = new LatLng(intent.getExtras().getDouble("endPointLatitude"), intent.getExtras().getDouble("endPointLongitude"));
+        partyCreateRequest.setParty_destination_lat(String.valueOf(intent.getExtras().getDouble("endPointLatitude")));
+        partyCreateRequest.setParty_destination_lng(String.valueOf(intent.getExtras().getDouble("endPointLongitude")));
 
         centerPointPosition = new LatLng((startingPointPosition.latitude + endPointPosition.latitude) / 2.0, (startingPointPosition.longitude + endPointPosition.longitude) / 2.0);
 
@@ -79,8 +107,10 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
             public void afterTextChanged(Editable editable) {
                 if(titleEdit.getText().toString().equals("")) {
                     titleEdit.setBackgroundResource(R.drawable.round_layout_side_grey);
+                    isTitle = false;
                 } else if(!(titleEdit.getText().toString().equals(""))){
                     titleEdit.setBackgroundResource(R.drawable.round_layout_side_orange);
+                    isTitle = true;
                 }
             }
         });
@@ -100,16 +130,18 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
             public void afterTextChanged(Editable editable) {
                 if(contentEdit.getText().toString().equals("")) {
                     contentEdit.setBackgroundResource(R.drawable.round_layout_side_grey);
+                    isContent = false;
                 } else if(!(contentEdit.getText().toString().equals(""))){
                     contentEdit.setBackgroundResource(R.drawable.round_layout_side_orange);
+                    isContent = true;
                 }
             }
         });
 
-        SearchDateDialog searchDateDialog = new SearchDateDialog(CreatePartyActivity.this);
+        SearchDateDialog searchDateDialog = new SearchDateDialog(CreatePartyActivity.this, CreatePartyActivity.this);
         setDateButton.setOnClickListener(v-> searchDateDialog.showDialog());
 
-        SearchTimeDialog searchTimeDialog = new SearchTimeDialog(CreatePartyActivity.this);
+        SearchTimeDialog searchTimeDialog = new SearchTimeDialog(CreatePartyActivity.this, CreatePartyActivity.this);
         setTimeButton.setOnClickListener(v->searchTimeDialog.showDialog());
 
         addPersonnelButton.setOnClickListener(v->{
@@ -118,6 +150,8 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
                 numberOfPeopleText.setText(personnelCount + "명");
                 numberOfPeopleText.setTextColor(getResources().getColor(R.color.colorTextBlack));
                 numberOfPeopleText.setBackgroundResource(R.drawable.round_layout_side_orange);
+
+                isPersonal = true;
             }
         });
 
@@ -126,6 +160,29 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
                 personnelCount--;
                 numberOfPeopleText.setText(personnelCount + "명");
             }
+        });
+
+        createPartyButton.setOnClickListener(v-> {
+            if(isDate && isPersonal && isContent && isTitle && isTime) {
+                partyCreateRequest.setParty_title(titleEdit.getText().toString());
+                partyCreateRequest.setParty_context(contentEdit.getText().toString());
+                partyCreateRequest.setParty_peoplenum(String.valueOf(personnelCount));
+
+                Call<PartyCreateRequest> call = retrofitService.partyCreate(partyCreateRequest);
+                call.enqueue(new Callback<PartyCreateRequest>() {
+                    @Override
+                    public void onResponse(Call<PartyCreateRequest> call, Response<PartyCreateRequest> response) {
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<PartyCreateRequest> call, Throwable t) {
+
+                    }
+                });
+            }
+
+
         });
 
         backButton.setOnClickListener(v->finish());
