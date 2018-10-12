@@ -32,8 +32,6 @@ import java.util.Arrays;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -45,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     CallbackManager callbackManager;
     RelativeLayout loginButton;
 
-    String user_name, user_phone, user_key, user_email;
+    String user_name = "", user_phone = "", user_key = "", user_email = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login);
 
+        retrofitService = new RetrofitHelp().retrofitService;
         preferences = getSharedPreferences("pref", MODE_PRIVATE);
         editor = preferences.edit();
 
@@ -61,57 +60,54 @@ public class LoginActivity extends AppCompatActivity {
 
         callbackManager = CallbackManager.Factory.create();
 
-        loginButton = (RelativeLayout) findViewById(R.id.loginButton);
+        loginButton = findViewById(R.id.loginButton);
         loginButton.setOnClickListener(v -> {
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            finish();
 
-//            LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile", "email"));
-//            LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-//                @Override
-//                public void onSuccess(LoginResult loginResult) {
-//                    user_key = loginResult.getAccessToken().getToken();
-//                    user_phone = getPhone();
-//
-//                    GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), (object, response) -> {
-//                        try { user_email = object.getString("email"); } catch (JSONException e) { user_email = ""; }
-//                        try{ user_name = object.getString("name"); } catch (JSONException e) { }
-//                    });
-//                    Bundle parameters = new Bundle();
-//                    parameters.putString("fields", "name,email");
-//                    graphRequest.setParameters(parameters);
-//                    graphRequest.executeAsync();
-//
-//                    retrofitService = new RetrofitHelp().retrofitService;
-//                    Call<SignupResponse> call = retrofitService.signup(new SignupRequest(user_key, user_name, user_phone, user_email));
-//                    call.enqueue(new Callback<SignupResponse>() {
-//                        @Override
-//                        public void onResponse(Call<SignupResponse> call, Response<SignupResponse> response) {
-//                            if(response.code() == 200) {
-//                                SignupResponse signupResponse = response.body();
-//                                editor.putString("user_authorization", signupResponse.user_authorization);
-//                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//                                finish();
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onFailure(Call<SignupResponse> call, Throwable t) {
-//
-//                        }
-//                    });
-//                }
-//
-//                @Override
-//                public void onCancel() {
-//                    Log.d("facebookLogin", "onCancel");
-//                }
-//
-//                @Override
-//                public void onError(FacebookException error) {
-//                    Log.d("facebookLogin", "onError");
-//                }
-//            });
+            LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile", "email"));
+            LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(LoginResult loginResult) {
+                    user_key = loginResult.getAccessToken().getToken();
+                    user_phone = getPhone();
+
+                    GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), (object, response) -> {
+                        try { user_email = object.getString("email"); } catch (JSONException e) { user_email = ""; }
+                        try{ user_name = object.getString("name"); } catch (JSONException e) { user_name = ""; }
+                    });
+                    Bundle parameters = new Bundle();
+                    parameters.putString("fields", "name,email");
+                    graphRequest.setParameters(parameters);
+                    graphRequest.executeAsync();
+
+                    Call<SignupResponse> call = retrofitService.signup(new SignupRequest(user_key, user_name, user_phone, user_email));
+                    call.enqueue(new Callback<SignupResponse>() {
+                        @Override
+                        public void onResponse(Call<SignupResponse> call, Response<SignupResponse> response) {
+                            if(response.code() == 200) {
+                                SignupResponse signupResponse = response.body();
+                                editor.putString("user_authorization", signupResponse.user_authorization);
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                finish();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<SignupResponse> call, Throwable t) {
+
+                        }
+                    });
+                }
+
+                @Override
+                public void onCancel() {
+                    Log.d("facebookLogin", "onCancel");
+                }
+
+                @Override
+                public void onError(FacebookException error) {
+                    Log.d("facebookLogin", "onError");
+                }
+            });
         });
     }
 
