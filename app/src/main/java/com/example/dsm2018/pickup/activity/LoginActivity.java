@@ -28,6 +28,8 @@ import com.facebook.login.LoginResult;
 import org.json.JSONException;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -62,6 +64,8 @@ public class LoginActivity extends AppCompatActivity {
 
         loginButton = findViewById(R.id.loginButton);
         loginButton.setOnClickListener(v -> {
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            finish();
 
             LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile", "email"));
             LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
@@ -74,12 +78,19 @@ public class LoginActivity extends AppCompatActivity {
                         try { user_email = object.getString("email"); } catch (JSONException e) { user_email = ""; }
                         try{ user_name = object.getString("name"); } catch (JSONException e) { user_name = ""; }
                     });
+
                     Bundle parameters = new Bundle();
                     parameters.putString("fields", "name,email");
                     graphRequest.setParameters(parameters);
                     graphRequest.executeAsync();
 
-                    Call<SignupResponse> call = retrofitService.signup(new SignupRequest(user_key, user_name, user_phone, user_email));
+                    Map<String, String> map = new HashMap();
+                    map.put("user_key", user_key);
+                    map.put("user_name", user_name);
+                    map.put("user_phone", user_phone);
+                    map.put("user_email", user_email);
+
+                    Call<SignupResponse> call = retrofitService.signup(map);
                     call.enqueue(new Callback<SignupResponse>() {
                         @Override
                         public void onResponse(Call<SignupResponse> call, Response<SignupResponse> response) {

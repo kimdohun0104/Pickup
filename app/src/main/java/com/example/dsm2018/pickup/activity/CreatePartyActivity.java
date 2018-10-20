@@ -16,7 +16,6 @@ import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.RetrofitHelp;
 import com.example.dsm2018.pickup.RetrofitService;
 import com.example.dsm2018.pickup.dialog.SearchDateDialog;
-import com.example.dsm2018.pickup.dialog.SearchDateDialog2;
 import com.example.dsm2018.pickup.dialog.SearchTimeDialog;
 import com.example.dsm2018.pickup.model.PartyCreateRequest;
 import com.google.android.gms.maps.CameraUpdate;
@@ -29,13 +28,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class CreatePartyActivity extends AppCompatActivity implements OnMapReadyCallback {
 
-    public static PartyCreateRequest partyCreateRequest;
     SharedPreferences sharedPreferences;
     RetrofitService retrofitService;
 
@@ -45,22 +46,41 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
     Bitmap startingPointPin, endPointPin;
     LatLng startingPointPosition, endPointPosition;
 
-    int personnelCount = 0;
-
-    boolean isTitle = false,  isContent = false, isPersonal = false;
-    public static boolean isDate = false, isTime = false;
+    boolean isTitle = false,  isContent = false, isDate = false, isTime = false, isPersonal = false;
 
     private GoogleMap mMap;
+
+    int personnelCount = 0;
+    String party_year, party_month, party_day, party_hour, party_minute, party_departure_name, party_destination_name;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == 100) {
+            party_year = data.getExtras().getString("party_year");
+            party_month = data.getExtras().getString("party_month");
+            party_day = data.getExtras().getString("party_day");
+
+            setDateButton.setBackgroundResource(R.drawable.round_layout_side_orange);
+            isDate = true;
+            checkButton();
+        } else if (requestCode == 101) {
+            party_hour = data.getExtras().getString("party_hour");
+            party_minute = data.getExtras().getString("party_minute");
+
+            setDateButton.setBackgroundResource(R.drawable.round_layout_side_orange);
+            isTime = true;
+            checkButton();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_party);
 
-        partyCreateRequest = new PartyCreateRequest();
-
         sharedPreferences = getSharedPreferences("pref", MODE_PRIVATE);
-        partyCreateRequest.setUser_authorization(sharedPreferences.getString("user_authorization", ""));
         retrofitService = new RetrofitHelp().retrofitService;
 
         startingPointNameText = (TextView)findViewById(R.id.startingPointNameText);
@@ -77,17 +97,12 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
         createPartyButton = (Button) findViewById(R.id.createPartyButton);
 
         Intent intent = getIntent();
-        startingPointNameText.setText(intent.getExtras().getString("startingPointName"));
-        partyCreateRequest.setParty_departure_name(intent.getExtras().getString("startingPointName"));
-        endPointNameText.setText(intent.getExtras().getString("endPointName"));
-        partyCreateRequest.setParty_destination_name(intent.getExtras().getString("endPointName"));
+        party_departure_name = intent.getExtras().getString("startingPointName");
+        startingPointNameText.setText(party_departure_name);
+        party_destination_name = intent.getExtras().getString("endPointName");
+        endPointNameText.setText(party_departure_name);
         startingPointPosition = new LatLng(intent.getExtras().getDouble("startingPointLatitude"), intent.getExtras().getDouble("startingPointLongitude"));
-        partyCreateRequest.setParty_departure_lat(String.valueOf(intent.getExtras().getDouble("startingPointLatitude")));
-        partyCreateRequest.setParty_departure_lng(String.valueOf(intent.getExtras().getDouble("startingPointLongitude")));
         endPointPosition = new LatLng(intent.getExtras().getDouble("endPointLatitude"), intent.getExtras().getDouble("endPointLongitude"));
-        partyCreateRequest.setParty_destination_lat(String.valueOf(intent.getExtras().getDouble("endPointLatitude")));
-        partyCreateRequest.setParty_destination_lng(String.valueOf(intent.getExtras().getDouble("endPointLongitude")));
-
 
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapView);
         mapFragment.getMapAsync(this);
@@ -108,9 +123,12 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
                 if(titleEdit.getText().toString().equals("")) {
                     titleEdit.setBackgroundResource(R.drawable.round_layout_side_grey);
                     isTitle = false;
+                    createPartyButton.setEnabled(false);
+                    createPartyButton.setBackgroundColor(getResources().getColor(R.color.colorGrey_3));
                 } else if(!(titleEdit.getText().toString().equals(""))){
                     titleEdit.setBackgroundResource(R.drawable.round_layout_side_orange);
                     isTitle = true;
+                    checkButton();
                 }
             }
         });
@@ -131,19 +149,19 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
                 if(contentEdit.getText().toString().equals("")) {
                     contentEdit.setBackgroundResource(R.drawable.round_layout_side_grey);
                     isContent = false;
+                    createPartyButton.setEnabled(false);
+                    createPartyButton.setBackgroundColor(getResources().getColor(R.color.colorGrey_3));
                 } else if(!(contentEdit.getText().toString().equals(""))){
                     contentEdit.setBackgroundResource(R.drawable.round_layout_side_orange);
                     isContent = true;
+                    checkButton();
                 }
             }
         });
 
-        SearchDateDialog searchDateDialog = new SearchDateDialog(CreatePartyActivity.this, CreatePartyActivity.this);
-        setDateButton.setOnClickListener(v-> searchDateDialog.showDialog());
-//        setDateButton.setOnClickListener(v-> startActivity(new Intent(getApplicationContext(), SearchDateDialog2.class)));
+        setDateButton.setOnClickListener(v -> startActivityForResult(new Intent(getApplicationContext(), SearchDateDialog.class), 100));
 
-        SearchTimeDialog searchTimeDialog = new SearchTimeDialog(CreatePartyActivity.this, CreatePartyActivity.this);
-        setTimeButton.setOnClickListener(v->searchTimeDialog.showDialog());
+        setTimeButton.setOnClickListener(v-> startActivityForResult(new Intent(getApplicationContext(), SearchTimeDialog.class), 101));
 
         addPersonnelButton.setOnClickListener(v->{
             if(personnelCount >= 0 && personnelCount < 4) {
@@ -153,6 +171,7 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
                 numberOfPeopleText.setBackgroundResource(R.drawable.round_layout_side_orange);
 
                 isPersonal = true;
+                checkButton();
             }
         });
 
@@ -164,29 +183,48 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
         });
 
         createPartyButton.setOnClickListener(v-> {
-            if(isDate && isPersonal && isContent && isTitle && isTime) {
-                partyCreateRequest.setParty_title(titleEdit.getText().toString());
-                partyCreateRequest.setParty_context(contentEdit.getText().toString());
-                partyCreateRequest.setParty_peoplenum(String.valueOf(personnelCount));
+            Map<String, String> map = new HashMap();
+            map.put("user_authorization", sharedPreferences.getString("user_authorization", ""));
+            map.put("party_title", titleEdit.getText().toString());
+            map.put("party_content", contentEdit.getText().toString());
+            map.put("party_year", party_year);
+            map.put("party_month", party_month);
+            map.put("party_day", party_day);
+            map.put("party_hour", party_hour);
+            map.put("party_minute", party_minute);
+            map.put("party_peoplenum", String.valueOf(personnelCount));
+            map.put("party_departure_name", party_departure_name);
+            map.put("party_departure_lat", String.valueOf(startingPointPosition.latitude));
+            map.put("party_departure_lng", String.valueOf(startingPointPosition.longitude));
+            map.put("party_destination_name", party_destination_name);
+            map.put("party_destination_lat", String.valueOf(endPointPosition.latitude));
+            map.put("party_destination_lng", String.valueOf(endPointPosition.longitude));
 
-                Call<PartyCreateRequest> call = retrofitService.partyCreate(partyCreateRequest);
-                call.enqueue(new Callback<PartyCreateRequest>() {
-                    @Override
-                    public void onResponse(Call<PartyCreateRequest> call, Response<PartyCreateRequest> response) {
+            Call<Void> call = retrofitService.partyCreate(map);
+            call.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
 
-                    }
+                }
 
-                    @Override
-                    public void onFailure(Call<PartyCreateRequest> call, Throwable t) {
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
 
-                    }
-                });
-            }
-
-
+                }
+            });
         });
 
         backButton.setOnClickListener(v->finish());
+    }
+
+    private void checkButton() {
+        if(isTime && isTitle && isContent && isPersonal && isDate) {
+            createPartyButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            createPartyButton.setEnabled(true);
+        } else {
+            createPartyButton.setBackgroundColor(getResources().getColor(R.color.colorGrey_3));
+            createPartyButton.setEnabled(false);
+        }
     }
 
     @Override

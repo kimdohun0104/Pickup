@@ -1,68 +1,51 @@
 package com.example.dsm2018.pickup.dialog;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.NumberPicker;
 
 import com.example.dsm2018.pickup.R;
-import com.example.dsm2018.pickup.activity.CreatePartyActivity;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-public class SearchTimeDialog {
-
-    public SearchTimeDialog(Context context, Activity activity) {
-        this.context = context;
-        this.activity = activity;
-    }
-
-    Context context;
-    Activity activity;
+public class SearchTimeDialog extends AppCompatActivity {
 
     NumberPicker timeZonePicker, hourPicker, minutePicker;
     Calendar calendar;
     int timeZone, hour, minute;
     Button cancelButton, selectionButton;
 
-    public void showDialog() {
-        Dialog dialog = new Dialog(context);
-        dialog.setContentView(R.layout.dialog_search_time);
-
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.dialog_search_time);
         calendar = new GregorianCalendar(Locale.KOREA);
-        timeZonePicker = (NumberPicker)dialog.findViewById(R.id.timeZonePicker);
-        hourPicker = (NumberPicker)dialog.findViewById(R.id.hourPicker);
-        minutePicker = (NumberPicker)dialog.findViewById(R.id.minutePicker);
-        cancelButton = (Button)dialog.findViewById(R.id.cancelButton);
-        selectionButton = (Button) dialog.findViewById(R.id.selectionButton);
 
-        cancelButton.setOnClickListener(v -> dialog.dismiss());
-
-        selectionButton.setOnClickListener(v->{
-            CreatePartyActivity.partyCreateRequest.setParty_hour(String.valueOf(hourPicker.getValue()));
-            CreatePartyActivity.partyCreateRequest.setParty_minute(String.valueOf(minutePicker.getValue()));
-
-            activity.findViewById(R.id.setTimeButton).setBackgroundResource(R.drawable.round_layout_side_orange);
-            CreatePartyActivity.isTime = true;
-        });
+        timeZonePicker = findViewById(R.id.timeZonePicker);
+        hourPicker = findViewById(R.id.hourPicker);
+        minutePicker = findViewById(R.id.minutePicker);
+        cancelButton = findViewById(R.id.cancelButton);
+        selectionButton = findViewById(R.id.selectionButton);
 
         initNumberPicker();
 
-        dialog.show();
+        cancelButton.setOnClickListener(v-> finish());
+
+        selectionButton.setOnClickListener(v-> {
+            Intent intent = new Intent();
+            intent.putExtra("party_hour", hourPicker.getValue());
+            intent.putExtra("party_minute", minutePicker.getValue());
+
+            setResult(101, intent);
+            finish();
+        });
     }
 
     public void initNumberPicker(){

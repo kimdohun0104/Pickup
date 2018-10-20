@@ -58,8 +58,12 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".dialog.SearchDateDialog2"
-            android:theme="@android:style/Theme.Dialog"></activity>
+        <activity
+            android:name=".dialog.SearchDateDialog"
+            android:theme="@style/dialogTheme" />
+        <activity android:name=".dialog.SearchTimeDialog"
+            android:theme="@style/dialogTheme">
+        </activity>
     </application>
 
 </manifest>

@@ -17,30 +17,36 @@ import com.example.dsm2018.pickup.model.SignupRequest;
 import com.example.dsm2018.pickup.model.SignupResponse;
 
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public interface RetrofitService {
+
+    //end
     @POST("account/signup")
     Call<SignupResponse> signup(
-            @Body SignupRequest params
+            @Body Map<String, String> data
     );
 
+    //end
     @POST("account/signin")
     Call<SigninResponse> signin(
-            @Body SigninRequest params
+            @Body Map<String, String> data
     );
 
+    //end
     @POST("account/signout")
-    Call<SignoutRequest> signout(
-            @Body SignoutRequest params
+    Call<Void> signout(
+            @Body Map<String, String> data
     );
 
+    //end
     @POST("account/modifyinfo")
-    Call<ModifyinfoRequest> modifyinfo(
-            @Body ModifyinfoRequest params
+    Call<Void> modifyinfo(
+            @Body Map<String, String> data
     );
 
     @POST("party/location")
@@ -48,14 +54,15 @@ public interface RetrofitService {
             @Body PartyLocationRequest params
     );
 
+    //end
     @POST("party/create")
-    Call<PartyCreateRequest> partyCreate(
-            @Body PartyCreateRequest params
+    Call<Void> partyCreate(
+            @Body Map<String, String> data
     );
 
     @POST("party/log")
     Call<List<PartyLogResponse>> partyLog(
-            @Body PartyLogRequest params
+            @Body Map<String, String> data
     );
 
     @POST("party/search/location")

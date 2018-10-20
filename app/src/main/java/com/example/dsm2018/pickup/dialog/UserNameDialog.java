@@ -19,6 +19,9 @@ import com.example.dsm2018.pickup.RetrofitService;
 import com.example.dsm2018.pickup.UserInformation;
 import com.example.dsm2018.pickup.model.ModifyinfoRequest;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -52,25 +55,24 @@ public class UserNameDialog {
 
         nextButton.setOnClickListener(v-> {
             if(!inputName.getText().toString().equals("")) {
-                Call<ModifyinfoRequest>  call = retrofitService.modifyinfo(
-                        new ModifyinfoRequest(sharedPreferences.getString("user_authorization", ""), inputName.getText().toString(), "user_name"));
+                Map<String, String> map = new HashMap();
+                map.put("user_authorization", sharedPreferences.getString("user_authorization", ""));
+                map.put("modify_value", inputName.getText().toString());
+                map.put("modify_info_type", "user_name");
 
-                call.enqueue(new Callback<ModifyinfoRequest>() {
+                Call<Void> call = retrofitService.modifyinfo(map);
+                call.enqueue(new Callback<Void>() {
                     @Override
-                    public void onResponse(Call<ModifyinfoRequest> call, Response<ModifyinfoRequest> response) {
-                        if(response.code() == 200) {
-                            UserInformation.getInstance().user_name = inputName.getText().toString();
-                        }
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+
                     }
 
                     @Override
-                    public void onFailure(Call<ModifyinfoRequest> call, Throwable t) {
+                    public void onFailure(Call<Void> call, Throwable t) {
 
                     }
                 });
             }
-
-
         });
 
         dialog.show();

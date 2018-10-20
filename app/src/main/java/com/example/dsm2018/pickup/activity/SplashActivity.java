@@ -14,6 +14,9 @@ import com.example.dsm2018.pickup.model.SigninRequest;
 import com.example.dsm2018.pickup.model.SigninResponse;
 import com.facebook.Profile;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,31 +38,35 @@ public class SplashActivity extends AppCompatActivity {
 
         new Handler().postDelayed(() -> {
             if(Profile.getCurrentProfile() != null) {
-                retrofitService = new RetrofitHelp().retrofitService;
-
-                Call<SigninResponse> call = retrofitService.signin(new SigninRequest(sharedPreferences.getString("user_authorization", "")));
-                call.enqueue(new Callback<SigninResponse>() {
-                    @Override
-                    public void onResponse(Call<SigninResponse> call, Response<SigninResponse> response) {
-                        if(response.code() == 200) {
-                            SigninResponse signinResponse = response.body();
-                            UserInformation userInformation = UserInformation.getInstance();
-                            userInformation.user_email = signinResponse.user_email;
-                            userInformation.user_name = signinResponse.user_name;
-                            userInformation.user_phone = signinResponse.user_phone;
-                            userInformation.user_profile = signinResponse.user_profile;
-
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<SigninResponse> call, Throwable t) {
-
-                    }
-                });
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                retrofitService = new RetrofitHelp().retrofitService;
+//
+//                Map<String, String> map = new HashMap();
+//                map.put("user_authorization", sharedPreferences.getString("user_authorization", ""));
+//
+//                Call<SigninResponse> call = retrofitService.signin(map);
+//                call.enqueue(new Callback<SigninResponse>() {
+//                    @Override
+//                    public void onResponse(Call<SigninResponse> call, Response<SigninResponse> response) {
+//                        if(response.code() == 200) {
+//                            SigninResponse signinResponse = response.body();
+//                            UserInformation userInformation = UserInformation.getInstance();
+//                            userInformation.user_email = signinResponse.user_email;
+//                            userInformation.user_name = signinResponse.user_name;
+//                            userInformation.user_phone = signinResponse.user_phone;
+//                            userInformation.user_profile = signinResponse.user_profile;
+//
+//                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//                            startActivity(intent);
+//                            finish();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<SigninResponse> call, Throwable t) {
+//
+//                    }
+//                });
             } else {
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);

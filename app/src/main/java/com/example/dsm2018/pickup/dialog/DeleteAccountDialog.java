@@ -17,6 +17,9 @@ import com.example.dsm2018.pickup.RetrofitHelp;
 import com.example.dsm2018.pickup.RetrofitService;
 import com.example.dsm2018.pickup.model.SignoutRequest;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,15 +51,18 @@ public class DeleteAccountDialog {
         deleteAccountButton.setOnClickListener(v->{
             retrofitService = new RetrofitHelp().retrofitService;
 
-            Call<SignoutRequest> call = retrofitService.signout(new SignoutRequest(sharedPreferences.getString("user_authorization", "")));
-            call.enqueue(new Callback<SignoutRequest>() {
+            Map<String, String> map = new HashMap();
+            map.put("user_authorization", sharedPreferences.getString("user_authorization", ""));
+
+            Call<Void> call = retrofitService.signout(map);
+            call.enqueue(new Callback<Void>() {
                 @Override
-                public void onResponse(Call<SignoutRequest> call, Response<SignoutRequest> response) {
-                    
+                public void onResponse(Call<Void> call, Response<Void> response) {
+
                 }
 
                 @Override
-                public void onFailure(Call<SignoutRequest> call, Throwable t) {
+                public void onFailure(Call<Void> call, Throwable t) {
 
                 }
             });

@@ -1,60 +1,53 @@
 package com.example.dsm2018.pickup.dialog;
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.NumberPicker;
 
 import com.example.dsm2018.pickup.R;
-import com.example.dsm2018.pickup.activity.CreatePartyActivity;
-import com.example.dsm2018.pickup.activity.MainActivity;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-public class SearchDateDialog {
-
-    Context context;
-    Activity activity;
+public class SearchDateDialog extends AppCompatActivity {
 
     NumberPicker yearPicker, monthPicker, dayPicker;
     Calendar calendar;
     Button cancelButton, selectionButton;
     int year, month, day;
 
-    public SearchDateDialog(Context context, Activity activity) {
-        this.context = context;
-        this.activity = activity;
-    }
 
-    public void showDialog() {
-        Dialog dialog = new Dialog(context);
-        dialog.setContentView(R.layout.dialog_search_date);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.dialog_search_date);
 
         calendar = new GregorianCalendar(Locale.KOREA);
 
-        yearPicker = (NumberPicker)dialog.findViewById(R.id.yearPicker);
-        monthPicker = (NumberPicker)dialog.findViewById(R.id.monthPicker);
-        dayPicker = (NumberPicker)dialog.findViewById(R.id.dayPicker);
-        cancelButton = (Button)dialog.findViewById(R.id.cancelButton);
-        selectionButton = (Button)dialog.findViewById(R.id.selectionButton);
+        yearPicker = (NumberPicker) findViewById(R.id.yearPicker);
+        monthPicker = (NumberPicker) findViewById(R.id.monthPicker);
+        dayPicker = (NumberPicker) findViewById(R.id.dayPicker);
+        cancelButton = (Button) findViewById(R.id.cancelButton);
+        selectionButton = (Button) findViewById(R.id.selectionButton);
 
-        cancelButton.setOnClickListener(v -> dialog.dismiss());
+        cancelButton.setOnClickListener(v-> finish());
 
         selectionButton.setOnClickListener(v-> {
-            CreatePartyActivity.partyCreateRequest.setParty_year(String.valueOf(yearPicker.getValue()));
-            CreatePartyActivity.partyCreateRequest.setParty_month(String.valueOf(monthPicker.getValue()));
-            CreatePartyActivity.partyCreateRequest.setParty_day(String.valueOf(dayPicker.getValue()));
+            Intent intent = new Intent();
 
-            activity.findViewById(R.id.setDateButton).setBackgroundResource(R.drawable.round_layout_side_orange);
-            CreatePartyActivity.isDate = true;
+            intent.putExtra("party_year", String.valueOf(yearPicker.getValue()));
+            intent.putExtra("party_month", String.valueOf(monthPicker.getValue()));
+            intent.putExtra("party_day", String.valueOf(dayPicker.getValue()));
+
+            setResult(100, intent);
+            finish();
         });
 
         numberPickerInit();
@@ -71,8 +64,6 @@ public class SearchDateDialog {
             day = newVal;
             setDayPicker();
         });
-
-        dialog.show();
     }
 
     public void numberPickerInit(){
