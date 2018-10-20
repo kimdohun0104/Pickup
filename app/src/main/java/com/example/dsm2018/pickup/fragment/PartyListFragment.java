@@ -2,6 +2,7 @@ package com.example.dsm2018.pickup.fragment;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Address;
@@ -11,6 +12,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +23,10 @@ import android.widget.TextView;
 
 import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.GPSTracker;
+import com.example.dsm2018.pickup.RetrofitHelp;
+import com.example.dsm2018.pickup.RetrofitService;
+import com.example.dsm2018.pickup.adapter.PartySearchLocationListAdapter;
+import com.example.dsm2018.pickup.model.PartySearchLocationResponse;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -30,8 +37,15 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PartyListFragment extends Fragment implements OnMapReadyCallback{
 
@@ -41,6 +55,14 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback{
     Bitmap pin;
     TextView currentLocationText;
     ImageView currentLocationIcon;
+
+    SharedPreferences sharedPreferences;
+    RetrofitService retrofitService;
+
+    RecyclerView recyclerView;
+    ArrayList<PartySearchLocationResponse> data;
+    LinearLayoutManager layoutManager;
+    PartySearchLocationListAdapter adapter;
 
     @Nullable
     @Override
@@ -52,10 +74,15 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback{
 
         pin = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.ic_pin), 80, 80, false);
         gpsTracker = new GPSTracker(getActivity());
+        layoutManager = new LinearLayoutManager(getActivity());
+        data = new ArrayList<>();
+        retrofitService = new RetrofitHelp().retrofitService;
+        sharedPreferences = view.getContext().getSharedPreferences("pref", Context.MODE_PRIVATE);
 
-        currentLocationText = (TextView) view.findViewById(R.id.currentLocationText);
-        mapView = (MapView) view.findViewById(R.id.currentLocation);
-        currentLocationIcon = (ImageView) view.findViewById(R.id.currentLocationIcon);
+        currentLocationText = view.findViewById(R.id.currentLocationText);
+        mapView = view.findViewById(R.id.currentLocation);
+        currentLocationIcon = view.findViewById(R.id.currentLocationIcon);
+        recyclerView = view.findViewById(R.id.recyclerView);
 
         mapView.getMapAsync(this);
 
@@ -96,6 +123,27 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback{
             currentLocationText.setTextColor(getResources().getColor(R.color.colorTextBlack));
             currentLocationText.setBackgroundResource(R.drawable.round_layout_side_orange);
             currentLocationIcon.setImageResource(R.drawable.ic_location_orange);
+
+            Map<String, String> map = new HashMap();
+            map.put("user_authorization", sharedPreferences.getString("user_authorization", ""));
+            map.put("departure_lat", String.valueOf(latitude));
+            map.put("departure_lng", String.valueOf(longitude));
+
+            Call<List<PartySearchLocationResponse>> call = retrofitService.partySearchLocation(map);
+            call.enqueue(new Callback<List<PartySearchLocationResponse>>() {
+                @Override
+                public void onResponse(Call<List<PartySearchLocationResponse>> call, Response<List<PartySearchLocationResponse>> response) {
+                    data = (ArrayList) response.body();
+                    adapter = new PartySearchLocationListAdapter(data);
+                    recyclerView.setLayoutManager(layoutManager);
+                    recyclerView.setAdapter(adapter);
+                }
+
+                @Override
+                public void onFailure(Call<List<PartySearchLocationResponse>> call, Throwable t) {
+
+                }
+            });
         }
     }
 
