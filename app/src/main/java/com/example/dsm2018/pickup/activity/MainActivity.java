@@ -12,17 +12,16 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.example.dsm2018.pickup.R;
-import com.example.dsm2018.pickup.adapter.VIewPagerAdapter;
+import com.example.dsm2018.pickup.adapter.ViewPagerAdapter;
 import com.example.dsm2018.pickup.dialog.DeleteAccountDialog;
 import com.example.dsm2018.pickup.dialog.LogoutDialog;
 import com.facebook.AccessToken;
-import com.facebook.FacebookSdk;
 
 public class MainActivity extends AppCompatActivity {
 
     ViewPager viewPager;
     TabLayout tabLayout;
-    VIewPagerAdapter viewPagerAdapter;
+    ViewPagerAdapter viewPagerAdapter;
     DrawerLayout drawerLayout;
     View drawerView;
     Button openDrawerButton, searchButton;
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.addTab(tabLayout.newTab().setText("파티목록"));
         tabLayout.addTab(tabLayout.newTab().setText("파티로그"));
 
-        viewPagerAdapter = new VIewPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

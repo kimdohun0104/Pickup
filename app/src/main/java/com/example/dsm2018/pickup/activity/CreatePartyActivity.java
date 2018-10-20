@@ -17,7 +17,6 @@ import com.example.dsm2018.pickup.RetrofitHelp;
 import com.example.dsm2018.pickup.RetrofitService;
 import com.example.dsm2018.pickup.dialog.SearchDateDialog;
 import com.example.dsm2018.pickup.dialog.SearchTimeDialog;
-import com.example.dsm2018.pickup.model.PartyCreateRequest;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;

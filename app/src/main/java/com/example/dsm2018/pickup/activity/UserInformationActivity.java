@@ -11,12 +11,10 @@ import android.graphics.Matrix;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.media.ExifInterface;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,15 +30,9 @@ import com.example.dsm2018.pickup.RetrofitHelp;
 import com.example.dsm2018.pickup.RetrofitService;
 import com.example.dsm2018.pickup.dialog.EmailDialog;
 import com.example.dsm2018.pickup.dialog.PhoneNumberDialog;
-import com.example.dsm2018.pickup.dialog.ProfileImageDialog;
 import com.example.dsm2018.pickup.dialog.UserNameDialog;
-import com.example.dsm2018.pickup.model.ModifyinfoRequest;
-import com.facebook.AccessToken;
-import com.facebook.Profile;
 
 import java.io.IOException;
-
-import retrofit2.Call;
 
 public class UserInformationActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener{
 

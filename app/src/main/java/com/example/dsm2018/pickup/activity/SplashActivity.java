@@ -7,21 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.dsm2018.pickup.R;
-import com.example.dsm2018.pickup.RetrofitHelp;
 import com.example.dsm2018.pickup.RetrofitService;
-import com.example.dsm2018.pickup.UserInformation;
-import com.example.dsm2018.pickup.model.SigninRequest;
-import com.example.dsm2018.pickup.model.SigninResponse;
 import com.facebook.Profile;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SplashActivity extends AppCompatActivity {
 

@@ -15,7 +15,6 @@ import android.widget.RelativeLayout;
 import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.RetrofitHelp;
 import com.example.dsm2018.pickup.RetrofitService;
-import com.example.dsm2018.pickup.model.SignupRequest;
 import com.example.dsm2018.pickup.model.SignupResponse;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;

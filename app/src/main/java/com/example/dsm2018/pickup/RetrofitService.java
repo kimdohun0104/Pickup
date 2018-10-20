@@ -1,19 +1,10 @@
 package com.example.dsm2018.pickup;
 
-import com.example.dsm2018.pickup.model.ModifyinfoRequest;
-import com.example.dsm2018.pickup.model.PartyCreateRequest;
-import com.example.dsm2018.pickup.model.PartyLocationRequest;
 import com.example.dsm2018.pickup.model.PartyLocationResponse;
-import com.example.dsm2018.pickup.model.PartyLogRequest;
 import com.example.dsm2018.pickup.model.PartyLogResponse;
-import com.example.dsm2018.pickup.model.PartySearchLocationRequest;
 import com.example.dsm2018.pickup.model.PartySearchLocationResponse;
-import com.example.dsm2018.pickup.model.PartySearchTextRequest;
 import com.example.dsm2018.pickup.model.PartySearchTextResponse;
-import com.example.dsm2018.pickup.model.SigninRequest;
 import com.example.dsm2018.pickup.model.SigninResponse;
-import com.example.dsm2018.pickup.model.SignoutRequest;
-import com.example.dsm2018.pickup.model.SignupRequest;
 import com.example.dsm2018.pickup.model.SignupResponse;
 
 import java.util.List;
@@ -51,7 +42,7 @@ public interface RetrofitService {
 
     @POST("party/location")
     Call<PartyLocationResponse> partyLocation(
-            @Body PartyLocationRequest params
+            @Body Map<String, String> data
     );
 
     //end
@@ -67,12 +58,12 @@ public interface RetrofitService {
 
     @POST("party/search/location")
     Call<List<PartySearchLocationResponse>> partySearchLocation(
-            @Body PartySearchLocationRequest params
+            @Body Map<String, String> data
     );
 
     @POST("party/search/text")
     Call<List<PartySearchTextResponse>> partySearchText(
-            @Body PartySearchTextRequest params
+            @Body Map<String, String> data
     );
 
 

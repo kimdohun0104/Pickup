@@ -8,11 +8,11 @@ import com.example.dsm2018.pickup.fragment.CreatePartyFragment;
 import com.example.dsm2018.pickup.fragment.PartyListFragment;
 import com.example.dsm2018.pickup.fragment.PartyLogFragment;
 
-public class VIewPagerAdapter extends FragmentStatePagerAdapter {
+public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     int tabCount;
 
-    public VIewPagerAdapter(FragmentManager fm, int tabCount) {
+    public ViewPagerAdapter(FragmentManager fm, int tabCount) {
         super(fm);
         this.tabCount = tabCount;
     }

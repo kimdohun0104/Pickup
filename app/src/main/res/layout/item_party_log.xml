@@ -21,13 +21,15 @@
             android:text="대마고 탈출하실분 선착순 4명 구합니다."
             android:textSize="12sp"
             android:textColor="@color/colorBlack"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:id="@+id/partyTitle"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="2018년 07월 12일"
             android:textSize="11sp"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            android:id="@+id/partyDate"/>
     </LinearLayout>
 
     <RelativeLayout
@@ -41,7 +43,8 @@
             android:background="@drawable/round_layout_red"
             android:textColor="@color/colorWhite"
             android:gravity="center"
-            android:textSize="12sp"/>
+            android:textSize="12sp"
+            android:id="@+id/partyStatus"/>
     </RelativeLayout>
 
 </LinearLayout>
