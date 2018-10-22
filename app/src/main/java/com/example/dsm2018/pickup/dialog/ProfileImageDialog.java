@@ -1,9 +1,6 @@
 package com.example.dsm2018.pickup.dialog;
 
 import android.Manifest;
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -21,10 +18,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.dsm2018.pickup.R;
 
@@ -51,10 +46,10 @@ public class ProfileImageDialog extends DialogFragment{
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                 REQUEST_PERMISSION_CODE);
 
-        nextButton = (Button)view.findViewById(R.id.nextButton);
-        profileImage = (ImageView)view.findViewById(R.id.profileImage);
-        changeImage = (LinearLayout)view.findViewById(R.id.changeImage);
-        cancelButton = (Button)view.findViewById(R.id.cancelButton);
+        nextButton = view.findViewById(R.id.nextButton);
+        profileImage = view.findViewById(R.id.profileImage);
+        changeImage = view.findViewById(R.id.changeImage);
+        cancelButton = view.findViewById(R.id.cancelButton);
 
         cancelButton.setOnClickListener(v -> dismiss());
 

@@ -275,7 +275,8 @@
             android:background="@color/colorPrimary"
             android:textColor="@color/colorWhite"
             android:gravity="center"
-            android:text="필터완료"/>
+            android:text="필터완료"
+            android:id="@+id/doneButton"/>
     </LinearLayout>
 
 </LinearLayout>

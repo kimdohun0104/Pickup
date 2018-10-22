@@ -86,13 +86,13 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_party, container, false);
 
-        startingPointMap = (MapView)view.findViewById(R.id.startingPointMap);
-        endPointMap = (MapView)view.findViewById(R.id.endPointMap);
-        searchStartingPoint = (TextView) view.findViewById(R.id.searchStartingPoint);
-        searchEndPoint = (TextView)view.findViewById(R.id.searchEndPoint);
-        startingPointIcon = (ImageView)view.findViewById(R.id.startingPointIcon);
-        endPointIcon = (ImageView)view.findViewById(R.id.endPointIcon);
-        createPartyButton = (Button)view.findViewById(R.id.createPartyButton);
+        startingPointMap = view.findViewById(R.id.startingPointMap);
+        endPointMap = view.findViewById(R.id.endPointMap);
+        searchStartingPoint = view.findViewById(R.id.searchStartingPoint);
+        searchEndPoint = view.findViewById(R.id.searchEndPoint);
+        startingPointIcon = view.findViewById(R.id.startingPointIcon);
+        endPointIcon = view.findViewById(R.id.endPointIcon);
+        createPartyButton = view.findViewById(R.id.createPartyButton);
 
         createPartyButton.setEnabled(false);
 

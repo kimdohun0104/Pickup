@@ -8,17 +8,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.dsm2018.pickup.R;
-import com.example.dsm2018.pickup.model.PartySearchLocationResponse;
+import com.example.dsm2018.pickup.model.PartySearchTextResponse;
 
 import java.util.ArrayList;
 
-public class PartySearchLocationListAdapter extends RecyclerView.Adapter<PartySearchLocationListAdapter.ViewHolder>{
+public class PartySearchTextListAdapter extends RecyclerView.Adapter<PartySearchTextListAdapter.ViewHolder>{
 
-    public PartySearchLocationListAdapter(ArrayList<PartySearchLocationResponse> data) {
+    public PartySearchTextListAdapter(ArrayList<PartySearchTextResponse> data) {
         this.data = data;
     }
 
-    ArrayList<PartySearchLocationResponse> data;
+    ArrayList<PartySearchTextResponse> data;
 
     @NonNull
     @Override
@@ -29,7 +29,7 @@ public class PartySearchLocationListAdapter extends RecyclerView.Adapter<PartySe
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        PartySearchLocationResponse response = data.get(position);
+        PartySearchTextResponse response = data.get(position);
         holder.partyTitle.setText(response.party_title);
         holder.partyDate.setText(response.party_year + "년 " + response.party_month + "월 " +  response.party_day + "일");
         holder.partyPeopleNum.setText(response.party_currnum + "명/" + response.party_peoplenum + "명");

@@ -43,10 +43,10 @@ public class PhoneNumberDialog {
         retrofitService = new RetrofitHelp().retrofitService;
         sharedPreferences = context.getSharedPreferences("pref", Context.MODE_PRIVATE);
 
-        inputPhoneNumber = (EditText) dialog.findViewById(R.id.inputPhoneNumber);
-        errorText = (TextView) dialog.findViewById(R.id.dialogError);
-        nextButton = (Button) dialog.findViewById(R.id.nextButton);
-        cancelButton = (Button) dialog.findViewById(R.id.cancelButton);
+        inputPhoneNumber = dialog.findViewById(R.id.inputPhoneNumber);
+        errorText = dialog.findViewById(R.id.dialogError);
+        nextButton = dialog.findViewById(R.id.nextButton);
+        cancelButton = dialog.findViewById(R.id.cancelButton);
 
         cancelButton.setOnClickListener(v -> dialog.dismiss());
 

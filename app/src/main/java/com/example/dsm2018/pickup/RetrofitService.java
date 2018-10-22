@@ -16,25 +16,21 @@ import retrofit2.http.POST;
 
 public interface RetrofitService {
 
-    //end
     @POST("account/signup")
     Call<SignupResponse> signup(
             @Body Map<String, String> data
     );
 
-    //end
     @POST("account/signin")
     Call<SigninResponse> signin(
             @Body Map<String, String> data
     );
 
-    //end
     @POST("account/signout")
     Call<Void> signout(
             @Body Map<String, String> data
     );
 
-    //end
     @POST("account/modifyinfo")
     Call<Void> modifyinfo(
             @Body Map<String, String> data
@@ -45,7 +41,6 @@ public interface RetrofitService {
             @Body Map<String, String> data
     );
 
-    //end
     @POST("party/create")
     Call<Void> partyCreate(
             @Body Map<String, String> data
@@ -65,6 +60,4 @@ public interface RetrofitService {
     Call<List<PartySearchTextResponse>> partySearchText(
             @Body Map<String, String> data
     );
-
-
 }

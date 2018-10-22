@@ -56,7 +56,7 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 100) {
+        if(requestCode == 102) {
             party_year = data.getExtras().getString("party_year");
             party_month = data.getExtras().getString("party_month");
             party_day = data.getExtras().getString("party_day");
@@ -64,7 +64,7 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
             setDateButton.setBackgroundResource(R.drawable.round_layout_side_orange);
             isDate = true;
             checkButton();
-        } else if (requestCode == 101) {
+        } else if (requestCode == 103) {
             party_hour = data.getExtras().getString("party_hour");
             party_minute = data.getExtras().getString("party_minute");
 
@@ -82,18 +82,18 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
         sharedPreferences = getSharedPreferences("pref", MODE_PRIVATE);
         retrofitService = new RetrofitHelp().retrofitService;
 
-        startingPointNameText = (TextView)findViewById(R.id.startingPointNameText);
-        numberOfPeopleText = (TextView)findViewById(R.id.numberOfPeopleText);
-        addPersonnelButton = (Button)findViewById(R.id.addPersonnelButton);
-        reductionPersonnelButton = (Button)findViewById(R.id.reductionPersonnelButton);
-        titleEdit = (EditText)findViewById(R.id.titleEdit);
-        contentEdit = (EditText)findViewById(R.id.contentEdit);
-        setDateButton = (TextView)findViewById(R.id.setDateButton);
-        setTimeButton = (TextView)findViewById(R.id.setTimeButton);
-        reductionPersonnelButton = (Button)findViewById(R.id.reductionPersonnelButton);
-        backButton = (Button)findViewById(R.id.backButton);
-        endPointNameText = (TextView) findViewById(R.id.endPointNameText);
-        createPartyButton = (Button) findViewById(R.id.createPartyButton);
+        startingPointNameText = findViewById(R.id.startingPointNameText);
+        numberOfPeopleText = findViewById(R.id.numberOfPeopleText);
+        addPersonnelButton = findViewById(R.id.addPersonnelButton);
+        reductionPersonnelButton = findViewById(R.id.reductionPersonnelButton);
+        titleEdit = findViewById(R.id.titleEdit);
+        contentEdit = findViewById(R.id.contentEdit);
+        setDateButton = findViewById(R.id.setDateButton);
+        setTimeButton = findViewById(R.id.setTimeButton);
+        reductionPersonnelButton = findViewById(R.id.reductionPersonnelButton);
+        backButton = findViewById(R.id.backButton);
+        endPointNameText = findViewById(R.id.endPointNameText);
+        createPartyButton = findViewById(R.id.createPartyButton);
 
         Intent intent = getIntent();
         party_departure_name = intent.getExtras().getString("startingPointName");

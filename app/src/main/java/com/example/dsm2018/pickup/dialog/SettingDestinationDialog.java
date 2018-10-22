@@ -28,7 +28,7 @@ public class SettingDestinationDialog extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_setting_end_point, container, false);
 
-        cancelButton = (Button)view.findViewById(R.id.cancelButton);
+        cancelButton = view.findViewById(R.id.cancelButton);
 
         cancelButton.setOnClickListener(v -> dismiss());
 

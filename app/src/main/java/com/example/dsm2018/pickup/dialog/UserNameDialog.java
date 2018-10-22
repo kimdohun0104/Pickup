@@ -38,9 +38,9 @@ public class UserNameDialog {
         sharedPreferences = context.getSharedPreferences("pref", Context.MODE_PRIVATE);
         retrofitService = new RetrofitHelp().retrofitService;
 
-        cancelButton = (Button) dialog.findViewById(R.id.cancelButton);
-        nextButton = (Button) dialog.findViewById(R.id.nextButton);
-        inputName = (TextView) dialog.findViewById(R.id.inputName);
+        cancelButton = dialog.findViewById(R.id.cancelButton);
+        nextButton = dialog.findViewById(R.id.nextButton);
+        inputName = dialog.findViewById(R.id.inputName);
 
         cancelButton.setOnClickListener(v-> dialog.dismiss());
 

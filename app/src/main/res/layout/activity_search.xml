@@ -22,18 +22,21 @@
                 android:layout_height="20dp"
                 android:background="@drawable/ic_back"
                 android:id="@+id/backButton"/>
-            <TextView
+            <EditText
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingStart="24dp"
-                android:text="검색"
-                android:textColor="@color/colorGrey"/>
+                android:hint="검색"
+                android:textColor="@color/colorGrey"
+                android:background="@null"
+                android:id="@+id/searchEdit"/>
             <Button
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginEnd="20dp"
-                android:background="@drawable/ic_search_orange"/>
+                android:background="@drawable/ic_search_orange"
+                android:id="@+id/searchButton"/>
         </LinearLayout>
     </android.support.v7.widget.Toolbar>
 
@@ -43,7 +46,8 @@
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+            android:layout_height="match_parent"
+            android:id="@+id/recyclerView"></android.support.v7.widget.RecyclerView>
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

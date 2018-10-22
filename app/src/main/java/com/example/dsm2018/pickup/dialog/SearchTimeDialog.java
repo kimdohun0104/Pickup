@@ -40,10 +40,10 @@ public class SearchTimeDialog extends AppCompatActivity {
 
         selectionButton.setOnClickListener(v-> {
             Intent intent = new Intent();
-            intent.putExtra("party_hour", hourPicker.getValue());
-            intent.putExtra("party_minute", minutePicker.getValue());
+            intent.putExtra("party_hour", String.valueOf(hourPicker.getValue()));
+            intent.putExtra("party_minute", String.valueOf(minutePicker.getValue()));
 
-            setResult(101, intent);
+            setResult(103, intent);
             finish();
         });
     }

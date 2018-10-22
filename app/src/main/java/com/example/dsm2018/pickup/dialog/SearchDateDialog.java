@@ -4,9 +4,8 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Window;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.NumberPicker;
 
@@ -31,11 +30,11 @@ public class SearchDateDialog extends AppCompatActivity {
 
         calendar = new GregorianCalendar(Locale.KOREA);
 
-        yearPicker = (NumberPicker) findViewById(R.id.yearPicker);
-        monthPicker = (NumberPicker) findViewById(R.id.monthPicker);
-        dayPicker = (NumberPicker) findViewById(R.id.dayPicker);
-        cancelButton = (Button) findViewById(R.id.cancelButton);
-        selectionButton = (Button) findViewById(R.id.selectionButton);
+        yearPicker = findViewById(R.id.yearPicker);
+        monthPicker = findViewById(R.id.monthPicker);
+        dayPicker = findViewById(R.id.dayPicker);
+        cancelButton = findViewById(R.id.cancelButton);
+        selectionButton = findViewById(R.id.selectionButton);
 
         cancelButton.setOnClickListener(v-> finish());
 
@@ -46,7 +45,7 @@ public class SearchDateDialog extends AppCompatActivity {
             intent.putExtra("party_month", String.valueOf(monthPicker.getValue()));
             intent.putExtra("party_day", String.valueOf(dayPicker.getValue()));
 
-            setResult(100, intent);
+            setResult(102, intent);
             finish();
         });
 

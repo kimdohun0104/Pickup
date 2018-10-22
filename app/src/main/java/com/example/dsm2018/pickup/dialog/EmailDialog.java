@@ -42,10 +42,10 @@ public class EmailDialog {
         sharedPreferences = context.getSharedPreferences("pref", Context.MODE_PRIVATE);
         retrofitService = new RetrofitHelp().retrofitService;
 
-        nextButton = (Button)dialog.findViewById(R.id.nextButton);
-        inputEmail = (EditText)dialog.findViewById(R.id.inputEmail);
-        errorText = (TextView)dialog.findViewById(R.id.dialogError);
-        cancelButton = (Button)dialog.findViewById(R.id.cancelButton);
+        nextButton = dialog.findViewById(R.id.nextButton);
+        inputEmail = dialog.findViewById(R.id.inputEmail);
+        errorText = dialog.findViewById(R.id.dialogError);
+        cancelButton = dialog.findViewById(R.id.cancelButton);
 
         nextButton.setOnClickListener(v -> {
             if(inputEmail.getText().toString().matches(emailPattern)){

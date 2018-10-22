@@ -37,15 +37,15 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("facebooklog", String.valueOf(isLoggedIn));
 
-        viewPager = (ViewPager)findViewById(R.id.viewPager);
-        tabLayout = (TabLayout)findViewById(R.id.tabLayout);
-        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        drawerView = (View)findViewById(R.id.drawer);
-        openDrawerButton = (Button)findViewById(R.id.openDrawerButton);
-        userInformation = (LinearLayout)findViewById(R.id.userInformation);
-        accountDelete = (LinearLayout)findViewById(R.id.accountDelete);
-        logOut = (LinearLayout)findViewById(R.id.logOut);
-        searchButton = (Button)findViewById(R.id.searchButton);
+        viewPager = findViewById(R.id.viewPager);
+        tabLayout = findViewById(R.id.tabLayout);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        drawerView = findViewById(R.id.drawer);
+        openDrawerButton = findViewById(R.id.openDrawerButton);
+        userInformation = findViewById(R.id.userInformation);
+        accountDelete = findViewById(R.id.accountDelete);
+        logOut = findViewById(R.id.logOut);
+        searchButton = findViewById(R.id.searchButton);
 
         tabLayout.addTab(tabLayout.newTab().setText("파티생성"));
         tabLayout.addTab(tabLayout.newTab().setText("파티목록"));

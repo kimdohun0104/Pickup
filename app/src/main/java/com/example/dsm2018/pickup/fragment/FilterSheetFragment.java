@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.dsm2018.pickup.R;
+import com.example.dsm2018.pickup.activity.SearchActivity;
 import com.example.dsm2018.pickup.activity.SearchEndPointActivity;
 import com.example.dsm2018.pickup.activity.SearchStartingPointActivity;
 import com.example.dsm2018.pickup.dialog.SearchDateDialog;
@@ -27,8 +28,13 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
 
     RelativeLayout startingPointTab, setStartingPointView, destinationTab, setDestinationView, timeTab;
     LinearLayout setTimeView;
-    TextView setStartingPoint, setDestination, setDate, setTime, cancelButton;
+    TextView setStartingPoint, setDestination, setDate, setTime, cancelButton, doneButton;
     ImageView startingPointIcon, endPointIcon;
+
+    SearchActivity searchActivity;
+    Bundle filterBundle;
+
+    boolean isDeparture = false, isDestination = false, isTime = false, isDate = false;
 
     @NonNull
     public static FilterSheetFragment getInstance() {
@@ -45,12 +51,37 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
             setStartingPoint.setText(title);
             setStartingPoint.setTextColor(getResources().getColor(R.color.colorTextBlack));
             startingPointIcon.setImageResource(R.drawable.ic_location_orange);
+
+            filterBundle.putString("filter_departure_lat", String.valueOf(data.getExtras().getDouble("latitude")));
+            filterBundle.putString("filter_departure_lng", String.valueOf(data.getExtras().getDouble("longitude")));
+
+            isDeparture = true;
+            confirmSetting();
         } else if(resultCode == 101) {
             String title = data.getExtras().getString("endPointName");
             setDestination.setBackgroundResource(R.drawable.round_layout_side_orange);
             setDestination.setText(title);
             setDestination.setTextColor(getResources().getColor(R.color.colorTextBlack));
             endPointIcon.setImageResource(R.drawable.ic_location_orange);
+
+            filterBundle.putString("filter_destination_lat", String.valueOf(data.getExtras().getDouble("latitude")));
+            filterBundle.putString("filter_destination_lng", String.valueOf(data.getExtras().getDouble("longitude")));
+
+            isDestination = true;
+            confirmSetting();
+        } else if(resultCode == 102) {
+            filterBundle.putString("filter_date_year", data.getExtras().getString("party_year"));
+            filterBundle.putString("filter_party_month", data.getExtras().getString("party_month"));
+            filterBundle.putString("filter_party_day", data.getExtras().getString("party_day"));
+
+            isDate = true;
+            confirmSetting();
+        } else if(resultCode == 103) {
+            filterBundle.putString("filter_party_hour", data.getExtras().getString("party_hour"));
+            filterBundle.putString("filter_party_minute", data.getExtras().getString("party_minute"));
+
+            isTime = true;
+            confirmSetting();
         }
     }
 
@@ -59,19 +90,24 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_filter_sheet, container, false);
 
-        startingPointTab = (RelativeLayout) view.findViewById(R.id.startingPointTab);
-        setStartingPointView = (RelativeLayout) view.findViewById(R.id.setStartingPointView);
-        setStartingPoint = (TextView) view.findViewById(R.id.setStartingPoint);
-        destinationTab = (RelativeLayout) view.findViewById(R.id.endPointTab);
-        setDestinationView = (RelativeLayout) view.findViewById(R.id.setDestinationView);
-        setDestination = (TextView) view.findViewById(R.id.setDestination);
-        timeTab = (RelativeLayout) view.findViewById(R.id.timeTab);
-        setTimeView = (LinearLayout) view.findViewById(R.id.setTimeView);
-        setDate = (TextView) view.findViewById(R.id.setDate);
-        setTime = (TextView) view.findViewById(R.id.setTime);
-        cancelButton = (TextView) view.findViewById(R.id.cancelButton);
-        startingPointIcon = (ImageView) view.findViewById(R.id.startingPointIcon);
-        endPointIcon = (ImageView) view.findViewById(R.id.endPointIcon);
+        searchActivity = (SearchActivity) getActivity();
+
+        startingPointTab = view.findViewById(R.id.startingPointTab);
+        setStartingPointView = view.findViewById(R.id.setStartingPointView);
+        setStartingPoint = view.findViewById(R.id.setStartingPoint);
+        destinationTab = view.findViewById(R.id.endPointTab);
+        setDestinationView = view.findViewById(R.id.setDestinationView);
+        setDestination = view.findViewById(R.id.setDestination);
+        timeTab = view.findViewById(R.id.timeTab);
+        setTimeView = view.findViewById(R.id.setTimeView);
+        setDate = view.findViewById(R.id.setDate);
+        setTime = view.findViewById(R.id.setTime);
+        cancelButton = view.findViewById(R.id.cancelButton);
+        startingPointIcon = view.findViewById(R.id.startingPointIcon);
+        endPointIcon = view.findViewById(R.id.endPointIcon);
+        doneButton = view.findViewById(R.id.doneButton);
+
+        doneButton.setEnabled(false);
 
         setStartingPointView.setVisibility(View.GONE);
         setDestinationView.setVisibility(View.GONE);
@@ -129,19 +165,26 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
             startActivityForResult(intent, 101);
         });
 
-        setDate.setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), SearchDateDialog.class));
-        });
+        setDate.setOnClickListener(v -> startActivityForResult(new Intent(getActivity(), SearchDateDialog.class), 102));
 
-        setTime.setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), SearchTimeDialog.class));
-        });
+        setTime.setOnClickListener(v -> startActivityForResult(new Intent(getActivity(), SearchTimeDialog.class), 103));
 
         cancelButton.setOnClickListener(v -> dismiss());
+
+        doneButton.setOnClickListener(v -> {
+            searchActivity.filterBundle = this.filterBundle;
+            searchActivity.isFilter = true;
+            dismiss();
+        });
 
         return view;
     }
 
+    private void confirmSetting() {
+        if(isDestination && isDeparture && isDate && isTime) {
+            doneButton.setEnabled(true);
+        }
+    }
 
     private void expand(View view) {
         view.setVisibility(View.VISIBLE);

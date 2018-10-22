@@ -48,17 +48,17 @@ public class UserInformationActivity extends AppCompatActivity implements Compou
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_information);
 
-        profileImageCheckBox = (CheckBox)findViewById(R.id.profileImageCheckBox);
-        userNameCheckBox = (CheckBox)findViewById(R.id.userNameCheckBox);
-        phoneNumberCheckBox = (CheckBox)findViewById(R.id.phoneNumberCheckBox);
-        emailCheckBox = (CheckBox)findViewById(R.id.emailCheckBox);
-        modifyUserInformation = (Button)findViewById(R.id.modifyUserInformation);
-        backButton = (Button)findViewById(R.id.backButton);
-        profileImage = (ImageView)findViewById(R.id.profileImage);
-        userName = (TextView) findViewById(R.id.userName);
-        userPhoneNumber = (TextView) findViewById(R.id.userPhoneNumber);
-        userEmail = (TextView) findViewById(R.id.userEmail);
-        bigProfileImage = (ImageView) findViewById(R.id.bigProfileImage);
+        profileImageCheckBox = findViewById(R.id.profileImageCheckBox);
+        userNameCheckBox = findViewById(R.id.userNameCheckBox);
+        phoneNumberCheckBox = findViewById(R.id.phoneNumberCheckBox);
+        emailCheckBox = findViewById(R.id.emailCheckBox);
+        modifyUserInformation = findViewById(R.id.modifyUserInformation);
+        backButton = findViewById(R.id.backButton);
+        profileImage = findViewById(R.id.profileImage);
+        userName = findViewById(R.id.userName);
+        userPhoneNumber = findViewById(R.id.userPhoneNumber);
+        userEmail = findViewById(R.id.userEmail);
+        bigProfileImage = findViewById(R.id.bigProfileImage);
 
         profileImageCheckBox.setOnCheckedChangeListener(this);
         userNameCheckBox.setOnCheckedChangeListener(this);
@@ -126,10 +126,10 @@ public class UserInformationActivity extends AppCompatActivity implements Compou
                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
                 REQUEST_PERMISSION_CODE);
 
-        nextButton = (Button)dialog.findViewById(R.id.nextButton);
-        dialogProfileImage = (ImageView)dialog.findViewById(R.id.profileImage);
-        changeImage = (LinearLayout)dialog.findViewById(R.id.changeImage);
-        cancelButton = (Button)dialog.findViewById(R.id.cancelButton);
+        nextButton = dialog.findViewById(R.id.nextButton);
+        dialogProfileImage = dialog.findViewById(R.id.profileImage);
+        changeImage = dialog.findViewById(R.id.changeImage);
+        cancelButton = dialog.findViewById(R.id.cancelButton);
 
         changeImage.setOnClickListener(v-> {
             Intent intent = new Intent(Intent.ACTION_PICK);

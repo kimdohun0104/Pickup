@@ -35,8 +35,8 @@ public class DeleteAccountDialog {
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_delete_account);
 
-        cancelButton = (Button) dialog.findViewById(R.id.cancel_button);
-        deleteAccountButton = (Button) dialog.findViewById(R.id.deleteAccountButton);
+        cancelButton = dialog.findViewById(R.id.cancel_button);
+        deleteAccountButton = dialog.findViewById(R.id.deleteAccountButton);
 
         cancelButton.setOnClickListener(v-> dialog.dismiss());
 

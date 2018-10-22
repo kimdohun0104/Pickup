@@ -3,20 +3,11 @@ package com.example.dsm2018.pickup.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.activity.LoginActivity;
-import com.example.dsm2018.pickup.activity.MainActivity;
 import com.facebook.AccessToken;
-import com.facebook.GraphRequest;
 import com.facebook.login.LoginManager;
 
 public class LogoutDialog {

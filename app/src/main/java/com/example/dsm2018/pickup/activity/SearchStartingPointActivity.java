@@ -40,11 +40,11 @@ public class SearchStartingPointActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_starting_point);
 
-        inputStartingPoint = (EditText)findViewById(R.id.inputStartingPoint);
-        backButton = (Button)findViewById(R.id.backButton);
-        beforeSearch = (RelativeLayout)findViewById(R.id.beforeSearch);
-        recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
-        searchButton = (Button)findViewById(R.id.searchButton);
+        inputStartingPoint = findViewById(R.id.inputStartingPoint);
+        backButton = findViewById(R.id.backButton);
+        beforeSearch = findViewById(R.id.beforeSearch);
+        recyclerView = findViewById(R.id.recyclerView);
+        searchButton = findViewById(R.id.searchButton);
 
         data = new ArrayList<>();
         layoutManager = new LinearLayoutManager(this);
@@ -89,10 +89,10 @@ public class SearchStartingPointActivity extends AppCompatActivity {
                 Dialog dialog = new Dialog(SearchStartingPointActivity.this);
                 dialog.setContentView(R.layout.dialog_setting_starting_point);
 
-                TextView titleText = (TextView) dialog.findViewById(R.id.titleText);
-                TextView addressText = (TextView) dialog.findViewById(R.id.addressText);
-                Button selectButton = (Button) dialog.findViewById(R.id.selectButton);
-                Button cancelButton = (Button) dialog.findViewById(R.id.cancelButton);
+                TextView titleText = dialog.findViewById(R.id.titleText);
+                TextView addressText = dialog.findViewById(R.id.addressText);
+                Button selectButton = dialog.findViewById(R.id.selectButton);
+                Button cancelButton = dialog.findViewById(R.id.cancelButton);
 
                 titleText.setText(title);
                 addressText.setText(address);
