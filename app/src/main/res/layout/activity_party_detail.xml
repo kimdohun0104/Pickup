@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -36,9 +35,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <View
+            <fragment
                 android:layout_width="match_parent"
-                android:layout_height="200dp"/>
+                android:layout_height="200dp"
+                class="com.google.android.gms.maps.MapFragment"
+                android:id="@+id/mapView"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -63,7 +64,8 @@
                         android:textSize="14sp"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="60dp"
-                        android:text="대덕소프트웨어마이스터고등학교"/>
+                        android:text="대덕소프트웨어마이스터고등학교"
+                        android:id="@+id/departureNameText"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -83,7 +85,8 @@
                         android:textSize="14sp"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="60dp"
-                        android:text="예산 소복갈비"/>
+                        android:text="예산 소복갈비"
+                        android:id="@+id/destinationNameText"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -123,16 +126,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="나랑 대전역 같이 갈 사람 있니?"
-                    android:textColor="@color/colorTextBlack"/>
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"/>
-                <TextView
+                    android:textColor="@color/colorTextBlack"
+                    android:id="@+id/party_title"/>
+zl                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="top"
                     android:text="가나다라"
-                    android:textSize="14sp"/>
+                    android:textSize="14sp"
+                    android:id="@+id/partyContent"/>
             </LinearLayout>
             
             <View
@@ -166,7 +168,8 @@
                         android:layout_height="wrap_content"
                         android:text="2018년 07월 24일"
                         android:textColor="@color/colorBlack"
-                        android:layout_marginTop="6dp"/>
+                        android:layout_marginTop="6dp"
+                        android:id="@+id/partyDate"/>
                 </LinearLayout>
 
                 <ImageView
@@ -201,7 +204,8 @@
                         android:layout_height="wrap_content"
                         android:text="PM 06시 40분"
                         android:textColor="@color/colorBlack"
-                        android:layout_marginTop="6dp"/>
+                        android:layout_marginTop="6dp"
+                        android:id="@+id/partyTime"/>
                 </LinearLayout>
 
                 <ImageView
@@ -236,7 +240,8 @@
                         android:layout_height="wrap_content"
                         android:text="3명 / 5명"
                         android:textColor="@color/colorBlack"
-                        android:layout_marginTop="6dp"/>
+                        android:layout_marginTop="6dp"
+                        android:id="@+id/peopleNum"/>
                 </LinearLayout>
 
                 <ImageView
@@ -265,7 +270,8 @@
                     android:textSize="11sp"/>
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+                    android:layout_height="match_parent"
+                    android:id="@+id/recyclerView"></android.support.v7.widget.RecyclerView>
             </LinearLayout>
             
             <Button
@@ -274,7 +280,8 @@
                 android:gravity="center"
                 android:textColor="@color/colorWhite"
                 android:text="참여하기"
-                android:background="@color/colorPrimary"/>
+                android:background="@color/colorPrimary"
+                android:id="@+id/joinPartyButton"/>
             
         </LinearLayout>
     </ScrollView>

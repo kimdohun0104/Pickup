@@ -31,8 +31,6 @@ public class PhoneNumberDialog {
     TextView errorText;
     Button nextButton, cancelButton;
 
-    String phonePattern = "[0-9]-[0-9]-[0-9]";
-
     SharedPreferences sharedPreferences;
     RetrofitService retrofitService;
 

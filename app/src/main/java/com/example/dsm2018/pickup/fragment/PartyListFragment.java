@@ -2,6 +2,7 @@ package com.example.dsm2018.pickup.fragment;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,9 +23,12 @@ import android.widget.TextView;
 
 import com.example.dsm2018.pickup.GPSTracker;
 import com.example.dsm2018.pickup.R;
+import com.example.dsm2018.pickup.RecyclerItemClickListener;
 import com.example.dsm2018.pickup.RetrofitHelp;
 import com.example.dsm2018.pickup.RetrofitService;
+import com.example.dsm2018.pickup.activity.PartyDetailActivity;
 import com.example.dsm2018.pickup.adapter.PartySearchLocationListAdapter;
+import com.example.dsm2018.pickup.model.PartyDetailResponse;
 import com.example.dsm2018.pickup.model.PartySearchLocationResponse;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -93,6 +97,39 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback{
         currentLocationText.setOnClickListener(v->{
             mapView.getMapAsync(this);
         });
+
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Map<String, String> map = new HashMap();
+                map.put("user_authorization", sharedPreferences.getString("user_authorization", ""));
+                map.put("party_key", data.get(position).party_key);
+
+                Call<PartyDetailResponse> call = retrofitService.partyDetail(map);
+                call.enqueue(new Callback<PartyDetailResponse>() {
+                    @Override
+                    public void onResponse(Call<PartyDetailResponse> call, Response<PartyDetailResponse> response) {
+                        Intent intent = new Intent(getActivity(), PartyDetailActivity.class);
+
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("partyDetailResponse", response.body());
+                        intent.putExtras(bundle);
+
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onFailure(Call<PartyDetailResponse> call, Throwable t) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
 
         return view;
     }
