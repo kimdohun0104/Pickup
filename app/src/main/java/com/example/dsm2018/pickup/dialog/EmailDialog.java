@@ -3,7 +3,6 @@ package com.example.dsm2018.pickup.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +11,7 @@ import android.widget.TextView;
 import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.RetrofitHelp;
 import com.example.dsm2018.pickup.RetrofitService;
+import com.example.dsm2018.pickup.UserInformation;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -55,13 +55,14 @@ public class EmailDialog {
                 map.put("modify_value", inputEmail.getText().toString());
                 map.put("modify_info_type", "user_email");
 
-                Log.d("DEBUGLOG", map.get("user_authorization") + map.get("modify_value"));
-
                 Call<Void> call = retrofitService.modifyinfo(map);
                 call.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
-
+                        if(response.code() == 200) {
+                            UserInformation.getInstance().user_email = inputEmail.getText().toString();
+                            dialog.dismiss();
+                        }
                     }
 
                     @Override

@@ -5,9 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.RelativeLayout;
@@ -21,6 +21,8 @@ import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
+import com.facebook.Profile;
+import com.facebook.ProfileTracker;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 
@@ -63,10 +65,8 @@ public class LoginActivity extends AppCompatActivity {
 
         loginButton = findViewById(R.id.loginButton);
         loginButton.setOnClickListener(v -> {
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-            finish();
 
-            LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile", "email"));
+            LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("email"));
             LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
                 public void onSuccess(LoginResult loginResult) {
@@ -75,13 +75,20 @@ public class LoginActivity extends AppCompatActivity {
 
                     GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), (object, response) -> {
                         try { user_email = object.getString("email"); } catch (JSONException e) { user_email = ""; }
-                        try{ user_name = object.getString("name"); } catch (JSONException e) { user_name = ""; }
                     });
 
                     Bundle parameters = new Bundle();
-                    parameters.putString("fields", "name,email");
+                    parameters.putString("fields", "email");
                     graphRequest.setParameters(parameters);
                     graphRequest.executeAsync();
+
+                    ProfileTracker profileTracker = new ProfileTracker() {
+                        @Override
+                        protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
+                            user_name = currentProfile.getName();
+                        }
+                    };
+                    profileTracker.startTracking();
 
                     Map<String, String> map = new HashMap();
                     map.put("user_key", user_key);
@@ -96,6 +103,8 @@ public class LoginActivity extends AppCompatActivity {
                             if(response.code() == 200) {
                                 SignupResponse signupResponse = response.body();
                                 editor.putString("user_authorization", signupResponse.user_authorization);
+                                editor.commit();
+
                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                 finish();
                             }

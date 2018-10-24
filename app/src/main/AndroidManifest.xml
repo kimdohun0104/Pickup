@@ -27,7 +27,9 @@
             android:authorities="com.facebook.app.FacebookContentProvider823183424739517"
             android:exported="true" />
 
-        <activity android:name=".activity.MainActivity" />
+        <activity android:name=".activity.MainActivity" >
+
+        </activity>
         <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
