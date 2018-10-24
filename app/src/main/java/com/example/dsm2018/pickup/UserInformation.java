@@ -9,8 +9,8 @@ public class UserInformation {
         return userInformation;
     }
 
-    public String user_name;
-    public String user_profile;
-    public String user_phone;
-    public String user_email;
+    public String user_name = "";
+    public String user_profile = "";
+    public String user_phone = "";
+    public String user_email = "";
 }

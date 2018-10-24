@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -77,6 +78,18 @@ public class SearchActivity extends AppCompatActivity {
                 map.put("filter_date_day", filterBundle.getString("filter_date_day"));
                 map.put("filter_date_hour", filterBundle.getString("filter_date_hour"));
                 map.put("filter_date_minute", filterBundle.getString("filter_date_minute"));
+
+                Log.d("user_authorization", sharedPreferences.getString("user_authorization", ""));
+                Log.d("search_text", searchEdit.getText().toString());
+                Log.d("filter_departure_lat", filterBundle.getString("filter_departure_lat"));
+                Log.d("filter_departure_lng", filterBundle.getString("filter_departure_lng"));
+                Log.d("filter_destination_lat", filterBundle.getString("filter_destination_lat"));
+                Log.d("filter_destination_lng", filterBundle.getString("filter_destination_lng"));
+                Log.d("filter_date_year", filterBundle.getString("filter_date_year"));
+                Log.d("filter_date_month", filterBundle.getString("filter_date_month"));
+                Log.d("filter_date_day", filterBundle.getString("filter_date_day"));
+                Log.d("filter_date_hour", filterBundle.getString("filter_date_hour"));
+                Log.d("filter_date_minute", filterBundle.getString("filter_date_minute"));
 
                 Call<List<PartySearchTextResponse>> call = retrofitService.partySearchText(map);
                 call.enqueue(new Callback<List<PartySearchTextResponse>>() {

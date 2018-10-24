@@ -71,14 +71,14 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
             confirmSetting();
         } else if(resultCode == 102) {
             filterBundle.putString("filter_date_year", data.getExtras().getString("party_year"));
-            filterBundle.putString("filter_party_month", data.getExtras().getString("party_month"));
-            filterBundle.putString("filter_party_day", data.getExtras().getString("party_day"));
+            filterBundle.putString("filter_date_month", data.getExtras().getString("party_month"));
+            filterBundle.putString("filter_date_day", data.getExtras().getString("party_day"));
 
             isDate = true;
             confirmSetting();
         } else if(resultCode == 103) {
-            filterBundle.putString("filter_party_hour", data.getExtras().getString("party_hour"));
-            filterBundle.putString("filter_party_minute", data.getExtras().getString("party_minute"));
+            filterBundle.putString("filter_date_hour", data.getExtras().getString("party_hour"));
+            filterBundle.putString("filter_date_minute", data.getExtras().getString("party_minute"));
 
             isTime = true;
             confirmSetting();
@@ -91,6 +91,7 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
         View view = inflater.inflate(R.layout.fragment_filter_sheet, container, false);
 
         searchActivity = (SearchActivity) getActivity();
+        filterBundle = new Bundle();
 
         startingPointTab = view.findViewById(R.id.startingPointTab);
         setStartingPointView = view.findViewById(R.id.setStartingPointView);

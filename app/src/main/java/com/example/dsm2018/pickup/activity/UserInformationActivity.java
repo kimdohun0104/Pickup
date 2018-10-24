@@ -28,6 +28,7 @@ import android.widget.TextView;
 import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.RetrofitHelp;
 import com.example.dsm2018.pickup.RetrofitService;
+import com.example.dsm2018.pickup.UserInformation;
 import com.example.dsm2018.pickup.dialog.EmailDialog;
 import com.example.dsm2018.pickup.dialog.PhoneNumberDialog;
 import com.example.dsm2018.pickup.dialog.UserNameDialog;
@@ -69,7 +70,8 @@ public class UserInformationActivity extends AppCompatActivity implements Compou
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             profileImage.setClipToOutline(true);
         }
-        profileImage.setImageResource(R.drawable.test);
+
+        profileInit();
 
         backButton.setOnClickListener(v -> finish());
 
@@ -211,5 +213,13 @@ public class UserInformationActivity extends AppCompatActivity implements Compou
         Matrix matrix = new Matrix();
         matrix.postRotate(degree);
         return Bitmap.createBitmap(src, 0, 0, src.getWidth(), src.getHeight(), matrix, true);
+    }
+
+    private void profileInit() {
+        UserInformation userInformation = UserInformation.getInstance();
+
+        userName.setText(userInformation.user_name);
+        userPhoneNumber.setText(userInformation.user_phone);
+        userEmail.setText(userInformation.user_email);
     }
 }

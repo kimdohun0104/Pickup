@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Button;
@@ -56,19 +56,21 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 102) {
+        if(resultCode == 102) {
             party_year = data.getExtras().getString("party_year");
             party_month = data.getExtras().getString("party_month");
             party_day = data.getExtras().getString("party_day");
 
-            setDateButton.setBackgroundResource(R.drawable.round_layout_side_orange);
+            setDateButton.setBackgroundResource(R.drawable.round_layout_side_orange_grey);
+            setDateButton.setTextColor(getResources().getColor(R.color.colorPrimary));
             isDate = true;
             checkButton();
-        } else if (requestCode == 103) {
+        } else if (resultCode == 103) {
             party_hour = data.getExtras().getString("party_hour");
             party_minute = data.getExtras().getString("party_minute");
 
-            setDateButton.setBackgroundResource(R.drawable.round_layout_side_orange);
+            setTimeButton.setBackgroundResource(R.drawable.round_layout_side_orange_grey);
+            setTimeButton.setTextColor(getResources().getColor(R.color.colorPrimary));
             isTime = true;
             checkButton();
         }
@@ -99,12 +101,14 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
         party_departure_name = intent.getExtras().getString("startingPointName");
         startingPointNameText.setText(party_departure_name);
         party_destination_name = intent.getExtras().getString("endPointName");
-        endPointNameText.setText(party_departure_name);
+        endPointNameText.setText(party_destination_name);
         startingPointPosition = new LatLng(intent.getExtras().getDouble("startingPointLatitude"), intent.getExtras().getDouble("startingPointLongitude"));
         endPointPosition = new LatLng(intent.getExtras().getDouble("endPointLatitude"), intent.getExtras().getDouble("endPointLongitude"));
 
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapView);
         mapFragment.getMapAsync(this);
+
+        createPartyButton.setEnabled(false);
 
         titleEdit.addTextChangedListener(new TextWatcher() {
             @Override
@@ -122,7 +126,6 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
                 if(titleEdit.getText().toString().equals("")) {
                     titleEdit.setBackgroundResource(R.drawable.round_layout_side_grey);
                     isTitle = false;
-                    createPartyButton.setEnabled(false);
                     createPartyButton.setBackgroundColor(getResources().getColor(R.color.colorGrey_3));
                 } else if(!(titleEdit.getText().toString().equals(""))){
                     titleEdit.setBackgroundResource(R.drawable.round_layout_side_orange);
@@ -148,7 +151,6 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
                 if(contentEdit.getText().toString().equals("")) {
                     contentEdit.setBackgroundResource(R.drawable.round_layout_side_grey);
                     isContent = false;
-                    createPartyButton.setEnabled(false);
                     createPartyButton.setBackgroundColor(getResources().getColor(R.color.colorGrey_3));
                 } else if(!(contentEdit.getText().toString().equals(""))){
                     contentEdit.setBackgroundResource(R.drawable.round_layout_side_orange);
@@ -158,9 +160,9 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
             }
         });
 
-        setDateButton.setOnClickListener(v -> startActivityForResult(new Intent(getApplicationContext(), SearchDateDialog.class), 100));
+        setDateButton.setOnClickListener(v -> startActivityForResult(new Intent(getApplicationContext(), SearchDateDialog.class), 102));
 
-        setTimeButton.setOnClickListener(v-> startActivityForResult(new Intent(getApplicationContext(), SearchTimeDialog.class), 101));
+        setTimeButton.setOnClickListener(v-> startActivityForResult(new Intent(getApplicationContext(), SearchTimeDialog.class), 103));
 
         addPersonnelButton.setOnClickListener(v->{
             if(personnelCount >= 0 && personnelCount < 4) {
