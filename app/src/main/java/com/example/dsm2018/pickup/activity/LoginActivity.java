@@ -82,40 +82,40 @@ public class LoginActivity extends AppCompatActivity {
                     graphRequest.setParameters(parameters);
                     graphRequest.executeAsync();
 
-                    Map<String, String> map = new HashMap();
                     ProfileTracker profileTracker = new ProfileTracker() {
                         @Override
                         protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
+                            Map<String, String> map = new HashMap();
                             user_name = currentProfile.getName();
                             map.put("user_name", user_name);
-                            Log.d("DEBUGLOG", user_name);
+                            map.put("user_key", user_key);
+                            map.put("user_phone", user_phone);
+                            map.put("user_email", user_email);
+
+                            Call<SignupResponse> call = retrofitService.signup(map);
+                            call.enqueue(new Callback<SignupResponse>() {
+                                @Override
+                                public void onResponse(Call<SignupResponse> call, Response<SignupResponse> response) {
+                                    if(response.code() == 200) {
+                                        SignupResponse signupResponse = response.body();
+                                        editor.putString("user_authorization", signupResponse.user_authorization);
+                                        editor.commit();
+
+                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                        finish();
+                                    }
+                                }
+
+                                @Override
+                                public void onFailure(Call<SignupResponse> call, Throwable t) {
+
+                                }
+                            });
                         }
                     };
                     profileTracker.startTracking();
 
-                    map.put("user_key", user_key);
-                    map.put("user_phone", user_phone);
-                    map.put("user_email", user_email);
 
-                    Call<SignupResponse> call = retrofitService.signup(map);
-                    call.enqueue(new Callback<SignupResponse>() {
-                        @Override
-                        public void onResponse(Call<SignupResponse> call, Response<SignupResponse> response) {
-                            if(response.code() == 200) {
-                                SignupResponse signupResponse = response.body();
-                                editor.putString("user_authorization", signupResponse.user_authorization);
-                                editor.commit();
-
-                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                finish();
-                            }
-                        }
-
-                        @Override
-                        public void onFailure(Call<SignupResponse> call, Throwable t) {
-
-                        }
-                    });
                 }
 
                 @Override
