@@ -82,17 +82,18 @@ public class LoginActivity extends AppCompatActivity {
                     graphRequest.setParameters(parameters);
                     graphRequest.executeAsync();
 
+                    Map<String, String> map = new HashMap();
                     ProfileTracker profileTracker = new ProfileTracker() {
                         @Override
                         protected void onCurrentProfileChanged(Profile oldProfile, Profile currentProfile) {
                             user_name = currentProfile.getName();
+                            map.put("user_name", user_name);
+                            Log.d("DEBUGLOG", user_name);
                         }
                     };
                     profileTracker.startTracking();
 
-                    Map<String, String> map = new HashMap();
                     map.put("user_key", user_key);
-                    map.put("user_name", user_name);
                     map.put("user_phone", user_phone);
                     map.put("user_email", user_email);
 
