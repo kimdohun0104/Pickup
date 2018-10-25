@@ -58,7 +58,7 @@ public class PartyLogFragment extends Fragment {
         call.enqueue(new Callback<List<PartyLogResponse>>() {
             @Override
             public void onResponse(Call<List<PartyLogResponse>> call, Response<List<PartyLogResponse>> response) {
-                data = (ArrayList)response.body();
+                data.addAll(response.body());
                 partyLogListAdapter = new PartyLogListAdapter(data);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(partyLogListAdapter);

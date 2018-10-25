@@ -156,7 +156,7 @@ public final class GPSTracker implements LocationListener{
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.d("debugLog", "onLocationChanged");
+
     }
 
     @Override

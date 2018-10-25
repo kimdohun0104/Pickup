@@ -145,8 +145,12 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback{
         mMap.getUiSettings().setAllGesturesEnabled(false);
 
         if(gpsTracker.isGPSEnabled) {
+            gpsTracker = new GPSTracker(getActivity());
             latitude = gpsTracker.getLatitude();
             longitude = gpsTracker.getLongitude();
+
+            Log.d("DEBUGLOG", String.valueOf(latitude));
+            Log.d("DEBUGLOG", String.valueOf(longitude));
 
             LatLng position = new LatLng(latitude, longitude);
 
@@ -172,7 +176,7 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback{
             call.enqueue(new Callback<List<PartySearchLocationResponse>>() {
                 @Override
                 public void onResponse(Call<List<PartySearchLocationResponse>> call, Response<List<PartySearchLocationResponse>> response) {
-                    data = (ArrayList) response.body();
+                    data.addAll(response.body());
                     adapter = new PartySearchLocationListAdapter(data);
                     recyclerView.setLayoutManager(layoutManager);
                     recyclerView.setAdapter(adapter);

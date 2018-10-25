@@ -95,7 +95,7 @@ public class SearchActivity extends AppCompatActivity {
                 call.enqueue(new Callback<List<PartySearchTextResponse>>() {
                     @Override
                     public void onResponse(Call<List<PartySearchTextResponse>> call, Response<List<PartySearchTextResponse>> response) {
-                        data = (ArrayList) response.body();
+                        data.addAll(response.body());
                         recyclerView.setLayoutManager(layoutManager);
                         listAdapter = new PartySearchTextListAdapter(data);
                         recyclerView.setAdapter(listAdapter);
@@ -124,7 +124,7 @@ public class SearchActivity extends AppCompatActivity {
                 call.enqueue(new Callback<List<PartySearchTextResponse>>() {
                     @Override
                     public void onResponse(Call<List<PartySearchTextResponse>> call, Response<List<PartySearchTextResponse>> response) {
-                        data = (ArrayList) response.body();
+                        data.addAll(response.body());
                         recyclerView.setLayoutManager(layoutManager);
                         listAdapter = new PartySearchTextListAdapter(data);
                         recyclerView.setAdapter(listAdapter);
