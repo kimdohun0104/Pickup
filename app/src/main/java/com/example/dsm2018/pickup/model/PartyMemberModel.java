@@ -1,7 +1,8 @@
 package com.example.dsm2018.pickup.model;
 
 public class PartyMemberModel {
-    public String userProfile;
-    public String userName;
-    public String userEmail;
+    public String user_name;
+    public String user_email;
+    public String user_profile;
+    public String user_phone;
 }

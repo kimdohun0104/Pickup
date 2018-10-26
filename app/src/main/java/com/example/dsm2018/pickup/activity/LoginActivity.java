@@ -97,14 +97,14 @@ public class LoginActivity extends AppCompatActivity {
                                 @Override
                                 public void onResponse(Call<SignupResponse> call, Response<SignupResponse> response) {
                                     if(response.code() == 200) {
-                                        SignupResponse signupResponse = response.body();
-                                        editor.putString("user_authorization", signupResponse.user_authorization);
-                                        editor.commit();
+                                    SignupResponse signupResponse = response.body();
+                                    editor.putString("user_authorization", signupResponse.user_authorization);
+                                    editor.commit();
 
-                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                        finish();
-                                    }
+                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                    finish();
                                 }
+                            }
 
                                 @Override
                                 public void onFailure(Call<SignupResponse> call, Throwable t) {

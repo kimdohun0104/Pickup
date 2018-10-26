@@ -53,7 +53,6 @@ public class UserNameDialog {
                 map.put("modify_value", inputName.getText().toString());
                 map.put("modify_info_type", "user_name");
 
-                Log.d("DEBUGLOG", map.get("user_authorization") + map.get("modify_value"));
 
                 Call<Void> call = retrofitService.modifyinfo(map);
                 call.enqueue(new Callback<Void>() {
@@ -61,6 +60,7 @@ public class UserNameDialog {
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if(response.code() == 200) {
                             UserInformation.getInstance().user_name = inputName.getText().toString();
+                            dialog.dismiss();
                         }
                     }
 

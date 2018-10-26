@@ -2,12 +2,14 @@ package com.example.dsm2018.pickup.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.Button;
 
 import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.RetrofitHelp;
 import com.example.dsm2018.pickup.RetrofitService;
+import com.example.dsm2018.pickup.activity.LoginActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,11 +31,13 @@ public class DeleteAccountDialog {
 
     RetrofitService retrofitService;
 
-    SharedPreferences sharedPreferences = context.getSharedPreferences("pref", Context.MODE_PRIVATE);
+    SharedPreferences sharedPreferences ;
 
     public void showDialog() {
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_delete_account);
+
+        sharedPreferences = context.getSharedPreferences("pref", Context.MODE_PRIVATE);
 
         cancelButton = dialog.findViewById(R.id.cancel_button);
         deleteAccountButton = dialog.findViewById(R.id.deleteAccountButton);
@@ -50,7 +54,10 @@ public class DeleteAccountDialog {
             call.enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
-
+                    if(response.code() == 200) {
+                        dialog.dismiss();
+                        context.startActivity(new Intent(context, LoginActivity.class));
+                    }
                 }
 
                 @Override

@@ -39,11 +39,13 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
     SharedPreferences sharedPreferences;
     RetrofitService retrofitService;
 
-    TextView startingPointNameText, endPointNameText, setDateButton, setTimeButton, numberOfPeopleText;
+    TextView startingPointNameText, endPointNameText, setDateButton, setTimeButton, numberOfPeopleText, partyMoneyText;
     EditText titleEdit, contentEdit;
     Button addPersonnelButton, reductionPersonnelButton, backButton, createPartyButton;
     Bitmap startingPointPin, endPointPin;
     LatLng startingPointPosition, endPointPosition;
+
+    String partyMoney;
 
     boolean isTitle = false,  isContent = false, isDate = false, isTime = false, isPersonal = false;
 
@@ -96,6 +98,7 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
         backButton = findViewById(R.id.backButton);
         endPointNameText = findViewById(R.id.endPointNameText);
         createPartyButton = findViewById(R.id.createPartyButton);
+        partyMoneyText = findViewById(R.id.partyMoneyText);
 
         Intent intent = getIntent();
         party_departure_name = intent.getExtras().getString("startingPointName");
@@ -104,6 +107,8 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
         endPointNameText.setText(party_destination_name);
         startingPointPosition = new LatLng(intent.getExtras().getDouble("startingPointLatitude"), intent.getExtras().getDouble("startingPointLongitude"));
         endPointPosition = new LatLng(intent.getExtras().getDouble("endPointLatitude"), intent.getExtras().getDouble("endPointLongitude"));
+        partyMoneyText.setText(intent.getExtras().getString("partyMoney"));
+        partyMoney = intent.getExtras().getString("partyMoney");
 
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapView);
         mapFragment.getMapAsync(this);
@@ -200,6 +205,7 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
             map.put("party_destination_name", party_destination_name);
             map.put("party_destination_lat", String.valueOf(endPointPosition.latitude));
             map.put("party_destination_lng", String.valueOf(endPointPosition.longitude));
+            map.put("party_money", partyMoney);
 
             Call<Void> call = retrofitService.partyCreate(map);
             call.enqueue(new Callback<Void>() {

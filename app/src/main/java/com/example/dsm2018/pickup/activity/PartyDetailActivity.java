@@ -77,8 +77,8 @@ public class PartyDetailActivity extends AppCompatActivity implements OnMapReady
         partyDate.setText(partyDetailResponse.party_year + "년 " + partyDetailResponse.party_month + "월 " + partyDetailResponse.party_day + "일");
         partyTime.setText("PM " + partyDetailResponse.party_hour + "시 " + partyDetailResponse.party_minute + "분");
         partyPeoplenum.setText(partyDetailResponse.party_currnum + "명 / " + partyDetailResponse.party_peoplenum + "명");
-
-        data = (ArrayList)partyDetailResponse.party_member_list;
+        
+        data.addAll(partyDetailResponse.party_member_list);
         recyclerView.setLayoutManager(layoutManager);
         listAdapter = new PartyMemberListAdapter(data);
         recyclerView.setAdapter(listAdapter);

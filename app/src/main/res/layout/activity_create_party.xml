@@ -105,7 +105,8 @@
                         android:textSize="14sp"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="60dp"
-                        android:text="9600원"/>
+                        android:text="9600원"
+                        android:id="@+id/partyMoneyText"/>
                 </RelativeLayout>
             </LinearLayout>
             

@@ -1,13 +1,14 @@
 package com.example.dsm2018.pickup.fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +17,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.dsm2018.pickup.R;
+import com.example.dsm2018.pickup.RetrofitHelp;
+import com.example.dsm2018.pickup.RetrofitService;
 import com.example.dsm2018.pickup.activity.CreatePartyActivity;
 import com.example.dsm2018.pickup.activity.SearchEndPointActivity;
 import com.example.dsm2018.pickup.activity.SearchStartingPointActivity;
+import com.example.dsm2018.pickup.model.PartyLocationResponse;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -27,6 +31,13 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CreatePartyFragment extends Fragment implements OnMapReadyCallback {
 
@@ -38,7 +49,12 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
     String startingPointName, endPointName;
     Intent createPartyIntent;
 
+    Map<String, String> locationMap;
+    SharedPreferences sharedPreferences;
+    RetrofitService retrofitService;
+
     double latitude = 0, longitude = 0;
+
     boolean isStartingPointSet = false, isEndPointSet = false;
 
     private GoogleMap googleMap = null;
@@ -56,6 +72,8 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
             searchStartingPoint.setTextColor(getResources().getColor(R.color.colorTextBlack));
             latitude = data.getExtras().getDouble("latitude");
             longitude = data.getExtras().getDouble("longitude");
+            locationMap.put("departure_lat", String.valueOf(latitude));
+            locationMap.put("departure_lng", String.valueOf(longitude));
             createPartyIntent.putExtra("startingPointLatitude", latitude);
             createPartyIntent.putExtra("startingPointLongitude", longitude);
             pin = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.ic_start), 80, 80, false);
@@ -69,6 +87,8 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
             searchEndPoint.setTextColor(getResources().getColor(R.color.colorTextBlack));
             latitude = data.getExtras().getDouble("latitude");
             longitude = data.getExtras().getDouble("longitude");
+            locationMap.put("destination_lat", String.valueOf(latitude));
+            locationMap.put("destination_lng", String.valueOf(longitude));
             createPartyIntent.putExtra("endPointLatitude", latitude);
             createPartyIntent.putExtra("endPointLongitude", longitude);
             pin = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.ic_arrive), 80, 80, false);
@@ -87,7 +107,9 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_create_party, container, false);
 
-        Log.d("DEBUGLOG", "CreatePartyFragment 호출됨");
+        locationMap = new HashMap();
+        sharedPreferences = view.getContext().getSharedPreferences("pref", Context.MODE_PRIVATE);
+        retrofitService = new RetrofitHelp().retrofitService;
 
         startingPointMap = view.findViewById(R.id.startingPointMap);
         endPointMap = view.findViewById(R.id.endPointMap);
@@ -112,6 +134,22 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
         });
 
         createPartyButton.setOnClickListener((v)-> {
+            locationMap.put("user_authorization", sharedPreferences.getString("user_authorization", ""));
+            Call<PartyLocationResponse> call = retrofitService.partyLocation(locationMap);
+            call.enqueue(new Callback<PartyLocationResponse>() {
+                @Override
+                public void onResponse(Call<PartyLocationResponse> call, Response<PartyLocationResponse> response) {
+                    if(response.code() == 200) {
+                        createPartyIntent.putExtra("partyMoney", response.body().party_money);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<PartyLocationResponse> call, Throwable t) {
+
+                }
+            });
+
             createPartyIntent.putExtra("startingPointName", startingPointName);
             createPartyIntent.putExtra("endPointName", endPointName);
             startActivity(createPartyIntent);

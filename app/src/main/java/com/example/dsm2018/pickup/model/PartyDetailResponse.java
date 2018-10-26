@@ -22,12 +22,5 @@ public class PartyDetailResponse implements Serializable {
     public String party_peoplenum;
     public String party_currnum;
     public String party_boss;
-    public List<PartyMember> party_member_list;
-}
-
-class PartyMember {
-    String user_name;
-    String user_email;
-    String user_profile;
-    String user_phone;
+    public List<PartyMemberModel> party_member_list;
 }

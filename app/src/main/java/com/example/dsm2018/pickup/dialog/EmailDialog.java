@@ -74,8 +74,6 @@ public class EmailDialog {
                 errorText.setVisibility(View.VISIBLE);
                 inputEmail.setBackgroundResource(R.drawable.round_layout_side_red);
             }
-
-            dialog.dismiss();
         });
 
         cancelButton.setOnClickListener(v->dialog.dismiss());

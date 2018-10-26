@@ -29,8 +29,8 @@ public class PartyMemberListAdapter extends RecyclerView.Adapter<PartyMemberList
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.emailText.setText(data.get(position).userEmail);
-        holder.nameText.setText(data.get(position).userName);
+        holder.emailText.setText(data.get(position).user_email);
+        holder.nameText.setText(data.get(position).user_name);
     }
 
     @Override

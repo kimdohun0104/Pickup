@@ -176,6 +176,7 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback{
             call.enqueue(new Callback<List<PartySearchLocationResponse>>() {
                 @Override
                 public void onResponse(Call<List<PartySearchLocationResponse>> call, Response<List<PartySearchLocationResponse>> response) {
+                    data.clear();
                     data.addAll(response.body());
                     adapter = new PartySearchLocationListAdapter(data);
                     recyclerView.setLayoutManager(layoutManager);

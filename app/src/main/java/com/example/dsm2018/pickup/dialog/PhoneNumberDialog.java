@@ -3,6 +3,7 @@ package com.example.dsm2018.pickup.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,6 +48,8 @@ public class PhoneNumberDialog {
         nextButton = dialog.findViewById(R.id.nextButton);
         cancelButton = dialog.findViewById(R.id.cancelButton);
 
+        inputPhoneNumber.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+
         cancelButton.setOnClickListener(v -> dialog.dismiss());
 
         nextButton.setOnClickListener(v -> {
@@ -63,6 +66,7 @@ public class PhoneNumberDialog {
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if(response.code() == 200) {
                             UserInformation.getInstance().user_phone = inputPhoneNumber.getText().toString();
+                            dialog.dismiss();
                         }
                     }
 
