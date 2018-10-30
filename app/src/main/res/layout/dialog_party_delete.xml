@@ -75,7 +75,8 @@
             android:layout_weight="1"
             android:background="@color/colorRed"
             android:text="해제하기"
-            android:textColor="@color/colorWhite"/>
+            android:textColor="@color/colorWhite"
+            android:id="@+id/partyDeleteButton"/>
     </LinearLayout>
 
 </LinearLayout>

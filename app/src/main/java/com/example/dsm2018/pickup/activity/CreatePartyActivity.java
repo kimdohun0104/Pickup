@@ -28,7 +28,6 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -189,29 +188,32 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
         });
 
         createPartyButton.setOnClickListener(v-> {
-            Map<String, String> map = new HashMap();
-            map.put("user_authorization", sharedPreferences.getString("user_authorization", ""));
-            map.put("party_title", titleEdit.getText().toString());
-            map.put("party_content", contentEdit.getText().toString());
-            map.put("party_year", party_year);
-            map.put("party_month", party_month);
-            map.put("party_day", party_day);
-            map.put("party_hour", party_hour);
-            map.put("party_minute", party_minute);
-            map.put("party_peoplenum", String.valueOf(personnelCount));
-            map.put("party_departure_name", party_departure_name);
-            map.put("party_departure_lat", String.valueOf(startingPointPosition.latitude));
-            map.put("party_departure_lng", String.valueOf(startingPointPosition.longitude));
-            map.put("party_destination_name", party_destination_name);
-            map.put("party_destination_lat", String.valueOf(endPointPosition.latitude));
-            map.put("party_destination_lng", String.valueOf(endPointPosition.longitude));
-            map.put("party_money", partyMoney);
+            HashMap<String, String> map = new HashMap() {{
+                put("user_authorization", sharedPreferences.getString("user_authorization", ""));
+                put("party_title", titleEdit.getText().toString());
+                put("party_context", contentEdit.getText().toString());
+                put("party_year", party_year);
+                put("party_month", party_month);
+                put("party_day", party_day);
+                put("party_hour", party_hour);
+                put("party_minute", party_minute);
+                put("party_peoplenum", String.valueOf(personnelCount));
+                put("party_departure_name", party_departure_name);
+                put("party_departure_lat", String.valueOf(startingPointPosition.latitude));
+                put("party_departure_lng", String.valueOf(startingPointPosition.longitude));
+                put("party_destination_name", party_destination_name);
+                put("party_destination_lat", String.valueOf(endPointPosition.latitude));
+                put("party_destination_lng", String.valueOf(endPointPosition.longitude));
+                put("party_money", partyMoney);
+            }};
 
             Call<Void> call = retrofitService.partyCreate(map);
             call.enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
-
+                    if(response.code() == 200) {
+                        finish();
+                    }
                 }
 
                 @Override

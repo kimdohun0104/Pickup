@@ -175,6 +175,7 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
         doneButton.setOnClickListener(v -> {
             searchActivity.filterBundle = this.filterBundle;
             searchActivity.isFilter = true;
+            searchActivity.filterButton.setBackgroundResource(R.drawable.ic_filtered);
             dismiss();
         });
 

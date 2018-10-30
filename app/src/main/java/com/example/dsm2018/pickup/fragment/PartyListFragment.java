@@ -108,21 +108,21 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback{
                 map.put("user_authorization", sharedPreferences.getString("user_authorization", ""));
                 map.put("party_key", data.get(position).party_key);
 
-                Call<PartyDetailResponse> call = retrofitService.partyDetail(map);
-                call.enqueue(new Callback<PartyDetailResponse>() {
+                Call<List<PartyDetailResponse>> call = retrofitService.partyDetail(map);
+                call.enqueue(new Callback<List<PartyDetailResponse>>() {
                     @Override
-                    public void onResponse(Call<PartyDetailResponse> call, Response<PartyDetailResponse> response) {
+                    public void onResponse(Call<List<PartyDetailResponse>> call, Response<List<PartyDetailResponse>> response) {
                         Intent intent = new Intent(getActivity(), PartyDetailActivity.class);
 
-                        Bundle bundle = new Bundle();
-                        bundle.putSerializable("partyDetailResponse", response.body());
-                        intent.putExtras(bundle);
+                        ArrayList<PartyDetailResponse> array = new ArrayList<>();
+                        array.addAll(response.body());
+                        intent.putExtra("response", array);
 
                         startActivity(intent);
                     }
 
                     @Override
-                    public void onFailure(Call<PartyDetailResponse> call, Throwable t) {
+                    public void onFailure(Call<List<PartyDetailResponse>> call, Throwable t) {
 
                     }
                 });
@@ -140,6 +140,7 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback{
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.clear();
         double latitude, longitude;
 
         mMap.getUiSettings().setAllGesturesEnabled(false);

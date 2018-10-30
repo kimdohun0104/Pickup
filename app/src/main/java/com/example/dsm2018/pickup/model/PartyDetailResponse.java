@@ -5,6 +5,7 @@ import java.util.List;
 
 @SuppressWarnings("serial")
 public class PartyDetailResponse implements Serializable {
+    public String party_key;
     public String party_departure_lat;
     public String party_departure_lng;
     public String party_departure_name;
@@ -22,5 +23,11 @@ public class PartyDetailResponse implements Serializable {
     public String party_peoplenum;
     public String party_currnum;
     public String party_boss;
-    public List<PartyMemberModel> party_member_list;
+    public String party_status;
+    public String party_member;
+    public String user_authorization;
+    public String user_name;
+    public String user_profile;
+    public String user_email;
+    public String user_phone;
 }

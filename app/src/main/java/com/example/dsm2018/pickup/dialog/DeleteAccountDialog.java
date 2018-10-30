@@ -10,6 +10,8 @@ import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.RetrofitHelp;
 import com.example.dsm2018.pickup.RetrofitService;
 import com.example.dsm2018.pickup.activity.LoginActivity;
+import com.facebook.AccessToken;
+import com.facebook.login.LoginManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,6 +58,7 @@ public class DeleteAccountDialog {
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     if(response.code() == 200) {
                         dialog.dismiss();
+                        disconnectFromFacebook();
                         context.startActivity(new Intent(context, LoginActivity.class));
                     }
                 }
@@ -68,5 +71,11 @@ public class DeleteAccountDialog {
         });
 
         dialog.show();
+    }
+
+    private void disconnectFromFacebook() {
+        if(AccessToken.getCurrentAccessToken() == null)
+            return;
+        LoginManager.getInstance().logOut();
     }
 }

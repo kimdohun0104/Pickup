@@ -74,7 +74,7 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("party/detail")
-    Call<PartyDetailResponse> partyDetail(
+    Call<List<PartyDetailResponse>> partyDetail(
             @FieldMap Map<String, String> data
     );
 

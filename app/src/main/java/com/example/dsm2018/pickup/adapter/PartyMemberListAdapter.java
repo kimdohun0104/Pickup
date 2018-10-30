@@ -9,16 +9,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.dsm2018.pickup.R;
-import com.example.dsm2018.pickup.model.PartyMemberModel;
+import com.example.dsm2018.pickup.model.PartyDetailResponse;
 
 import java.util.ArrayList;
 
 public class PartyMemberListAdapter extends RecyclerView.Adapter<PartyMemberListAdapter.ViewHolder>{
-    public PartyMemberListAdapter(ArrayList<PartyMemberModel> data) {
+    public PartyMemberListAdapter(ArrayList<PartyDetailResponse> data) {
         this.data = data;
     }
 
-    ArrayList<PartyMemberModel> data;
+    ArrayList<PartyDetailResponse> data;
 
     @NonNull
     @Override
@@ -29,6 +29,7 @@ public class PartyMemberListAdapter extends RecyclerView.Adapter<PartyMemberList
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.profileImage.setImageResource(R.drawable.flower);
         holder.emailText.setText(data.get(position).user_email);
         holder.nameText.setText(data.get(position).user_name);
     }

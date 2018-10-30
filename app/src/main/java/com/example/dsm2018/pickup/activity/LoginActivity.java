@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.RetrofitHelp;
 import com.example.dsm2018.pickup.RetrofitService;
+import com.example.dsm2018.pickup.UserInformation;
 import com.example.dsm2018.pickup.model.SignupResponse;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -100,6 +101,10 @@ public class LoginActivity extends AppCompatActivity {
                                     SignupResponse signupResponse = response.body();
                                     editor.putString("user_authorization", signupResponse.user_authorization);
                                     editor.commit();
+                                    UserInformation userInformation = UserInformation.getInstance();
+                                    userInformation.user_phone = user_phone;
+                                    userInformation.user_name = user_name;
+                                    userInformation.user_email = user_email;
 
                                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                     finish();
@@ -114,8 +119,6 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     };
                     profileTracker.startTracking();
-
-
                 }
 
                 @Override
