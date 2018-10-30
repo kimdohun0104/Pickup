@@ -9,6 +9,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +48,7 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
 
         if(resultCode == 100) {
             String title = data.getExtras().getString("startingPointName");
-            setStartingPoint.setBackgroundResource(R.drawable.round_layout_side_orange);
+            setStartingPoint.setBackgroundResource(R.drawable.round_layout_side_orange_grey);
             setStartingPoint.setText(title);
             setStartingPoint.setTextColor(getResources().getColor(R.color.colorTextBlack));
             startingPointIcon.setImageResource(R.drawable.ic_location_orange);
@@ -59,7 +60,7 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
             confirmSetting();
         } else if(resultCode == 101) {
             String title = data.getExtras().getString("endPointName");
-            setDestination.setBackgroundResource(R.drawable.round_layout_side_orange);
+            setDestination.setBackgroundResource(R.drawable.round_layout_side_orange_grey);
             setDestination.setText(title);
             setDestination.setTextColor(getResources().getColor(R.color.colorTextBlack));
             endPointIcon.setImageResource(R.drawable.ic_location_orange);
@@ -74,11 +75,19 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
             filterBundle.putString("filter_date_month", data.getExtras().getString("party_month"));
             filterBundle.putString("filter_date_day", data.getExtras().getString("party_day"));
 
+            setDate.setBackgroundResource(R.drawable.round_layout_side_orange_grey);
+            setDate.setTextColor(getResources().getColor(R.color.colorPrimary));
+
             isDate = true;
             confirmSetting();
         } else if(resultCode == 103) {
             filterBundle.putString("filter_date_hour", data.getExtras().getString("party_hour"));
             filterBundle.putString("filter_date_minute", data.getExtras().getString("party_minute"));
+
+            setTime.setBackgroundResource(R.drawable.round_layout_side_orange_grey);
+            setTime.setTextColor(getResources().getColor(R.color.colorPrimary));
+
+            Log.d("DEBUGLOG", data.getExtras().getString("party_hour"));
 
             isTime = true;
             confirmSetting();
@@ -175,7 +184,7 @@ public class FilterSheetFragment extends BottomSheetDialogFragment{
         doneButton.setOnClickListener(v -> {
             searchActivity.filterBundle = this.filterBundle;
             searchActivity.isFilter = true;
-            searchActivity.filterButton.setBackgroundResource(R.drawable.ic_filtered);
+            searchActivity.filterButton.setImageDrawable(getResources().getDrawable(R.drawable.ic_filtered));
             dismiss();
         });
 

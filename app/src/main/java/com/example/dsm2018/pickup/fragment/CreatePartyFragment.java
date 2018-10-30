@@ -142,6 +142,9 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
                 public void onResponse(Call<PartyLocationResponse> call, Response<PartyLocationResponse> response) {
                     if(response.code() == 200) {
                         createPartyIntent.putExtra("partyMoney", response.body().party_money);
+                        createPartyIntent.putExtra("startingPointName", startingPointName);
+                        createPartyIntent.putExtra("endPointName", endPointName);
+                        startActivity(createPartyIntent);
                     }
                 }
 
@@ -150,10 +153,6 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
 
                 }
             });
-
-            createPartyIntent.putExtra("startingPointName", startingPointName);
-            createPartyIntent.putExtra("endPointName", endPointName);
-            startActivity(createPartyIntent);
         });
 
         endPointMap.onCreate(savedInstanceState);

@@ -98,18 +98,18 @@ public class LoginActivity extends AppCompatActivity {
                                 @Override
                                 public void onResponse(Call<SignupResponse> call, Response<SignupResponse> response) {
                                     if(response.code() == 200) {
-                                    SignupResponse signupResponse = response.body();
-                                    editor.putString("user_authorization", signupResponse.user_authorization);
-                                    editor.commit();
-                                    UserInformation userInformation = UserInformation.getInstance();
-                                    userInformation.user_phone = user_phone;
-                                    userInformation.user_name = user_name;
-                                    userInformation.user_email = user_email;
+                                        SignupResponse signupResponse = response.body();
+                                        editor.putString("user_authorization", signupResponse.user_authorization);
+                                        editor.commit();
+                                        UserInformation userInformation = UserInformation.getInstance();
+                                        userInformation.user_phone = user_phone;
+                                        userInformation.user_name = user_name;
+                                        userInformation.user_email = user_email;
 
-                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                                    finish();
+                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                        finish();
+                                    }
                                 }
-                            }
 
                                 @Override
                                 public void onFailure(Call<SignupResponse> call, Throwable t) {
@@ -143,7 +143,6 @@ public class LoginActivity extends AppCompatActivity {
     private String getPhone() {
         TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
-            Log.d("getPhone", "return \"\"");
             return "";
         }
         return telephonyManager.getLine1Number().replace("+82", "0");

@@ -40,7 +40,12 @@ public class SearchTimeDialog extends AppCompatActivity {
 
         selectionButton.setOnClickListener(v-> {
             Intent intent = new Intent();
-            intent.putExtra("party_hour", String.valueOf(hourPicker.getValue()));
+
+            int hour = hourPicker.getValue();
+            if(timeZonePicker.getValue() == 1)
+                hour += 12;
+
+            intent.putExtra("party_hour", String.valueOf(hour));
             intent.putExtra("party_minute", String.valueOf(minutePicker.getValue()));
 
             setResult(103, intent);

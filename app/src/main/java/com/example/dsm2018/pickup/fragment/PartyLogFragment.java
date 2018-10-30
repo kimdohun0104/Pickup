@@ -62,6 +62,7 @@ public class PartyLogFragment extends Fragment implements SwipeRefreshLayout.OnR
         call.enqueue(new Callback<List<PartyLogResponse>>() {
             @Override
             public void onResponse(Call<List<PartyLogResponse>> call, Response<List<PartyLogResponse>> response) {
+                data.clear();
                 data.addAll(response.body());
                 partyLogListAdapter = new PartyLogListAdapter(data);
                 recyclerView.setLayoutManager(layoutManager);

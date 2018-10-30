@@ -25,8 +25,8 @@ public class LogoutDialog {
         Dialog dialog = new Dialog(context);
         dialog.setContentView(R.layout.dialog_logout);
 
-        cancelButton = (Button) dialog.findViewById(R.id.cancelButton);
-        logoutButton = (Button) dialog.findViewById(R.id.logoutButton);
+        cancelButton = dialog.findViewById(R.id.cancelButton);
+        logoutButton = dialog.findViewById(R.id.logoutButton);
 
         cancelButton.setOnClickListener(v->dialog.dismiss());
 

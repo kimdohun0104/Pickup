@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -101,6 +102,9 @@ public class SearchActivity extends AppCompatActivity {
         }));
 
         searchButton.setOnClickListener(v-> {
+            Log.d("DEBUGLOG", filterBundle.getString("filter_departure_lat"));
+            Log.d("DEBUGLOG", filterBundle.getString("filter_departure_lng"));
+
             if(isFilter) {
                 Map<String, String> map = new HashMap() {{
                     put("user_authorization", sharedPreferences.getString("user_authorization", ""));

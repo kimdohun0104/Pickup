@@ -73,8 +73,6 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_party_list, container, false);
 
-        Log.d("DEBUGLOG", "PartyListFragment: onCreateView");
-
         ActivityCompat.requestPermissions(getActivity(),
                 new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 101);
 
@@ -150,8 +148,8 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback{
             latitude = gpsTracker.getLatitude();
             longitude = gpsTracker.getLongitude();
 
-            Log.d("DEBUGLOG", String.valueOf(latitude));
-            Log.d("DEBUGLOG", String.valueOf(longitude));
+            Log.d("DEBUGLOG", "party list: " + String.valueOf(latitude));
+            Log.d("DEBUGLOG", "party list: " + String.valueOf(longitude));
 
             LatLng position = new LatLng(latitude, longitude);
 

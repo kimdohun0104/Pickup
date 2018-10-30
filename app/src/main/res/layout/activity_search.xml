@@ -30,7 +30,8 @@
                 android:hint="검색"
                 android:textColor="@color/colorGrey"
                 android:background="@null"
-                android:id="@+id/searchEdit"/>
+                android:id="@+id/searchEdit"
+                android:singleLine="true"/>
             <Button
                 android:layout_width="20dp"
                 android:layout_height="20dp"
