@@ -13,6 +13,7 @@ import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.RetrofitHelp;
 import com.example.dsm2018.pickup.RetrofitService;
 import com.example.dsm2018.pickup.UserInformation;
+import com.example.dsm2018.pickup.activity.UserInformationActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -66,6 +67,7 @@ public class PhoneNumberDialog {
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if(response.code() == 200) {
                             UserInformation.getInstance().user_phone = inputPhoneNumber.getText().toString();
+                            UserInformationActivity.userPhoneNumber.setText(inputPhoneNumber.getText().toString());
                             dialog.dismiss();
                         }
                     }

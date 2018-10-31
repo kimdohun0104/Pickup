@@ -1,5 +1,6 @@
 package com.example.dsm2018.pickup.dialog;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,6 +13,7 @@ import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.RetrofitHelp;
 import com.example.dsm2018.pickup.RetrofitService;
 import com.example.dsm2018.pickup.UserInformation;
+import com.example.dsm2018.pickup.activity.UserInformationActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,6 +37,7 @@ public class EmailDialog {
 
     RetrofitService retrofitService;
     SharedPreferences sharedPreferences;
+
 
     public void showDialog() {
         Dialog dialog = new Dialog(context);
@@ -61,6 +64,7 @@ public class EmailDialog {
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if(response.code() == 200) {
                             UserInformation.getInstance().user_email = inputEmail.getText().toString();
+                            UserInformationActivity.userEmail.setText(inputEmail.getText().toString());
                             dialog.dismiss();
                         }
                     }

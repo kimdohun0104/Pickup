@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -42,7 +43,7 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
     EditText titleEdit, contentEdit;
     Button addPersonnelButton, reductionPersonnelButton, backButton, createPartyButton;
     Bitmap startingPointPin, endPointPin;
-    LatLng startingPointPosition, endPointPosition;
+    LatLng startingPointPosition, endPointPosition, centerPointPosition;
 
     String partyMoney;
 
@@ -106,8 +107,13 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
         endPointNameText.setText(party_destination_name);
         startingPointPosition = new LatLng(intent.getExtras().getDouble("startingPointLatitude"), intent.getExtras().getDouble("startingPointLongitude"));
         endPointPosition = new LatLng(intent.getExtras().getDouble("endPointLatitude"), intent.getExtras().getDouble("endPointLongitude"));
-        partyMoneyText.setText(intent.getExtras().getString("partyMoney"));
+        partyMoneyText.setText(intent.getExtras().getString("partyMoney") + "원");
         partyMoney = intent.getExtras().getString("partyMoney");
+
+        centerPointPosition = new LatLng((startingPointPosition.latitude + endPointPosition.latitude) / 2.0, (startingPointPosition.longitude + endPointPosition.longitude) / 2.0);
+
+        Log.d("DEBUGLOG", "startingPoint: " + startingPointPosition.latitude + ", " + startingPointPosition.longitude);
+        Log.d("DEBUGLOG", "endPoint: " + endPointPosition.latitude + ", " + endPointPosition.longitude);
 
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.mapView);
         mapFragment.getMapAsync(this);
@@ -188,6 +194,7 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
         });
 
         createPartyButton.setOnClickListener(v-> {
+            Log.d("DEBUGLOG", "createPartyButton 클릭");
             HashMap<String, String> map = new HashMap() {{
                 put("user_authorization", sharedPreferences.getString("user_authorization", ""));
                 put("party_title", titleEdit.getText().toString());
@@ -254,7 +261,10 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
 
         mMap.getUiSettings().setAllGesturesEnabled(false);
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        zoom();
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(centerPointPosition, 16));
+        mMap.setOnMapLoadedCallback(() -> {
+            zoom();
+        });
     }
 
     private void zoom() {

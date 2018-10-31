@@ -3,7 +3,6 @@ package com.example.dsm2018.pickup.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -11,6 +10,7 @@ import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.RetrofitHelp;
 import com.example.dsm2018.pickup.RetrofitService;
 import com.example.dsm2018.pickup.UserInformation;
+import com.example.dsm2018.pickup.activity.UserInformationActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -60,6 +60,7 @@ public class UserNameDialog {
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if(response.code() == 200) {
                             UserInformation.getInstance().user_name = inputName.getText().toString();
+                            UserInformationActivity.userName.setText(inputName.getText().toString());
                             dialog.dismiss();
                         }
                     }

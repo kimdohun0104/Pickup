@@ -76,6 +76,7 @@ public class SearchEndPointActivity extends AppCompatActivity {
                     intent.putExtra("latitude", addressList.get(position).getLatitude());
                     intent.putExtra("longitude", addressList.get(position).getLongitude());
                     setResult(101, intent);
+                    dialog.dismiss();
                     finish();
                 });
 
@@ -100,7 +101,16 @@ public class SearchEndPointActivity extends AppCompatActivity {
 
             if(addressList != null) {
                 for (int i = 0; i < addressList.size(); i++) {
-                    data.add(new SearchPointModel(addressList.get(i).getFeatureName(), addressList.get(i).getAddressLine(0)));
+                    StringBuilder address = new StringBuilder();
+                    Address iAddress = addressList.get(i);
+                    if(iAddress.getLocality() != null)
+                        address.append(iAddress.getLocality() + " ");
+                    if(iAddress.getThoroughfare() != null)
+                        address.append(iAddress.getThoroughfare() + " ");
+                    if(iAddress.getFeatureName() != null)
+                        address.append(iAddress.getFeatureName() + " ");
+
+                    data.add(new SearchPointModel(address.toString(), iAddress.getAddressLine(0)));
                 }
                 recyclerView.setAdapter(new SearchDestinationAdapter(data));
             }

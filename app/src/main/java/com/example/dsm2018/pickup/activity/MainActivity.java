@@ -10,12 +10,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.adapter.ViewPagerAdapter;
 import com.example.dsm2018.pickup.dialog.DeleteAccountDialog;
 import com.example.dsm2018.pickup.dialog.LogoutDialog;
 import com.facebook.AccessToken;
+import com.facebook.Profile;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     View drawerView;
     Button openDrawerButton, searchButton;
     LinearLayout userInformation, accountDelete, logOut;
+    TextView userNameText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         accountDelete = findViewById(R.id.accountDelete);
         logOut = findViewById(R.id.logOut);
         searchButton = findViewById(R.id.searchButton);
+        userNameText = findViewById(R.id.userName);
+        userNameText.setText(Profile.getCurrentProfile().getName());
 
         tabLayout.addTab(tabLayout.newTab().setText("파티생성"));
         tabLayout.addTab(tabLayout.newTab().setText("파티목록"));

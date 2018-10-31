@@ -40,7 +40,7 @@ public class UserInformationActivity extends AppCompatActivity implements Compou
     ImageView profileImage, bigProfileImage;
     Button backButton, modifyUserInformation;
     CheckBox profileImageCheckBox, userNameCheckBox, phoneNumberCheckBox, emailCheckBox;
-    TextView userName, userPhoneNumber, userEmail;
+    public static TextView userName, userPhoneNumber, userEmail;
 
     int count = 0;
 
