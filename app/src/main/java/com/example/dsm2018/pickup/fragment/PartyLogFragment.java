@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.RetrofitHelp;
@@ -62,11 +63,15 @@ public class PartyLogFragment extends Fragment implements SwipeRefreshLayout.OnR
         call.enqueue(new Callback<List<PartyLogResponse>>() {
             @Override
             public void onResponse(Call<List<PartyLogResponse>> call, Response<List<PartyLogResponse>> response) {
-                data.clear();
-                data.addAll(response.body());
-                partyLogListAdapter = new PartyLogListAdapter(data);
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setAdapter(partyLogListAdapter);
+                if (response.code() == 200) {
+                    data.clear();
+                    data.addAll(response.body());
+                    partyLogListAdapter = new PartyLogListAdapter(data);
+                    recyclerView.setLayoutManager(layoutManager);
+                    recyclerView.setAdapter(partyLogListAdapter);
+                } else if(response.code() == 500) {
+                    Toast.makeText(getActivity(), "서버 오류가 발생하였습니다. 잠시후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -88,11 +93,15 @@ public class PartyLogFragment extends Fragment implements SwipeRefreshLayout.OnR
         call.enqueue(new Callback<List<PartyLogResponse>>() {
             @Override
             public void onResponse(Call<List<PartyLogResponse>> call, Response<List<PartyLogResponse>> response) {
-                data.clear();
-                data.addAll(response.body());
-                partyLogListAdapter = new PartyLogListAdapter(data);
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setAdapter(partyLogListAdapter);
+                if(response.code() == 200) {
+                    data.clear();
+                    data.addAll(response.body());
+                    partyLogListAdapter = new PartyLogListAdapter(data);
+                    recyclerView.setLayoutManager(layoutManager);
+                    recyclerView.setAdapter(partyLogListAdapter);
+                } else{
+                    Toast.makeText(getActivity(), "서버 오류", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override

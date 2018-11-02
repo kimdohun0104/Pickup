@@ -18,7 +18,8 @@
             <Button
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:background="@drawable/ic_back"/>
+                android:background="@drawable/ic_back"
+                android:id="@+id/backButton"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -31,146 +32,163 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <fragment
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:id="@+id/mapView"
                 class="com.google.android.gms.maps.MapFragment"
-                android:id="@+id/mapView"/>
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:orientation="vertical"
                 android:paddingStart="40dp">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="출발지"
                         android:layout_centerVertical="true"
+                        android:text="출발지"
                         android:textColor="@color/colorBlack"
-                        android:textSize="11sp"/>
+                        android:textSize="11sp" />
+
                     <TextView
+                        android:id="@+id/departureNameText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="14sp"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="60dp"
                         android:text="대덕소프트웨어마이스터고등학교"
-                        android:id="@+id/departureNameText"/>
+                        android:textColor="@color/colorBlack"
+                        android:textSize="14sp" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="도착지"
                         android:layout_centerVertical="true"
+                        android:text="도착지"
                         android:textColor="@color/colorBlack"
-                        android:textSize="11sp"/>
+                        android:textSize="11sp" />
+
                     <TextView
+                        android:id="@+id/destinationNameText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/colorBlack"
-                        android:textSize="14sp"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="60dp"
                         android:text="예산 소복갈비"
-                        android:id="@+id/destinationNameText"/>
+                        android:textColor="@color/colorBlack"
+                        android:textSize="14sp" />
                 </RelativeLayout>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"><TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="예상금액"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="11sp"/>
+                    android:layout_weight="1">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="예상금액"
                         android:textColor="@color/colorBlack"
-                        android:textSize="14sp"
+                        android:textSize="11sp" />
+
+                    <TextView
+                        android:id="@+id/partyMoneyText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="60dp"
                         android:text="9600원"
-                        android:id="@+id/partyMoneyText"/>
+                        android:textColor="@color/colorBlack"
+                        android:textSize="14sp" />
                 </RelativeLayout>
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGrey_3"/>
+                android:background="@color/colorGrey_3" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="190dp"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingStart="40dp"
-                android:paddingEnd="40dp"
                 android:paddingTop="20dp"
+                android:paddingEnd="40dp"
                 android:paddingBottom="20dp">
+
                 <TextView
+                    android:id="@+id/partyTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="나랑 대전역 같이 갈 사람 있니?"
                     android:textColor="@color/colorTextBlack"
-                    android:id="@+id/party_title"/>
-zl                <TextView
+                    android:layout_marginBottom="16dp"/>
+
+                <TextView
+                    android:id="@+id/partyContent"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="top"
                     android:text="가나다라"
-                    android:textSize="14sp"
-                    android:id="@+id/partyContent"/>
+                    android:textSize="14sp" />
             </LinearLayout>
-            
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGrey_3"/>
+                android:background="@color/colorGrey_3" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingBottom="20dp"
-                android:paddingEnd="40dp"
                 android:paddingStart="40dp"
-                android:paddingTop="20dp">
+                android:paddingTop="20dp"
+                android:paddingEnd="40dp"
+                android:paddingBottom="20dp">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="날짜"
-                        android:textSize="11sp"/>
+                        android:textSize="11sp" />
+
                     <TextView
+                        android:id="@+id/partyDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2018년 07월 24일"
-                        android:textColor="@color/colorBlack"
                         android:layout_marginTop="6dp"
-                        android:id="@+id/partyDate"/>
+                        android:text="2018년 07월 24일"
+                        android:textColor="@color/colorBlack" />
                 </LinearLayout>
 
                 <ImageView
@@ -184,29 +202,31 @@ zl                <TextView
                 android:layout_height="80dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingBottom="20dp"
-                android:paddingEnd="40dp"
                 android:paddingStart="40dp"
-                android:paddingTop="20dp">
+                android:paddingTop="20dp"
+                android:paddingEnd="40dp"
+                android:paddingBottom="20dp">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="시간"
-                        android:textSize="11sp"/>
+                        android:textSize="11sp" />
+
                     <TextView
+                        android:id="@+id/partyTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="PM 06시 40분"
-                        android:textColor="@color/colorBlack"
                         android:layout_marginTop="6dp"
-                        android:id="@+id/partyTime"/>
+                        android:text="PM 06시 40분"
+                        android:textColor="@color/colorBlack" />
                 </LinearLayout>
 
                 <ImageView
@@ -220,29 +240,31 @@ zl                <TextView
                 android:layout_height="80dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingBottom="20dp"
-                android:paddingEnd="40dp"
                 android:paddingStart="40dp"
-                android:paddingTop="20dp">
+                android:paddingTop="20dp"
+                android:paddingEnd="40dp"
+                android:paddingBottom="20dp">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="인원"
-                        android:textSize="11sp"/>
+                        android:textSize="11sp" />
+
                     <TextView
+                        android:id="@+id/peopleNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="3명 / 5명"
-                        android:textColor="@color/colorBlack"
                         android:layout_marginTop="6dp"
-                        android:id="@+id/peopleNum"/>
+                        android:text="3명 / 5명"
+                        android:textColor="@color/colorBlack" />
                 </LinearLayout>
 
                 <ImageView
@@ -254,36 +276,38 @@ zl                <TextView
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/colorGrey_3"/>
+                android:background="@color/colorGrey_3" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingStart="40dp"
-                android:paddingEnd="40dp"
                 android:paddingTop="20dp"
+                android:paddingEnd="40dp"
                 android:paddingBottom="20dp">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="멤버"
-                    android:textSize="11sp"/>
+                    android:textSize="11sp" />
+
                 <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/recyclerView"></android.support.v7.widget.RecyclerView>
+                    android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
             </LinearLayout>
-            
+
             <Button
+                android:id="@+id/joinPartyButton"
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
-                android:gravity="center"
-                android:textColor="@color/colorWhite"
-                android:text="참여하기"
                 android:background="@color/colorPrimary"
-                android:id="@+id/joinPartyButton"/>
-            
+                android:gravity="center"
+                android:text="참여하기"
+                android:textColor="@color/colorWhite" />
+
         </LinearLayout>
     </ScrollView>
 

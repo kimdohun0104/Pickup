@@ -4,14 +4,18 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.dsm2018.pickup.R;
+import com.example.dsm2018.pickup.RecyclerItemClickListener;
 import com.example.dsm2018.pickup.RetrofitHelp;
 import com.example.dsm2018.pickup.RetrofitService;
 import com.example.dsm2018.pickup.adapter.PartyMemberListAdapter;
@@ -35,7 +39,7 @@ public class PartyDetailActivity extends AppCompatActivity implements OnMapReady
     MapFragment mapFragment;
     TextView departureNameText, destinationNameText, partyTitle, partyContent, partyDate, partyTime, partyPeoplenum, partyMoneyText;
     RecyclerView recyclerView;
-    Button joinPartyButton;
+    Button joinPartyButton, backButton;
 
     GoogleMap mMap;
 
@@ -66,10 +70,13 @@ public class PartyDetailActivity extends AppCompatActivity implements OnMapReady
         partyContent = findViewById(R.id.partyContent);
         partyDate = findViewById(R.id.partyDate);
         partyTime = findViewById(R.id.partyTime);
-        partyPeoplenum = findViewById(R.id.partyPeopleNum);
+        partyPeoplenum = findViewById(R.id.peopleNum);
         recyclerView = findViewById(R.id.recyclerView);
         joinPartyButton = findViewById(R.id.joinPartyButton);
         partyMoneyText = findViewById(R.id.partyMoneyText);
+        backButton = findViewById(R.id.backButton);
+
+        backButton.setOnClickListener(v->finish());
 
         Intent intent = getIntent();
         response = (ArrayList<PartyDetailResponse>) intent.getSerializableExtra("response");
@@ -82,7 +89,7 @@ public class PartyDetailActivity extends AppCompatActivity implements OnMapReady
         partyTitle.setText(response.get(0).party_title);
         partyContent.setText(response.get(0).party_context);
         partyDate.setText(response.get(0).party_year + "년 " + response.get(0).party_month + "월 " + response.get(0).party_day + "일");
-        partyTime.setText("PM " + response.get(0).party_hour + "시 " + response.get(0).party_minute + "분");
+         partyTime.setText("PM " + response.get(0).party_hour + "시 " + response.get(0).party_minute + "분");
         partyPeoplenum.setText(response.get(0).party_currnum + "명 / " + response.get(0).party_peoplenum + "명");
         partyMoneyText.setText(response.get(0).party_money);
 
@@ -95,8 +102,25 @@ public class PartyDetailActivity extends AppCompatActivity implements OnMapReady
             joinPartyButton.setText("파티참가");
             joinPartyButton.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
 
-            joinPartyButton.setOnClickListener(v-> new JoinPartyDialog(this, response.get(0).party_key).showDialog());
+            joinPartyButton.setOnClickListener(v-> new JoinPartyDialog(this, response.get(0).party_key, response.get(0).party_currnum).showDialog());
         }
+
+        recyclerView.setLayoutManager(layoutManager);
+        listAdapter = new PartyMemberListAdapter(response);
+        recyclerView.setAdapter(listAdapter);
+
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getApplicationContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                String tel = "tel:" + response.get(position).user_phone.replaceAll("-", "");
+                startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse(tel)));
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
     }
 
     @Override
@@ -117,7 +141,9 @@ public class PartyDetailActivity extends AppCompatActivity implements OnMapReady
 
         mMap.getUiSettings().setAllGesturesEnabled(false);
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        zoom();
+        mMap.setOnMapLoadedCallback(() -> {
+            zoom();
+        });
     }
 
     private void zoom() {

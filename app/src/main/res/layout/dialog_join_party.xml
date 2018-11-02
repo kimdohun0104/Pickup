@@ -131,7 +131,8 @@
             android:layout_weight="1"
             android:text="참여하기"
             android:background="@color/colorPrimary"
-            android:textColor="@color/colorWhite"/>
+            android:textColor="@color/colorWhite"
+            android:id="@+id/joinPartyButton"/>
     </LinearLayout>
 
 </LinearLayout>

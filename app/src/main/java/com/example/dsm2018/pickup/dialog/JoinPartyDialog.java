@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.RetrofitHelp;
@@ -29,12 +30,14 @@ import retrofit2.Retrofit;
 
 public class JoinPartyDialog {
 
-    public JoinPartyDialog(Context context, String party_key) {
+    public JoinPartyDialog(Context context, String party_key, String currnum) {
         this.context = context;
         this.party_key = party_key;
+        this.currnum = currnum;
     }
 
     String party_key;
+    String currnum;
 
     Context context;
 
@@ -60,13 +63,18 @@ public class JoinPartyDialog {
             Map<String, String> map = new HashMap();
             map.put("user_authorization", sharedPreferences.getString("user_authorization", ""));
             map.put("party_key", party_key);
+            map.put("party_currnum", currnum);
 
             Call<Void> call = retrofitService.partyJoin(map);
             call.enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(Call<Void> call, Response<Void> response) {
-                    dialog.dismiss();
-                    ((Activity)context).finish();
+                    if(response.code() == 200) {
+                        dialog.dismiss();
+                        ((Activity) context).finish();
+                    } else if(response.code() == 500) {
+                        Toast.makeText(context, "서버 오류가 발생하였습니다. 잠시후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
                 @Override

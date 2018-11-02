@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.RetrofitHelp;
@@ -69,6 +70,8 @@ public class PhoneNumberDialog {
                             UserInformation.getInstance().user_phone = inputPhoneNumber.getText().toString();
                             UserInformationActivity.userPhoneNumber.setText(inputPhoneNumber.getText().toString());
                             dialog.dismiss();
+                        } else if(response.code() == 500) {
+                            Toast.makeText(context, "서버 오류가 발생하였습니다. 잠시후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
                         }
                     }
 

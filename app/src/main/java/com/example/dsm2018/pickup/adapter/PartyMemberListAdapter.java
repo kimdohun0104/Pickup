@@ -1,5 +1,8 @@
 package com.example.dsm2018.pickup.adapter;
 
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,6 +35,10 @@ public class PartyMemberListAdapter extends RecyclerView.Adapter<PartyMemberList
         holder.profileImage.setImageResource(R.drawable.flower);
         holder.emailText.setText(data.get(position).user_email);
         holder.nameText.setText(data.get(position).user_name);
+        holder.profileImage.setBackground(new ShapeDrawable(new OvalShape()));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            holder.profileImage.setClipToOutline(true);
+        }
     }
 
     @Override

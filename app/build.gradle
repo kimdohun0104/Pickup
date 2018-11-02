@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        release {
+            keyAlias 'release'
+            keyPassword 'educo531!'
+            storeFile file('C:/Users/DSM2018/DSM2018.jks')
+            storePassword 'educo531!'
+        }
+    }
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.dsm2018.pickup"

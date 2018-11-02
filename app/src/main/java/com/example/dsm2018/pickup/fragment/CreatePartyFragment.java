@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.RetrofitHelp;
@@ -145,6 +146,8 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
                         createPartyIntent.putExtra("startingPointName", startingPointName);
                         createPartyIntent.putExtra("endPointName", endPointName);
                         startActivity(createPartyIntent);
+                    } else if(response.code() == 500) {
+                        Toast.makeText(getActivity(), "서버 오류가 발생하였습니다. 잠시후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
                     }
                 }
 

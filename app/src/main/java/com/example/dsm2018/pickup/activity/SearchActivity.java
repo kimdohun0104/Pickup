@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.RecyclerItemClickListener;
@@ -102,8 +103,6 @@ public class SearchActivity extends AppCompatActivity {
         }));
 
         searchButton.setOnClickListener(v-> {
-            Log.d("DEBUGLOG", filterBundle.getString("filter_departure_lat"));
-            Log.d("DEBUGLOG", filterBundle.getString("filter_departure_lng"));
 
             if(isFilter) {
                 Map<String, String> map = new HashMap() {{
@@ -120,15 +119,21 @@ public class SearchActivity extends AppCompatActivity {
                     put("filter_date_minute", filterBundle.getString("filter_date_minute"));
                 }};
 
+                Log.d("DEBUGLOG", filterBundle.getString("filter_departure_lat"));
+
                 Call<List<PartySearchTextResponse>> call = retrofitService.partySearchText(map);
                 call.enqueue(new Callback<List<PartySearchTextResponse>>() {
                     @Override
                     public void onResponse(Call<List<PartySearchTextResponse>> call, Response<List<PartySearchTextResponse>> response) {
-                        data.clear();
-                        data.addAll(response.body());
-                        recyclerView.setLayoutManager(layoutManager);
-                        listAdapter = new PartySearchTextListAdapter(data);
-                        recyclerView.setAdapter(listAdapter);
+                        if(response.code() == 200) {
+                            data.clear();
+                            data.addAll(response.body());
+                            recyclerView.setLayoutManager(layoutManager);
+                            listAdapter = new PartySearchTextListAdapter(data);
+                            recyclerView.setAdapter(listAdapter);
+                        } else if(response.code() == 500) {
+                            Toast.makeText(getApplicationContext(), "서버 오류가 발생하였습니다. 잠시후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override
@@ -155,11 +160,16 @@ public class SearchActivity extends AppCompatActivity {
                 call.enqueue(new Callback<List<PartySearchTextResponse>>() {
                     @Override
                     public void onResponse(Call<List<PartySearchTextResponse>> call, Response<List<PartySearchTextResponse>> response) {
-                        data.clear();
-                        data.addAll(response.body());
-                        recyclerView.setLayoutManager(layoutManager);
-                        listAdapter = new PartySearchTextListAdapter(data);
-                        recyclerView.setAdapter(listAdapter);
+                        if(response.code() == 200) {
+                            Log.d("DEBUGLOG", response.body().get(0).party_title);
+                            data.clear();
+                            data.addAll(response.body());
+                            recyclerView.setLayoutManager(layoutManager);
+                            listAdapter = new PartySearchTextListAdapter(data);
+                            recyclerView.setAdapter(listAdapter);
+                        } else if(response.code() == 500) {
+                            Toast.makeText(getApplicationContext(), "서버 오류가 발생하였습니다. 잠시후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
                     @Override

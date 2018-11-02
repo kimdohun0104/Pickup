@@ -12,6 +12,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.RetrofitHelp;
@@ -220,6 +221,8 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
                 public void onResponse(Call<Void> call, Response<Void> response) {
                     if(response.code() == 200) {
                         finish();
+                    } else if(response.code() == 500) {
+                        Toast.makeText(getApplicationContext(), "서버 오류가 발생하였습니다. 잠시후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
                     }
                 }
 

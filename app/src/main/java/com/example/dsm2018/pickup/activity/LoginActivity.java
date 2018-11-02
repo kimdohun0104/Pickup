@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.dsm2018.pickup.R;
 import com.example.dsm2018.pickup.RetrofitHelp;
@@ -60,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         editor = preferences.edit();
 
         ActivityCompat.requestPermissions(LoginActivity.this,
-                new String[]{Manifest.permission.READ_PHONE_STATE}, 101);
+                new String[]{Manifest.permission.READ_PHONE_STATE, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION}, 101);
 
         callbackManager = CallbackManager.Factory.create();
 
@@ -108,6 +109,8 @@ public class LoginActivity extends AppCompatActivity {
 
                                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                         finish();
+                                    } else if(response.code() == 500) {
+                                        Toast.makeText(getApplicationContext(), "서버 오류가 발생하였습니다. 잠시후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
                                     }
                                 }
 

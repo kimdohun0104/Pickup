@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,43 +50,18 @@ public class SearchStartingPointActivity extends AppCompatActivity {
         data = new ArrayList<>();
         layoutManager = new LinearLayoutManager(this);
 
+        inputStartingPoint.setOnKeyListener((view, i, keyEvent) -> {
+            if(((keyEvent.getAction() == KeyEvent.ACTION_DOWN) && i == KeyEvent.KEYCODE_ENTER)) {
+                searchLocation();
+                return true;
+            }
+            return false;
+        });
+
         backButton.setOnClickListener(v -> finish());
 
         searchButton.setOnClickListener((v)->{
-            data.clear();
-            Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-            beforeSearch.setVisibility(View.INVISIBLE);
-            recyclerView.setVisibility(View.VISIBLE);
-
-            recyclerView.setLayoutManager(layoutManager);
-
-            addressList = new ArrayList<>();
-            try {
-                addressList = geocoder.getFromLocationName(inputStartingPoint.getText().toString().trim(), 5);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            if(addressList != null) {
-                for (int i = 0; i < addressList.size(); i++) {
-                    StringBuilder address = new StringBuilder();
-                    Address iAddress = addressList.get(i);
-                    if(iAddress.getLocality() != null)
-                        address.append(iAddress.getLocality() + " ");
-                    if(iAddress.getThoroughfare() != null)
-                        address.append(iAddress.getThoroughfare() + " ");
-                    if(iAddress.getFeatureName() != null)
-                        address.append(iAddress.getFeatureName() + " ");
-
-                    data.add(new SearchPointModel(address.toString(), iAddress.getAddressLine(0)));
-                }
-
-                recyclerView.setAdapter(new SearchStartingPointAdapter(data));
-            }
-            if(addressList.size() == 0) {
-                beforeSearch.setVisibility(View.VISIBLE);
-                recyclerView.setVisibility(View.INVISIBLE);
-            }
+            searchLocation();
         });
 
         recyclerView.setLayoutManager(layoutManager);
@@ -126,5 +102,42 @@ public class SearchStartingPointActivity extends AppCompatActivity {
 
             }
         }));
+    }
+
+    private void searchLocation() {
+        data.clear();
+        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        beforeSearch.setVisibility(View.INVISIBLE);
+        recyclerView.setVisibility(View.VISIBLE);
+
+        recyclerView.setLayoutManager(layoutManager);
+
+        addressList = new ArrayList<>();
+        try {
+            addressList = geocoder.getFromLocationName(inputStartingPoint.getText().toString().trim(), 5);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if(addressList != null) {
+            for (int i = 0; i < addressList.size(); i++) {
+                StringBuilder address = new StringBuilder();
+                Address iAddress = addressList.get(i);
+                if(iAddress.getLocality() != null)
+                    address.append(iAddress.getLocality() + " ");
+                if(iAddress.getThoroughfare() != null)
+                    address.append(iAddress.getThoroughfare() + " ");
+                if(iAddress.getFeatureName() != null)
+                    address.append(iAddress.getFeatureName() + " ");
+
+                data.add(new SearchPointModel(address.toString(), iAddress.getAddressLine(0)));
+            }
+
+            recyclerView.setAdapter(new SearchStartingPointAdapter(data));
+        }
+        if(addressList.size() == 0) {
+            beforeSearch.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.INVISIBLE);
+        }
     }
 }

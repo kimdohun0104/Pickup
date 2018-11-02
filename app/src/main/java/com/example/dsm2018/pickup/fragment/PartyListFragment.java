@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dsm2018.pickup.GPSTracker;
 import com.example.dsm2018.pickup.R;
@@ -145,8 +146,10 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback{
 
         if(gpsTracker.isGPSEnabled) {
             gpsTracker = new GPSTracker(getActivity());
-            latitude = gpsTracker.getLatitude();
-            longitude = gpsTracker.getLongitude();
+//            latitude = gpsTracker.getLatitude();
+//            longitude = gpsTracker.getLongitude();
+            latitude = 36.332344;
+            longitude = 127.4342;
 
             Log.d("DEBUGLOG", "party list: " + String.valueOf(latitude));
             Log.d("DEBUGLOG", "party list: " + String.valueOf(longitude));
@@ -167,24 +170,38 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback{
             currentLocationIcon.setImageResource(R.drawable.ic_location_orange);
 
             Map<String, String> map = new HashMap();
-            map.put("user_authorization", sharedPreferences.getString("user_authorization", ""));
+//            map.put("user_authorization", sharedPreferences.getString("user_authorization", ""));
             map.put("departure_lat", String.valueOf(latitude));
             map.put("departure_lng", String.valueOf(longitude));
+
+            Log.d("DEBUGLOG", map.get("departure_lat"));
+            Log.d("DEBUGLOG", map.get("departure_lng"));
 
             Call<List<PartySearchLocationResponse>> call = retrofitService.partySearchLocation(map);
             call.enqueue(new Callback<List<PartySearchLocationResponse>>() {
                 @Override
                 public void onResponse(Call<List<PartySearchLocationResponse>> call, Response<List<PartySearchLocationResponse>> response) {
-                    data.clear();
-                    data.addAll(response.body());
-                    adapter = new PartySearchLocationListAdapter(data);
-                    recyclerView.setLayoutManager(layoutManager);
-                    recyclerView.setAdapter(adapter);
+                    if(response.code() == 200) {
+                        if(response.body().size() == 0) {
+                            return;
+                        }
+                        data.clear();
+                        data.addAll(response.body());
+                        Log.d("DEBUGLOG", response.body().get(0).party_title + "test");
+                        adapter = new PartySearchLocationListAdapter(data);
+                        recyclerView.setLayoutManager(layoutManager);
+                        recyclerView.setAdapter(adapter);
+                    } else if(response.code() == 500) {
+                        Toast.makeText(getActivity(), "서버 오류가 발생하였습니다. 잠시후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Log.d("DEBUGLOG", "루프 들어옴");
+                    }
                 }
 
                 @Override
                 public void onFailure(Call<List<PartySearchLocationResponse>> call, Throwable t) {
-
+                    Log.d("DEBUGLOG", t.toString());
                 }
             });
         }
