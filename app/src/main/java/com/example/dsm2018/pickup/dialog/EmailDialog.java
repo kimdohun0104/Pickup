@@ -56,7 +56,7 @@ public class EmailDialog {
             if(inputEmail.getText().toString().matches(emailPattern)){
                 Map<String, String> map = new HashMap();
                 map.put("user_authorization", sharedPreferences.getString("user_authorization", ""));
-                map.put("modify_value", inputEmail.getText().toString());
+                map.put("modify_value", inputEmail.getText().toString().trim());
                 map.put("modify_info_type", "user_email");
 
                 Call<Void> call = retrofitService.modifyinfo(map);
@@ -64,8 +64,8 @@ public class EmailDialog {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if(response.code() == 200) {
-                            UserInformation.getInstance().user_email = inputEmail.getText().toString();
-                            UserInformationActivity.userEmail.setText(inputEmail.getText().toString());
+                            UserInformation.getInstance().user_email = inputEmail.getText().toString().trim();
+                            UserInformationActivity.userEmail.setText(inputEmail.getText().toString().trim());
                             dialog.dismiss();
                         } else if(response.code() == 500) {
                             Toast.makeText(context, "서버 오류가 발생하였습니다. 잠시후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();

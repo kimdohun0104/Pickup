@@ -59,7 +59,7 @@ public class PhoneNumberDialog {
             if(number.length() == 13) {
                 Map<String, String> map = new HashMap();
                 map.put("user_authorization", sharedPreferences.getString("user_authorization", ""));
-                map.put("modify_value", inputPhoneNumber.getText().toString());
+                map.put("modify_value", inputPhoneNumber.getText().toString().trim());
                 map.put("modify_info_type", "user_phone");
 
                 Call<Void> call = retrofitService.modifyinfo(map);
@@ -67,8 +67,8 @@ public class PhoneNumberDialog {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
                         if(response.code() == 200) {
-                            UserInformation.getInstance().user_phone = inputPhoneNumber.getText().toString();
-                            UserInformationActivity.userPhoneNumber.setText(inputPhoneNumber.getText().toString());
+                            UserInformation.getInstance().user_phone = inputPhoneNumber.getText().toString().trim();
+                            UserInformationActivity.userPhoneNumber.setText(inputPhoneNumber.getText().toString().trim());
                             dialog.dismiss();
                         } else if(response.code() == 500) {
                             Toast.makeText(context, "서버 오류가 발생하였습니다. 잠시후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();

@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="84dp"
         android:paddingStart="40dp"
-        android:paddingTop="16dp"
+        android:paddingTop="18dp"
         android:paddingBottom="16dp"
         android:paddingEnd="40dp"
         android:orientation="vertical">
@@ -29,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2018년 07월 12일"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 android:id="@+id/partyDate"/>
             <View
                 android:layout_width="0dp"
@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorPrimaryDark"
                 android:text="3명 / 4명"
-                android:textSize="11sp"
+                android:textSize="12sp"
                 android:id="@+id/partyPeopleNum"/>
         </LinearLayout>
     </LinearLayout>

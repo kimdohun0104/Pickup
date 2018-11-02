@@ -198,8 +198,8 @@ public class CreatePartyActivity extends AppCompatActivity implements OnMapReady
             Log.d("DEBUGLOG", "createPartyButton 클릭");
             HashMap<String, String> map = new HashMap() {{
                 put("user_authorization", sharedPreferences.getString("user_authorization", ""));
-                put("party_title", titleEdit.getText().toString());
-                put("party_context", contentEdit.getText().toString());
+                put("party_title", titleEdit.getText().toString().trim());
+                put("party_context", contentEdit.getText().toString().trim());
                 put("party_year", party_year);
                 put("party_month", party_month);
                 put("party_day", party_day);

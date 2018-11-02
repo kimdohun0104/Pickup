@@ -39,6 +39,7 @@ public class PartyMemberListAdapter extends RecyclerView.Adapter<PartyMemberList
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             holder.profileImage.setClipToOutline(true);
         }
+        holder.profileImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
     }
 
     @Override

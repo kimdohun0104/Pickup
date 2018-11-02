@@ -148,8 +148,8 @@ public class PartyListFragment extends Fragment implements OnMapReadyCallback{
             gpsTracker = new GPSTracker(getActivity());
 //            latitude = gpsTracker.getLatitude();
 //            longitude = gpsTracker.getLongitude();
-            latitude = 36.332344;
-            longitude = 127.4342;
+            latitude = 36.3699872;
+            longitude = 127.3459548;
 
             Log.d("DEBUGLOG", "party list: " + String.valueOf(latitude));
             Log.d("DEBUGLOG", "party list: " + String.valueOf(longitude));

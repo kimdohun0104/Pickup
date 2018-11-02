@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -87,6 +88,8 @@ public class SearchStartingPointActivity extends AppCompatActivity {
                     intent.putExtra("startingPointName", title);
                     intent.putExtra("latitude", addressList.get(position).getLatitude());
                     intent.putExtra("longitude", addressList.get(position).getLongitude());
+                    Log.d("DEBUGLOG", String.valueOf(addressList.get(position).getLatitude()));
+                    Log.d("DEBUGLOG", String.valueOf(addressList.get(position).getLongitude()));
                     setResult(100, intent);
                     dialog.dismiss();
                     finish();
@@ -122,15 +125,15 @@ public class SearchStartingPointActivity extends AppCompatActivity {
         if(addressList != null) {
             for (int i = 0; i < addressList.size(); i++) {
                 StringBuilder address = new StringBuilder();
-                Address iAddress = addressList.get(i);
-                if(iAddress.getLocality() != null)
-                    address.append(iAddress.getLocality() + " ");
-                if(iAddress.getThoroughfare() != null)
-                    address.append(iAddress.getThoroughfare() + " ");
-                if(iAddress.getFeatureName() != null)
-                    address.append(iAddress.getFeatureName() + " ");
+                String[] words = addressList.get(i).getAddressLine(0).split(" ");
 
-                data.add(new SearchPointModel(address.toString(), iAddress.getAddressLine(0)));
+                if(words.length - 3 >= 0) {
+                    for (int j = words.length - 3; j < words.length; j++)
+                        address.append(words[j] + " ");
+                } else
+                    address.append(words[i] + " ");
+
+                data.add(new SearchPointModel(address.toString(), addressList.get(i).getAddressLine(0)));
             }
 
             recyclerView.setAdapter(new SearchStartingPointAdapter(data));

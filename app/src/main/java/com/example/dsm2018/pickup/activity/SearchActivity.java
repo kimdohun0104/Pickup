@@ -107,7 +107,7 @@ public class SearchActivity extends AppCompatActivity {
             if(isFilter) {
                 Map<String, String> map = new HashMap() {{
                     put("user_authorization", sharedPreferences.getString("user_authorization", ""));
-                    put("search_text", searchEdit.getText().toString());
+                    put("search_text", searchEdit.getText().toString().trim());
                     put("filter_departure_lat", filterBundle.getString("filter_departure_lat"));
                     put("filter_departure_lng", filterBundle.getString("filter_departure_lng"));
                     put("filter_destination_lat", filterBundle.getString("filter_destination_lat"));
@@ -126,11 +126,13 @@ public class SearchActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<List<PartySearchTextResponse>> call, Response<List<PartySearchTextResponse>> response) {
                         if(response.code() == 200) {
-                            data.clear();
-                            data.addAll(response.body());
-                            recyclerView.setLayoutManager(layoutManager);
-                            listAdapter = new PartySearchTextListAdapter(data);
-                            recyclerView.setAdapter(listAdapter);
+                            if(response.body() != null) {
+                                data.clear();
+                                data.addAll(response.body());
+                                recyclerView.setLayoutManager(layoutManager);
+                                listAdapter = new PartySearchTextListAdapter(data);
+                                recyclerView.setAdapter(listAdapter);
+                            }
                         } else if(response.code() == 500) {
                             Toast.makeText(getApplicationContext(), "서버 오류가 발생하였습니다. 잠시후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
                         }
@@ -144,7 +146,7 @@ public class SearchActivity extends AppCompatActivity {
             } else if(!isFilter) {
                 Map<String, String> map = new HashMap() {{
                     put("user_authorization", sharedPreferences.getString("user_authorization", ""));
-                    put("search_text", searchEdit.getText().toString());
+                    put("search_text", searchEdit.getText().toString().trim());
                     put("filter_departure_lat", "");
                     put("filter_departure_lng", "");
                     put("filter_destination_lat", "");
@@ -161,12 +163,14 @@ public class SearchActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<List<PartySearchTextResponse>> call, Response<List<PartySearchTextResponse>> response) {
                         if(response.code() == 200) {
-                            Log.d("DEBUGLOG", response.body().get(0).party_title);
-                            data.clear();
-                            data.addAll(response.body());
-                            recyclerView.setLayoutManager(layoutManager);
-                            listAdapter = new PartySearchTextListAdapter(data);
-                            recyclerView.setAdapter(listAdapter);
+                            if(response.body() != null) {
+                                Log.d("DEBUGLOG", response.body().get(0).party_title);
+                                data.clear();
+                                data.addAll(response.body());
+                                recyclerView.setLayoutManager(layoutManager);
+                                listAdapter = new PartySearchTextListAdapter(data);
+                                recyclerView.setAdapter(listAdapter);
+                            }
                         } else if(response.code() == 500) {
                             Toast.makeText(getApplicationContext(), "서버 오류가 발생하였습니다. 잠시후 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
                         }

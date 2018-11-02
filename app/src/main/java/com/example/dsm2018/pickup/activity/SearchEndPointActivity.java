@@ -114,15 +114,15 @@ public class SearchEndPointActivity extends AppCompatActivity {
         if(addressList != null) {
             for (int i = 0; i < addressList.size(); i++) {
                 StringBuilder address = new StringBuilder();
-                Address iAddress = addressList.get(i);
-                if(iAddress.getLocality() != null)
-                    address.append(iAddress.getLocality() + " ");
-                if(iAddress.getThoroughfare() != null)
-                    address.append(iAddress.getThoroughfare() + " ");
-                if(iAddress.getFeatureName() != null)
-                    address.append(iAddress.getFeatureName() + " ");
+                String[] words = addressList.get(i).getAddressLine(0).split(" ");
 
-                data.add(new SearchPointModel(address.toString(), iAddress.getAddressLine(0)));
+                if(words.length - 3 >= 0) {
+                    for (int j = words.length - 3; j < words.length; j++)
+                        address.append(words[j] + " ");
+                } else
+                    address.append(words[i] + " ");
+
+                data.add(new SearchPointModel(address.toString(), addressList.get(i).getAddressLine(0)));
             }
             recyclerView.setAdapter(new SearchDestinationAdapter(data));
         }

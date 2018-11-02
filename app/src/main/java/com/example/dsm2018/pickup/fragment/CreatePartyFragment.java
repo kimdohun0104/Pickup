@@ -142,7 +142,10 @@ public class CreatePartyFragment extends Fragment implements OnMapReadyCallback 
                 @Override
                 public void onResponse(Call<PartyLocationResponse> call, Response<PartyLocationResponse> response) {
                     if(response.code() == 200) {
-                        createPartyIntent.putExtra("partyMoney", response.body().party_money);
+                        if(Integer.parseInt(response.body().party_money) < 6000)
+                            createPartyIntent.putExtra("partyMoney", "6100");
+                        else
+                            createPartyIntent.putExtra("partyMoney", response.body().party_money);
                         createPartyIntent.putExtra("startingPointName", startingPointName);
                         createPartyIntent.putExtra("endPointName", endPointName);
                         startActivity(createPartyIntent);

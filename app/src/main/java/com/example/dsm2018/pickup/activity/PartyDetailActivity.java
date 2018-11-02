@@ -89,7 +89,13 @@ public class PartyDetailActivity extends AppCompatActivity implements OnMapReady
         partyTitle.setText(response.get(0).party_title);
         partyContent.setText(response.get(0).party_context);
         partyDate.setText(response.get(0).party_year + "년 " + response.get(0).party_month + "월 " + response.get(0).party_day + "일");
-         partyTime.setText("PM " + response.get(0).party_hour + "시 " + response.get(0).party_minute + "분");
+        int party_hour = Integer.parseInt(response.get(0).party_hour);
+        if(party_hour >= 12) {
+            party_hour -= 12;
+            partyTime.setText("PM " + party_hour + "시 " + response.get(0).party_minute + "분");
+        } else {
+            partyTime.setText("AM " + party_hour + "시 " + response.get(0).party_minute + "분");
+        }
         partyPeoplenum.setText(response.get(0).party_currnum + "명 / " + response.get(0).party_peoplenum + "명");
         partyMoneyText.setText(response.get(0).party_money);
 
